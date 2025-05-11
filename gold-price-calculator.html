@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-38QETKMKDV"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-38QETKMKDV');
+
+    function trackEvent(eventName, eventCategory = 'User Interaction') {
+    gtag('event', eventName, {
+        event_category: eventCategory
+    });
+}
+
+    </script>
+
+    <meta charset="UTF-8">
+
+    <!-- Meta descriptions for SEO -->
+    <!-- <title>Gold Rate Calculator</title> -->
+    <title>Qa</title>
+    <meta name="description" content="Instantly calculate gold price based on purity,weight,making charges and by city in India.">
+    <meta name="keywords" content="Gold rate,gold rate in India,gold rate today in India,today gold price,gold rate calculator, gold price calculator,18k gold rate, 22k gold rate, 24k gold rate">
+    <meta name="author" content="Gold Rate Calculator">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- OG tags -->
+    <meta property="og:title" content="Gold Rate Calculator - India">
+    <meta property="og:description" content="Fast, simple, and accurate gold price calculator for Indian markets.">
+    <meta property="og:url" content="https://goldratecalculator.in">
+    <meta property="og:image" content="https://api.deepai.org/job-view-file/18cc14c2-ab62-45c3-8e18-71687ce78465/outputs/output.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Fevicon -->
+    <link rel="icon" href="https://emoji.aranja.com/static/emoji-data/img-apple-160/2b50.png" type="image/x-icon">
+
+    <!-- Schema mockup -->
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "WebApplication",
+          "name": "Gold Rate Calculator",
+          "url": "https://goldratecalculator.in",
+          "description": "Instantly calculate gold price based on purity,weight,making charges and by city in India.",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "All"
+        }
+        </script>
+
+    <style>
+        body{
+            /* background-color: beige; */
+            margin: auto;
+            /* width: 80%; */
+
+        }
+        #container {
+            /* background-color: aquamarine; */
+            margin: auto;
+            width: 80%;
+            height: 100vh;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 16px;
+            border-color: black;
+        }
+        #calcArea {
+            /* background-color: rgb(182, 180, 255); */
+            width: 100%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+        #summaryArea{
+            /* background-color: blueviolet; */
+            width: 100%;
+            /* height: 40%; */
+        }
+        input,select {
+            margin-right: 0.2em;
+            height: 2em;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 18px;
+            border-radius: 0.5em;
+            background-color: #E9F1F7;
+            margin-top: 0.3em;
+            text-align: right;
+            /* font-weight: bold; */
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        button {
+            width: 100%;
+            height: 2em;
+            border-radius: 2em; 
+            /* Need to make the button sticky */
+            background-color: #50FFB1;
+            margin-top: 2em;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
+            font-size: 20px;
+            
+        }
+        label {
+            font-size: 14px;
+            margin-top: 1em;
+        }
+        .result1,.result2,.result3,.result4{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center; /* <-- THIS makes both items align vertically */
+            height: 1.5em;
+            background-color: rgb(255, 255, 255);
+            padding: 2%;
+        }
+        .result1{
+            font-size: 1.2em;
+            font-weight: bolder;
+        }
+        .result2,.result4{
+            background-color: rgb(215, 216, 216);
+        }
+        #logo {
+            width: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            height: 2em;
+            font-size: 1.5em;
+            text-align: left;
+            padding-top: 0.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+        #content {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 2em;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="logo">Gold Rate Calculator</div>
+    <div id="container">
+        <div id="calcArea">
+            <!-- <label>Select City</label>
+            <select id="inputCity">
+                <option value="Hyderabad" selected>Hyderabad</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Kolkata">Kolkata</option>
+            </select> -->
+
+            <label>Quality</label>
+            <select id="inputQuality">
+                <option>18K</option>
+                <option selected>22K</option>
+                <option>24K</option>
+            </select>
+
+            <label>Gold cost(INR)</label>
+            <input id="inputGramCost" type="number" value = 9131 min="0">
+
+            <label>Weight(grams)</label>
+            <input id="inputGrams" type="number"  min="0" value="10" autofocus>
+
+            <label>Making charges(%)</label>
+            <input id="inputMakingCharges" type="number" value="24" min="0">
+            
+            <button onclick="calculate(); trackEvent('button_Calculate', 'Calculator');">Calculate</button>
+        </div>
+        <div id="summaryArea">
+            <h4 style="text-align: center; text-decoration: underline;">Price Breakup</h2>
+            <div class="result1">
+                <label>Grand Total</label>
+                <span id="grandTotal">0</span>
+            </div>
+            <div class="result2">
+                <label>Gold Rate</label>
+                <span id="goldRate">0</span>
+            </div>
+            <div class="result3">
+                <label id="labelMakingCharges">Making Charges</label>
+                <span id="makingCharges">0</span>
+            </div>
+            <div class="result4">
+                <label>GST(3%)</label>
+                <span id="GST">0</span>
+            </div>
+        </div>
+        <!-- <div id=content>
+            <p style="color:blue;">City wise gold rates</p>
+            <p style="color:blue;">How Gold rate gets calculated</p>
+        </div> -->
+    </div>
+    <script>
+
+        function calculate(){
+            let grams = Number(document.getElementById("inputGrams").value);
+            let makingCharges = Number(document.getElementById("inputMakingCharges").value);
+            let gramRate = Number(document.getElementById("inputGramCost").value);
+
+            let rateGold = Math.floor(gramRate * grams);
+            document.getElementById("goldRate").innerHTML = rateGold.toLocaleString('en-IN');
+
+            let rateMakingCharges = Math.floor(rateGold * makingCharges/100);
+            document.getElementById("makingCharges").innerHTML = rateMakingCharges.toLocaleString('en-IN');
+            document.getElementById("labelMakingCharges").textContent = `Making Charges (${makingCharges}%)`;
+
+
+            let rateGST = Math.floor((rateGold + rateMakingCharges) * 0.03);
+            document.getElementById("GST").innerHTML = rateGST.toLocaleString('en-IN');
+
+            let rateFinal = rateGold + rateMakingCharges + rateGST;
+            document.getElementById("grandTotal").innerHTML = rateFinal.toLocaleString('en-IN');
+            
+            // able to make the page auto scroll to the bottom of hte page
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+
+            
+        }
+    </script>
+</body>
+</html>
