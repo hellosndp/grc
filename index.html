@@ -21,9 +21,9 @@
     <meta charset="UTF-8">
 
     <!-- Meta descriptions for SEO -->
-    <!-- <title>Gold Rate Calculator</title> -->
-    <title>Qa</title>
-    <meta name="description" content="Instantly calculate gold price based on purity,weight,making charges and by city in India.">
+    <title>Gold Rate Calculator</title>
+<!--     <title>Qa</title>
+    <meta name="description" content="Instantly calculate gold price based on purity,weight,making charges and by city in India."> -->
     <meta name="keywords" content="Gold rate,gold rate in India,gold rate today in India,today gold price,gold rate calculator, gold price calculator,18k gold rate, 22k gold rate, 24k gold rate">
     <meta name="author" content="Gold Rate Calculator">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -143,31 +143,111 @@
             margin-top: 2em;
             cursor: pointer;
         }
+        #lastUpdated {
+            font-size: 12px;
+            font-style: italic;
+            text-align: center;
+        }
 
     </style>
 </head>
 <body>
     <div id="logo">Gold Rate Calculator</div>
     <div id="container">
+        <p id="lastUpdated">Price updated: 2:30 PM, 19 May 2025</p>
         <div id="calcArea">
-            <!-- <label>Select City</label>
-            <select id="inputCity">
-                <option value="Hyderabad" selected>Hyderabad</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Mumbai">Mumbai</option>
+            <label>Select City</label>
+            <select id="inputCity" onchange="updateRate()">
+                <option value="Agra">Agra</option>
+                <option value="Ahmedabad">Ahmedabad</option>
+                <option value="Amravati">Amravati</option>
+                <option value="Amritsar">Amritsar</option>
+                <option value="Anantapur">Anantapur</option>
+                <option value="Aurangabad">Aurangabad</option>
+                <option value="Ayodhya">Ayodhya</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Bellary">Bellary</option>
+                <option value="Berhampur">Berhampur</option>
+                <option value="Bhiwandi">Bhiwandi</option>
+                <option value="Bhopal">Bhopal</option>
+                <option value="Bhubaneswar">Bhubaneswar</option>
+                <option value="Chandigarh">Chandigarh</option>
                 <option value="Chennai">Chennai</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Cuddalore">Cuddalore</option>
+                <option value="Cuttack">Cuttack</option>
+                <option value="Davangere">Davanagere</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Dharmapuri">Dharmapuri</option>
+                <option value="Dindigul">Dindigul</option>
+                <option value="Erode">Erode</option>
+                <option value="Ghaziabad">Ghaziabad</option>
+                <option value="Goa">Goa</option>
+                <option value="Guntur">Guntur</option>
+                <option value="Gurgaon">Gurgaon</option>
+                <option value="Hyderabad" selected>Hyderabad</option>
+                <option value="Indore">Indore</option>
+                <option value="Jaipur">Jaipur</option>
+                <option value="Kanpur">Kanpur</option>
+                <option value="Kanchipuram">Kanchipuram</option>
+                <option value="Kadapa">Kadapa</option>
+                <option value="Karur">Karur</option>
+                <option value="Kakinada">Kakinada</option>
+                <option value="Khammam">Khammam</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Kolhapur">Kolhapur</option>
                 <option value="Kolkata">Kolkata</option>
-            </select> -->
+                <option value="Krishnagiri">Krishnagiri</option>
+                <option value="Kumbakonam">Kumbakonam</option>
+                <option value="Lucknow">Lucknow</option>
+                <option value="Latur">Latur</option>
+                <option value="Ludhiana">Ludhiana</option>
+                <option value="Madurai">Madurai</option>
+                <option value="Mangalore">Mangalore</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Mysore">Mysore</option>
+                <option value="Nagpur">Nagpur</option>
+                <option value="Nagercoil">Nagercoil</option>
+                <option value="Namakkal">Namakkal</option>
+                <option value="Nashik">Nashik</option>
+                <option value="Nellore">Nellore</option>
+                <option value="Noida">Noida</option>
+                <option value="Patna">Patna</option>
+                <option value="Pune">Pune</option>
+                <option value="Rajkot">Rajkot</option>
+                <option value="Rourkela">Rourkela</option>
+                <option value="Salem">Salem</option>
+                <option value="Sambalpur">Sambalpur</option>
+                <option value="Solapur">Solapur</option>
+                <option value="Surat">Surat</option>
+                <option value="Thanjavur">Thanjavur</option>
+                <option value="Thane">Thane</option>
+                <option value="Thanjavur">Thanjavur</option>
+                <option value="Trichy">Trichy</option>
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Tirupati">Tirupati</option>
+                <option value="Tirunelveli">Tirunelveli</option>
+                <option value="Tirupur">Tirupur</option>
+                <option value="Tuticorin">Tuticorin</option>
+                <option value="Varanasi">Varanasi</option>
+                <option value="Vadodara">Vadodara</option>
+                <option value="VasaiVirar">Vasai-Virar</option>
+                <option value="Vellore">Vellore</option>
+                <option value="Vijayawada">Vijayawada</option>
+                <option value="Visakhapatnam">Visakhapatnam</option>
+                <option value="Warangal">Warangal</option>
+              </select>
+              
 
             <label>Quality</label>
-            <select id="inputQuality">
-<!--                 <option>18K</option> -->
+            <select id="inputQuality" onchange="updateRate()">
+                <option>18K</option>
                 <option selected>22K</option>
-<!--                 <option>24K</option> -->
+                <option>24K</option>
             </select>
 
             <label>Gold cost(INR)</label>
-            <input id="inputGramCost" type="number" value = 8755 min="0">
+            <input id="inputGramCost" type="number" min="0">
 
             <label>Weight(grams)</label>
             <input id="inputGrams" type="number"  min="0" value="10" autofocus>
@@ -202,7 +282,112 @@
         </div> -->
     </div>
     <script>
-
+        //Gold prices updated on 19 May
+        const goldRate = {
+        Chennai: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Mumbai: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Delhi: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Kolkata: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Bangalore: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Hyderabad: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Kerala: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Pune: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Vadodara: { "22K": 8760, "24K": 9556, "18K": 7168 },
+        Ahmedabad: { "22K": 8760, "24K": 9556, "18K": 7168 },
+        Jaipur: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Lucknow: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Coimbatore: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Madurai: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Vijayawada: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Patna: { "22K": 8760, "24K": 9556, "18K": 7167 },
+        Nagpur: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Chandigarh: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Surat: { "22K": 8760, "24K": 9556, "18K": 7168 },
+        Bhubaneswar: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Mangalore: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Visakhapatnam: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Nashik: { "22K": 8758, "24K": 9554, "18K": 7166 },
+        Mysore: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Salem: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Rajkot: { "22K": 8760, "24K": 9556, "18K": 7168 },
+        Trichy: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Ayodhya: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Cuttack: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Davanagere: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Bellary: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Gurgaon: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Ghaziabad: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Noida: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Vellore: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Amaravati: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Guntur: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Nellore: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Kakinada: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Tirupati: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Kadapa: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Anantapur: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Warangal: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Nizamabad: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Khammam: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Berhampur: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Rourkela: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        VasaiVirar: { "22K": 8758, "24K": 9554, "18K": 7166 },
+        Aurangabad: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Solapur: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Bhiwandi: { "22K": 8758, "24K": 9554, "18K": 7166 },
+        Kolhapur: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Latur: { "22K": 8758, "24K": 9554, "18K": 7166 },
+        Tirupur: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Tirunelveli: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Sambalpur: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Amravati: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Erode: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Indore: { "22K": 8760, "24K": 9556, "18K": 7168 },
+        Kanpur: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Kochi: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Ludhiana: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Thane: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Amritsar: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Nagercoil: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Trivandrum: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Thanjavur: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Bhopal: { "22K": 8760, "24K": 9556, "18K": 7168 },
+        Varanasi: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Goa: { "22K": 8755, "24K": 9551, "18K": 7163 },
+        Karur: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Kumbakonam: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Namakkal: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Agra: { "22K": 8770, "24K": 9566, "18K": 7176 },
+        Dharmapuri: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Dindigul: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Tuticorin: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Cuddalore: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Kanchipuram: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Krishnagiri: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Villupuram: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Kovilpatti: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Theni: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Tiruvannamalai: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Hosur: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Karaikudi: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Pudukkottai: { "22K": 8755, "24K": 9551, "18K": 7210 },
+        Ramanathapuram: { "22K": 8755, "24K": 9551, "18K": 7210 }
+  };
+  
+  
+        function updateRate() {
+            const city = document.getElementById("inputCity").value;
+            const quality = document.getElementById("inputQuality").value;
+            const price = goldRate[city][quality];
+        
+            document.getElementById("inputGramCost").value =  price;
+        }
+        
+        updateRate();
+        
+        
+        
+        //calcualator function code
         function calculate(){
             let grams = Number(document.getElementById("inputGrams").value);
             let makingCharges = Number(document.getElementById("inputMakingCharges").value);
@@ -227,6 +412,8 @@
                 top: document.body.scrollHeight,
                 behavior: 'smooth'
             });
+
+            
 
             
         }
