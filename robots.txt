@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: 
-Disallow: /cgi-bin/
-Sitemap: https://goldratecalculator.in
+Allow: /
+Sitemap: https://goldratecalculator.in/sitemap.xml
