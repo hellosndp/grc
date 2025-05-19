@@ -79,7 +79,8 @@
         #summaryArea{
             /* background-color: blueviolet; */
             width: 100%;
-            height: 40%;
+            height: 30%;
+            margin-top: 20px;
         }
         input,select {
             margin-right: 0.2em;
@@ -137,9 +138,8 @@
             width: 100%;
             height: 2em;
             border-radius: 2em; 
-            /* Need to make the button sticky */
             background-color: #50FFB1;
-            margin-top: 0.2em;
+            margin-top: 0.5em;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
             font-size: 20px;
             
@@ -292,8 +292,9 @@
 
             <label>Making charges(%)</label>
             <input id="inputMakingCharges" type="number" value="24" min="0">
-        </div>
+
             <button onclick="calculate(); trackEvent('button_Calculate', 'Calculator');">Calculate</button>
+        </div>
         <div id="summaryArea">
             <h4 style="text-align: center; text-decoration: underline;">Price Breakup(in INR)</h2>
             <div class="result1">
