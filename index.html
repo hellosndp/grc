@@ -93,6 +93,41 @@
             text-align: right;
             /* font-weight: bold; */
         }
+        /* making the input fields on right sides */
+            .select-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%; /* or a fixed width if needed */
+            }
+
+            .select-wrapper select {
+            width: 100%;
+            padding: 0.5em 2em 0.5em 0.5em; /* space for fake arrow */
+            text-align: right;
+            text-align-last: right; /* helps in some browsers */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            }
+
+            .select-wrapper::after {
+            content: '▾'; /* or ▼ if you like */
+            position: absolute;
+            right: 0.75em;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #333;
+            font-size: 0.8em;
+            }
+
+
+
+
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
