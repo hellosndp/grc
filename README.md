@@ -1,2 +1,1 @@
 # grc
-Gold rate calculator
