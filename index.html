@@ -9,12 +9,15 @@
     gtag('js', new Date());
 
     gtag('config', 'G-38QETKMKDV');
+    gtag('config', 'AW-16933125891');
+
+    
 
     function trackEvent(eventName, eventCategory = 'User Interaction') {
     gtag('event', eventName, {
         event_category: eventCategory
     });
-}
+    }
 
     </script>
 
@@ -22,8 +25,8 @@
 
     <!-- Meta descriptions for SEO -->
     <title>Gold Rate Calculator</title>
-<!--     <title>Qa</title> -->
-    <meta name="description" content="Instantly calculate gold price based on purity,weight,making charges and by city in India.">
+<!--     <title>Qa</title>
+    <meta name="description" content="Instantly calculate gold price based on purity,weight,making charges and by city in India."> -->
     <meta name="keywords" content="Gold rate,gold rate in India,gold rate today in India,today gold price,gold rate calculator, gold price calculator,18k gold rate, 22k gold rate, 24k gold rate">
     <meta name="author" content="Gold Rate Calculator">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -198,7 +201,7 @@
 <body>
     <div id="logo">Gold Rate Calculator</div>
     <div id="container">
-        <p id="lastUpdated">Price updated: 10:05 AM, 29 May 2025</p>
+        <p id="lastUpdated">Price updated: 8:30 AM, 30 May 2025</p>
         <div id="calcArea">
             <label>Select City</label>
             <select id="inputCity" onchange="updateRate()">
@@ -249,7 +252,7 @@
 <option value="Khammam">Khammam</option>
 <option value="Berhampur">Berhampur</option>
 <option value="Rourkela">Rourkela</option>
-<option value="Vasai-Virar">VasaiVirar</option>
+<option value="VasaiVirar">VasaiVirar</option>
 <option value="Aurangabad">Aurangabad</option>
 <option value="Solapur">Solapur</option>
 <option value="Bhiwandi">Bhiwandi</option>
@@ -372,146 +375,148 @@
             </div>
         </div>
         <div id="footer">
-              <a href="https://wa.me/?text=Check%20out%20Daily%20Gold%20Rates%20and%20Calculate%20Jewellery%20value%20on%20Gold%20Rate%20Calculator%3A%20http%3A%2F%2Flink.goldratecalculator.in%2Fpartner" 
-             target="_blank" onclick="trackEvent('share_partner', 'Social Share')">Share with your partner ❤️
-  </a>
-</div>
-
+            <a href="https://wa.me/?text=Check%20out%20Daily%20Gold%20Rates%20and%20Calculate%20Jewellery%20value%20on%20Gold%20Rate%20Calculator%3A%20http%3A%2F%2Flink.goldratecalculator.in%2Fpartner" 
+               target="_blank" 
+               onclick="trackEvent('share_partner', 'Social Share')">
+              Share with your partner ❤️
+            </a>
+          </div>
+                   
           
 
     </div>
     <script>
-        //Gold prices updated everyday
+        //Gold prices updated on 19 May
         const goldRate = {
-            Chennai:{"24K":9704,"22K":8895,"18K":7325},
-Mumbai:{"24K":9704,"22K":8895,"18K":7278},
-Delhi:{"24K":9719,"22K":8910,"18K":7290},
-Kolkata:{"24K":9704,"22K":8895,"18K":7278},
-Bangalore:{"24K":9704,"22K":8895,"18K":7278},
-Hyderabad:{"24K":9704,"22K":8895,"18K":7278},
-Kerala:{"24K":9704,"22K":8895,"18K":7278},
-Pune:{"24K":9704,"22K":8895,"18K":7278},
-Vadodara:{"24K":9709,"22K":8900,"18K":7282},
-Ahmedabad:{"24K":9709,"22K":8900,"18K":7282},
-Jaipur:{"24K":9719,"22K":8910,"18K":7290},
-Lucknow:{"24K":9719,"22K":8910,"18K":7290},
-Coimbatore:{"24K":9704,"22K":8895,"18K":7325},
-Madurai:{"24K":9704,"22K":8895,"18K":7325},
-Vijayawada:{"24K":9704,"22K":8895,"18K":7278},
-Patna:{"24K":9709,"22K":8900,"18K":7282},
-Nagpur:{"24K":9704,"22K":8895,"18K":7278},
-Chandigarh:{"24K":9719,"22K":8910,"18K":7290},
-Surat:{"24K":9709,"22K":8900,"18K":7282},
-Bhubaneswar:{"24K":9704,"22K":8895,"18K":7278},
-Mangalore:{"24K":9704,"22K":8895,"18K":7278},
-Visakhapatnam:{"24K":9704,"22K":8895,"18K":7278},
-Nashik:{"24K":9707,"22K":8898,"18K":7281},
-Mysore:{"24K":9704,"22K":8895,"18K":7278},
-Salem:{"24K":9704,"22K":8895,"18K":7325},
-Rajkot:{"24K":9709,"22K":8900,"18K":7282},
-Trichy:{"24K":9704,"22K":8895,"18K":7325},
-Ayodhya:{"24K":9719,"22K":8910,"18K":7290},
-Cuttack:{"24K":9704,"22K":8895,"18K":7278},
-Davanagere:{"24K":9704,"22K":8895,"18K":7278},
-Bellary:{"24K":9704,"22K":8895,"18K":7278},
-Gurgaon:{"24K":9719,"22K":8910,"18K":7290},
-Ghaziabad:{"24K":9719,"22K":8910,"18K":7290},
-Noida:{"24K":9719,"22K":8910,"18K":7290},
-Vellore:{"24K":9704,"22K":8895,"18K":7325},
-Amaravati:{"24K":9704,"22K":8895,"18K":7278},
-Guntur:{"24K":9704,"22K":8895,"18K":7278},
-Nellore:{"24K":9704,"22K":8895,"18K":7278},
-Kakinada:{"24K":9704,"22K":8895,"18K":7278},
-Tirupati:{"24K":9704,"22K":8895,"18K":7278},
-Kadapa:{"24K":9704,"22K":8895,"18K":7278},
-Anantapur:{"24K":9704,"22K":8895,"18K":7278},
-Warangal:{"24K":9704,"22K":8895,"18K":7278},
-Nizamabad:{"24K":9704,"22K":8895,"18K":7278},
-Khammam:{"24K":9704,"22K":8895,"18K":7278},
-Berhampur:{"24K":9704,"22K":8895,"18K":7278},
-Rourkela:{"24K":9704,"22K":8895,"18K":7278},
-VasaiVirar:{"24K":9707,"22K":8898,"18K":7281},
-Aurangabad:{"24K":9704,"22K":8895,"18K":7278},
-Solapur:{"24K":9704,"22K":8895,"18K":7278},
-Bhiwandi:{"24K":9707,"22K":8898,"18K":7281},
-Kolhapur:{"24K":9704,"22K":8895,"18K":7278},
-Latur:{"24K":9707,"22K":8898,"18K":7281},
-Tirupur:{"24K":9704,"22K":8895,"18K":7325},
-Tirunelveli:{"24K":9704,"22K":8895,"18K":7325},
-Sambalpur:{"24K":9704,"22K":8895,"18K":7278},
-Amravati:{"24K":9704,"22K":8895,"18K":7278},
-Erode:{"24K":9704,"22K":8895,"18K":7325},
-Indore:{"24K":9709,"22K":8900,"18K":7282},
-Kanpur:{"24K":9719,"22K":8910,"18K":7290},
-Kochi:{"24K":9704,"22K":8895,"18K":7278},
-Ludhiana:{"24K":9719,"22K":8910,"18K":7290},
-Thane:{"24K":9704,"22K":8895,"18K":7278},
-Amritsar:{"24K":9719,"22K":8910,"18K":7290},
-Nagercoil:{"24K":9704,"22K":8895,"18K":7325},
-Trivandrum:{"24K":9704,"22K":8895,"18K":7278},
-Thanjavur:{"24K":9704,"22K":8895,"18K":7325},
-Bhopal:{"24K":9709,"22K":8900,"18K":7282},
-Varanasi:{"24K":9719,"22K":8910,"18K":7290},
-Goa:{"24K":9704,"22K":8895,"18K":7278},
-Karur:{"24K":9704,"22K":8895,"18K":7325},
-Kumbakonam:{"24K":9704,"22K":8895,"18K":7325},
-Namakkal:{"24K":9704,"22K":8895,"18K":7325},
-Agra:{"24K":9719,"22K":8910,"18K":7290},
-Dharmapuri:{"24K":9704,"22K":8895,"18K":7325},
-Dindigul:{"24K":9704,"22K":8895,"18K":7325},
-Tuticorin:{"24K":9704,"22K":8895,"18K":7325},
-Cuddalore:{"24K":9704,"22K":8895,"18K":7325},
-Kanchipuram:{"24K":9704,"22K":8895,"18K":7325},
-Krishnagiri:{"24K":9704,"22K":8895,"18K":7325},
-Villupuram:{"24K":9704,"22K":8895,"18K":7325},
-Kovilpatti:{"24K":9704,"22K":8895,"18K":7325},
-Theni:{"24K":9704,"22K":8895,"18K":7325},
-Tiruvannamalai:{"24K":9704,"22K":8895,"18K":7325},
-Hosur:{"24K":9704,"22K":8895,"18K":7325},
-Karaikudi:{"24K":9704,"22K":8895,"18K":7325},
-Pudukkottai:{"24K":9704,"22K":8895,"18K":7325},
-Ramanathapuram:{"24K":9704,"22K":8895,"18K":7325},
-Ambur:{"24K":9704,"22K":8895,"18K":7325},
-Kanyakumari:{"24K":9704,"22K":8895,"18K":7325},
-Nagapattinam:{"24K":9704,"22K":8895,"18K":7325},
-Virudhunagar:{"24K":9704,"22K":8895,"18K":7325},
-Kallakurichi:{"24K":9704,"22K":8895,"18K":7325},
-Pollachi:{"24K":9704,"22K":8895,"18K":7325},
-Arcot:{"24K":9704,"22K":8895,"18K":7325},
-Palani:{"24K":9704,"22K":8895,"18K":7325},
-Ariyalur:{"24K":9704,"22K":8895,"18K":7325},
-Mohali:{"24K":9719,"22K":8910,"18K":7290},
-Paramakudi:{"24K":9704,"22K":8895,"18K":7325},
-Perambalur:{"24K":9704,"22K":8895,"18K":7325},
-Jayankondam:{"24K":9704,"22K":8895,"18K":7325},
-Kodaikanal:{"24K":9704,"22K":8895,"18K":7325},
-Ooty:{"24K":9704,"22K":8895,"18K":7325},
-Rameswaram:{"24K":9704,"22K":8895,"18K":7325},
-Sivagangai:{"24K":9704,"22K":8895,"18K":7325},
-Tiruvarur:{"24K":9704,"22K":8895,"18K":7325},
-Meerut:{"24K":9719,"22K":8910,"18K":7290},
-Guwahati:{"24K":9704,"22K":8895,"18K":7278},
-Raipur:{"24K":9704,"22K":8895,"18K":7278},
-Jalgaon:{"24K":9704,"22K":8895,"18K":7278},
-Rajahmundry:{"24K":9704,"22K":8895,"18K":7278},
-Belgaum:{"24K":9704,"22K":8895,"18K":7278},
-Thrissur:{"24K":9704,"22K":8895,"18K":7278},
-Pondicherry:{"24K":9704,"22K":8895,"18K":7325},
-Chitradurga:{"24K":9704,"22K":8895,"18K":7278},
-Gadag:{"24K":9704,"22K":8895,"18K":7278},
-Bagalkot:{"24K":9704,"22K":8895,"18K":7278},
-Mandya:{"24K":9704,"22K":8895,"18K":7278},
-Bhadravathi:{"24K":9704,"22K":8895,"18K":7278},
-Kolar:{"24K":9704,"22K":8895,"18K":7278},
-Tumkur:{"24K":9704,"22K":8895,"18K":7278},
-Kollam:{"24K":9704,"22K":8895,"18K":7278},
-Alappuzha:{"24K":9704,"22K":8895,"18K":7278},
-Kottayam:{"24K":9704,"22K":8895,"18K":7278},
-Palakkad:{"24K":9704,"22K":8895,"18K":7278},
-Malappuram:{"24K":9704,"22K":8895,"18K":7278},
-Kozhikode:{"24K":9704,"22K":8895,"18K":7278},
-Kannur:{"24K":9704,"22K":8895,"18K":7278},
-India:{"24K":9704,"22K":8895,"18K":7278}
+            Chennai:{"24K":9703,"22K":8894,"18K":7324},
+Mumbai:{"24K":9703,"22K":8894,"18K":7277},
+Delhi:{"24K":9718,"22K":8909,"18K":7289},
+Kolkata:{"24K":9703,"22K":8894,"18K":7277},
+Bangalore:{"24K":9703,"22K":8894,"18K":7277},
+Hyderabad:{"24K":9703,"22K":8894,"18K":7277},
+Kerala:{"24K":9703,"22K":8894,"18K":7277},
+Pune:{"24K":9703,"22K":8894,"18K":7277},
+Vadodara:{"24K":9708,"22K":8899,"18K":7281},
+Ahmedabad:{"24K":9708,"22K":8899,"18K":7281},
+Jaipur:{"24K":9718,"22K":8909,"18K":7289},
+Lucknow:{"24K":9718,"22K":8909,"18K":7289},
+Coimbatore:{"24K":9703,"22K":8894,"18K":7324},
+Madurai:{"24K":9703,"22K":8894,"18K":7324},
+Vijayawada:{"24K":9703,"22K":8894,"18K":7277},
+Patna:{"24K":9708,"22K":8899,"18K":7281},
+Nagpur:{"24K":9703,"22K":8894,"18K":7277},
+Chandigarh:{"24K":9718,"22K":8909,"18K":7289},
+Surat:{"24K":9708,"22K":8899,"18K":7281},
+Bhubaneswar:{"24K":9703,"22K":8894,"18K":7277},
+Mangalore:{"24K":9703,"22K":8894,"18K":7277},
+Visakhapatnam:{"24K":9703,"22K":8894,"18K":7277},
+Nashik:{"24K":9706,"22K":8897,"18K":7280},
+Mysore:{"24K":9703,"22K":8894,"18K":7277},
+Salem:{"24K":9703,"22K":8894,"18K":7324},
+Rajkot:{"24K":9708,"22K":8899,"18K":7281},
+Trichy:{"24K":9703,"22K":8894,"18K":7324},
+Ayodhya:{"24K":9718,"22K":8909,"18K":7289},
+Cuttack:{"24K":9703,"22K":8894,"18K":7277},
+Davanagere:{"24K":9703,"22K":8894,"18K":7277},
+Bellary:{"24K":9703,"22K":8894,"18K":7277},
+Gurgaon:{"24K":9718,"22K":8909,"18K":7289},
+Ghaziabad:{"24K":9718,"22K":8909,"18K":7289},
+Noida:{"24K":9718,"22K":8909,"18K":7289},
+Vellore:{"24K":9703,"22K":8894,"18K":7324},
+Amaravati:{"24K":9703,"22K":8894,"18K":7277},
+Guntur:{"24K":9703,"22K":8894,"18K":7277},
+Nellore:{"24K":9703,"22K":8894,"18K":7277},
+Kakinada:{"24K":9703,"22K":8894,"18K":7277},
+Tirupati:{"24K":9703,"22K":8894,"18K":7277},
+Kadapa:{"24K":9703,"22K":8894,"18K":7277},
+Anantapur:{"24K":9703,"22K":8894,"18K":7277},
+Warangal:{"24K":9703,"22K":8894,"18K":7277},
+Nizamabad:{"24K":9703,"22K":8894,"18K":7277},
+Khammam:{"24K":9703,"22K":8894,"18K":7277},
+Berhampur:{"24K":9703,"22K":8894,"18K":7277},
+Rourkela:{"24K":9703,"22K":8894,"18K":7277},
+VasaiVirar:{"24K":9706,"22K":8897,"18K":7280},
+Aurangabad:{"24K":9703,"22K":8894,"18K":7277},
+Solapur:{"24K":9703,"22K":8894,"18K":7277},
+Bhiwandi:{"24K":9706,"22K":8897,"18K":7280},
+Kolhapur:{"24K":9703,"22K":8894,"18K":7277},
+Latur:{"24K":9706,"22K":8897,"18K":7280},
+Tirupur:{"24K":9703,"22K":8894,"18K":7324},
+Tirunelveli:{"24K":9703,"22K":8894,"18K":7324},
+Sambalpur:{"24K":9703,"22K":8894,"18K":7277},
+Amravati:{"24K":9703,"22K":8894,"18K":7277},
+Erode:{"24K":9703,"22K":8894,"18K":7324},
+Indore:{"24K":9708,"22K":8899,"18K":7281},
+Kanpur:{"24K":9718,"22K":8909,"18K":7289},
+Kochi:{"24K":9703,"22K":8894,"18K":7277},
+Ludhiana:{"24K":9718,"22K":8909,"18K":7289},
+Thane:{"24K":9703,"22K":8894,"18K":7277},
+Amritsar:{"24K":9718,"22K":8909,"18K":7289},
+Nagercoil:{"24K":9703,"22K":8894,"18K":7324},
+Trivandrum:{"24K":9703,"22K":8894,"18K":7277},
+Thanjavur:{"24K":9703,"22K":8894,"18K":7324},
+Bhopal:{"24K":9708,"22K":8899,"18K":7281},
+Varanasi:{"24K":9718,"22K":8909,"18K":7289},
+Goa:{"24K":9703,"22K":8894,"18K":7277},
+Karur:{"24K":9703,"22K":8894,"18K":7324},
+Kumbakonam:{"24K":9703,"22K":8894,"18K":7324},
+Namakkal:{"24K":9703,"22K":8894,"18K":7324},
+Agra:{"24K":9718,"22K":8909,"18K":7289},
+Dharmapuri:{"24K":9703,"22K":8894,"18K":7324},
+Dindigul:{"24K":9703,"22K":8894,"18K":7324},
+Tuticorin:{"24K":9703,"22K":8894,"18K":7324},
+Cuddalore:{"24K":9703,"22K":8894,"18K":7324},
+Kanchipuram:{"24K":9703,"22K":8894,"18K":7324},
+Krishnagiri:{"24K":9703,"22K":8894,"18K":7324},
+Villupuram:{"24K":9703,"22K":8894,"18K":7324},
+Kovilpatti:{"24K":9703,"22K":8894,"18K":7324},
+Theni:{"24K":9703,"22K":8894,"18K":7324},
+Tiruvannamalai:{"24K":9703,"22K":8894,"18K":7324},
+Hosur:{"24K":9703,"22K":8894,"18K":7324},
+Karaikudi:{"24K":9703,"22K":8894,"18K":7324},
+Pudukkottai:{"24K":9703,"22K":8894,"18K":7324},
+Ramanathapuram:{"24K":9703,"22K":8894,"18K":7324},
+Ambur:{"24K":9703,"22K":8894,"18K":7324},
+Kanyakumari:{"24K":9703,"22K":8894,"18K":7324},
+Nagapattinam:{"24K":9703,"22K":8894,"18K":7324},
+Virudhunagar:{"24K":9703,"22K":8894,"18K":7324},
+Kallakurichi:{"24K":9703,"22K":8894,"18K":7324},
+Pollachi:{"24K":9703,"22K":8894,"18K":7324},
+Arcot:{"24K":9703,"22K":8894,"18K":7324},
+Palani:{"24K":9703,"22K":8894,"18K":7324},
+Ariyalur:{"24K":9703,"22K":8894,"18K":7324},
+Mohali:{"24K":9718,"22K":8909,"18K":7289},
+Paramakudi:{"24K":9703,"22K":8894,"18K":7324},
+Perambalur:{"24K":9703,"22K":8894,"18K":7324},
+Jayankondam:{"24K":9703,"22K":8894,"18K":7324},
+Kodaikanal:{"24K":9703,"22K":8894,"18K":7324},
+Ooty:{"24K":9703,"22K":8894,"18K":7324},
+Rameswaram:{"24K":9703,"22K":8894,"18K":7324},
+Sivagangai:{"24K":9703,"22K":8894,"18K":7324},
+Tiruvarur:{"24K":9703,"22K":8894,"18K":7324},
+Meerut:{"24K":9718,"22K":8909,"18K":7289},
+Guwahati:{"24K":9703,"22K":8894,"18K":7277},
+Raipur:{"24K":9703,"22K":8894,"18K":7277},
+Jalgaon:{"24K":9703,"22K":8894,"18K":7277},
+Rajahmundry:{"24K":9703,"22K":8894,"18K":7277},
+Belgaum:{"24K":9703,"22K":8894,"18K":7277},
+Thrissur:{"24K":9703,"22K":8894,"18K":7277},
+Pondicherry:{"24K":9703,"22K":8894,"18K":7324},
+Chitradurga:{"24K":9703,"22K":8894,"18K":7277},
+Gadag:{"24K":9703,"22K":8894,"18K":7277},
+Bagalkot:{"24K":9703,"22K":8894,"18K":7277},
+Mandya:{"24K":9703,"22K":8894,"18K":7277},
+Bhadravathi:{"24K":9703,"22K":8894,"18K":7277},
+Kolar:{"24K":9703,"22K":8894,"18K":7277},
+Tumkur:{"24K":9703,"22K":8894,"18K":7277},
+Kollam:{"24K":9703,"22K":8894,"18K":7277},
+Alappuzha:{"24K":9703,"22K":8894,"18K":7277},
+Kottayam:{"24K":9703,"22K":8894,"18K":7277},
+Palakkad:{"24K":9703,"22K":8894,"18K":7277},
+Malappuram:{"24K":9703,"22K":8894,"18K":7277},
+Kozhikode:{"24K":9703,"22K":8894,"18K":7277},
+Kannur:{"24K":9703,"22K":8894,"18K":7277},
+India:{"24K":9703,"22K":8894,"18K":7277}
   };
   
   
@@ -551,12 +556,15 @@ India:{"24K":9704,"22K":8895,"18K":7278}
             window.scrollTo({
                 top: document.body.scrollHeight,
                 behavior: 'smooth'
-            });
-
             
-
-            
-        }
+      });
+       // Google Ads Conversion Tracking
+       gtag('event', 'conversion', {
+            'send_to': 'AW-16933125891/ZMlBCLyRxM8aEIP-q4o_',
+            'value': 1.0,
+            'currency': 'INR'
+        })
+    }
     </script>
 </body>
 </html>
