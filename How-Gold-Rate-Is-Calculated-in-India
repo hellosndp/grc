@@ -3,122 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>How Gold Rate Is Calculated in India</title>
+
+  <title>Gold Rate Calculator: How Gold Prices Are Calculated in India</title>
+  <meta name="description" content="Learn how gold rates are calculated in India using the Gold Rate Calculator. Understand global prices, import duties, taxes, purity, and more.">
+  <meta name="keywords" content="gold rate calculator, gold price today, how gold price is calculated, gold rate in India, gold pricing explained">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Gold Rate Calculator: How Gold Prices Are Calculated in India" />
+  <meta property="og:description" content="Discover how gold rates are calculated in India — from global pricing to local taxes. Try the live Gold Rate Calculator." />
+  <meta property="og:image" content="https://yourdomain.com/images/gold-jeweller.webp" />
+  <meta property="og:url" content="https://goldratecalculator.in" />
+  <meta property="og:type" content="article" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gold Rate Calculator: How Gold Prices Are Calculated in India" />
+  <meta name="twitter:description" content="Explore the detailed breakdown of how India calculates gold prices using the gold rate calculator." />
+  <meta name="twitter:image" content="https://yourdomain.com/images/gold-jeweller.webp" />
+
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.7;
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: #fafafa;
       color: #2c2c2c;
+      line-height: 1.7;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
     }
-
     h1, h2 {
-      color: #373737;
+      color: #b8860b;
     }
-
-    h1 {
-      font-size: 2.4rem;
-      margin-bottom: 20px;
+    img {
+      width: 100%;
+      max-width: 800px;
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
     }
-
-    h2 {
-      font-size: 1.5rem;
-      margin-top: 40px;
-      margin-bottom: 10px;
-      border-left: 5px solid #ffd700;
-      padding-left: 10px;
-    }
-
-    p {
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
-
     a {
-      color: #0073e6;
+      color: #b8860b;
       text-decoration: none;
-      font-weight: 600;
     }
-
     a:hover {
       text-decoration: underline;
     }
-
-    .highlight-box {
-      background: #fff8dc;
-      padding: 15px 20px;
-      border-left: 4px solid #ffa500;
-      margin-bottom: 25px;
-      border-radius: 6px;
+    p {
+      font-size: 18px;
+      margin-bottom: 1.2em;
     }
-
     ul {
-      padding-left: 20px;
+      margin-left: 20px;
     }
-
-    ul li {
-      margin-bottom: 8px;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      h2 {
-        font-size: 1.3rem;
-      }
-
-      p {
-        font-size: 16px;
-      }
+    b {
+      color: #333;
     }
   </style>
 </head>
 <body>
+
   <h1>How Is Gold Rate Calculated in India?</h1>
 
-  <p>Gold isn’t just a shiny metal in India — it’s emotion, tradition, and investment rolled into one. Whether you're buying jewellery for a wedding or investing in gold coins, understanding how gold rate is calculated in India can help you make smarter financial decisions.</p>
+  <img src="gold-jeweller.webp" alt="Gold Jeweller Calculating Prices">
 
-  <div class="highlight-box">
-    💡 Tip: Want live gold prices and full cost breakdowns? Check the <a href="https://goldratecalculator.in">Gold Rate Calculator</a> — it updates daily!
-  </div>
+  <p>
+    Gold isn’t just a shiny metal in India — it’s emotion, tradition, and investment rolled into one.
+    Whether you're buying jewellery for a wedding or investing in gold coins, understanding how gold rate is calculated in India can help you make smarter financial decisions.
+    Without taking much hustle, you can check the gold prices from the
+    <a href="https://goldratecalculator.in" target="_blank">Gold Rate Calculator</a>, which gets updated every day.
+  </p>
 
   <h2>1. Global Gold Prices – The Starting Point</h2>
-  <p>The base price of gold is determined by international markets, especially the <a href="https://www.lbma.org.uk/prices-and-data/lbma-gold-price" target="_blank">London Bullion Market Association (LBMA)</a>. Prices are quoted in USD per ounce (1 ounce = 28.35 grams) and fluctuate with global factors like inflation, interest rates, geopolitical tensions, and central bank policies.</p>
-  <p>If gold is trading at $2,000/oz globally, that becomes the benchmark before local adjustments in India.</p>
+  <p>
+    The base price of gold is determined by international markets, especially the
+    <a href="https://www.lbma.org.uk/prices-and-data/lbma-gold-price" target="_blank">London Bullion Market Association (LBMA)</a>.
+    Prices are quoted in USD per ounce (1 ounce = 28.35 grams). These rates fluctuate based on global factors like inflation,
+    interest rates, geopolitical tensions, and central bank decisions.
+  </p>
+
+  <p>For example, if gold trades at $2,000/oz globally, that’s the benchmark. But in India, we first need to convert this into rupees.</p>
 
   <h2>2. Currency Exchange Rate Matters</h2>
-  <p>Since gold is traded internationally in dollars, the <strong>USD to INR exchange rate</strong> directly impacts the domestic gold rate. A weaker rupee makes gold costlier in India — even if global prices stay the same.</p>
+  <p>
+    Since international gold prices are in dollars, the USD to INR exchange rate plays a big role. A weaker rupee makes gold more expensive for Indian buyers.
+    So even if international prices stay flat, a falling rupee can increase domestic gold rates.
+  </p>
 
   <h2>3. Import Duty & Taxes</h2>
-  <p>India imports most of its gold, and the government adds duties and taxes that increase the final rate. Key components include:</p>
+  <p>India imports most of its gold, and the government levies duties on these imports. As of now, the main components are:</p>
+
   <ul>
-    <li><strong>Basic Customs Duty:</strong> ~12.5%</li>
-    <li><strong>Agriculture Infrastructure Cess:</strong> 2.5%</li>
-    <li><strong><a href="https://goldratecalculator.in">GST (Goods and Services Tax)</a>:</strong> 3% on final price including making charges</li>
+    <li><b>Basic Customs Duty:</b> ~12.5%</li>
+    <li><b>Agriculture Infrastructure Cess:</b> 2.5%</li>
+    <li><b><a href="https://goldratecalculator.in" target="_blank">GST (Goods and Services Tax)</a>:</b> 3% (applied on the final price including making charges)</li>
   </ul>
-  <p>These can add 15–18% over the international base price.</p>
+
+  <p>These taxes significantly inflate the final price paid by the end consumer.</p>
 
   <h2>4. Carat Purity Adjustment</h2>
-  <p>Gold is sold in 24K (99.9% pure) and 22K (91.6% pure) variants. Since global prices refer to 24K, prices are adjusted for purity before selling 22K jewellery in India.</p>
-  <p>Example: If 24K gold is ₹6,000/gram, the 22K equivalent could be around ₹5,500/gram.</p>
+  <p>
+    Gold sold in India is mostly 22 carat (91.6% pure) for jewellery and 24 carat (99.9% pure) for investment.
+    Since the global price refers to pure 24k gold, prices are adjusted for purity.
+  </p>
+
+  <p>For example, if the 24k price is ₹6,000/gram, the 22k rate would be proportionally less — around ₹5,500/gram — depending on daily rates and vendor margins.</p>
 
   <h2>5. Making Charges and Dealer Margins</h2>
-  <p><strong>Making charges</strong> (usually 8%–20%) are added when buying jewellery to cover craftsmanship. Some jewellers use flat rates, others charge a % of gold value. Add a small dealer margin too, which varies across stores.</p>
+  <p>
+    When buying jewellery, <b>making charges (typically 8–20%)</b> are added for design and craftsmanship.
+    Some jewellers charge a flat rate, others calculate it as a percentage of the gold price.
+    There’s also a small dealer margin, which varies by city and store.
+  </p>
 
   <h2>6. City-Wise Variation</h2>
-  <p>Gold prices vary between cities due to transport, local demand, and vendor competition. Chennai, Delhi, Mumbai — each has slightly different pricing.</p>
-  <div class="highlight-box">
-    📍 Fun fact: <a href="https://goldratecalculator.in">Gold Rate Calculator</a> tracks gold prices in 100+ Indian cities daily.
-  </div>
+  <p>
+    You’ll often notice that gold price in Chennai is slightly different from gold price in Delhi or Mumbai.
+    That’s because logistics, local demand, and competition affect city-level pricing.
+    Most jewellers follow daily updates from the Indian Bullion & Jewellers Association (IBJA).
+    <a href="https://goldratecalculator.in" target="_blank">Gold Rate Calculator</a> updates more than 100+ city gold prices every day.
+  </p>
 
 </body>
 </html>
