@@ -8,35 +8,88 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
       padding: 20px;
+      background-color: #f9f9f9;
     }
-    .post {
-      margin-bottom: 2em;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 1em;
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
     }
-    .post h2 {
-      margin-bottom: 0.5em;
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
     }
-    .post a {
-      color: #b8860b;
+    .blog-tile {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .blog-tile:hover {
+      transform: translateY(-5px);
+    }
+    .blog-tile img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .blog-content {
+      padding: 15px;
+    }
+    .blog-content h2 {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+    }
+    .blog-content p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .blog-content a {
       text-decoration: none;
+      color: #b8860b;
+      font-weight: bold;
+      font-size: 14px;
     }
-    .post a:hover {
+    .blog-content a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
+
   <h1>Gold Rate Blog</h1>
 
-  <div class="post">
-    <h2><a href="/blog/how-gold-rate-is-calculated.html">How is Gold Rate Calculated in India?</a></h2>
-    <p>Understand how global prices, taxes, and purity affect gold rates in India. Learn about the gold rate calculator.</p>
+  <div class="blog-grid">
+
+    <!-- Blog Post 1 -->
+    <div class="blog-tile">
+      <img src="/blog/images/gold-rate-calculated.webp" alt="How Gold Rate is Calculated">
+      <div class="blog-content">
+        <h2>How is Gold Rate Calculated in India?</h2>
+        <p>Understand how global prices, taxes, GST, and purity influence gold pricing across Indian cities.</p>
+        <a href="/blog/how-gold-rate-is-calculated.html">Read More →</a>
+      </div>
+    </div>
+
+    <!-- Blog Post 2 -->
+    <div class="blog-tile">
+      <img src="/blog/images/gold-city-price-difference.webp" alt="City-wise Gold Price Difference">
+      <div class="blog-content">
+        <h2>Why Gold Price Differs from City to City</h2>
+        <p>Gold is gold — but why does it cost more in Mumbai than in Kolkata? Here's the answer.</p>
+        <a href="/blog/why-gold-price-differs-citywise.html">Read More →</a>
+      </div>
+    </div>
+
+    <!-- Add more blog tiles as you go -->
+    
   </div>
 
-  <!-- Add more blog posts here -->
 </body>
 </html>
