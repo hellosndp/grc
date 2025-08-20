@@ -240,7 +240,7 @@
 <body>
     <div id="logo">Gold Rate Calculator</div>
     <div id="container">
-        <p id="lastUpdated">Price updated: 10:00 AM, 20 Aug 2025</p>
+        <p id="lastUpdated">10:00 AM, 20 Aug 2025</p>
         <p style="text-align: center;">
   <a href="https://goldratecalculator.in/how-gold-rate-calculated-in-india"
     target="_blank" onclick="trackEvent('top_banner', 'Advertisement')">
@@ -439,6 +439,22 @@
 
     </div>
     <script>
+        //fetching lastupdated from json
+fetch("goldRate.json")
+    .then(response => response.json())
+    .then(data => {
+      // Format the date
+      const updated = new Date(data.lastUpdated);
+      document.getElementById("lastUpdated").textContent =
+        "Price Updated: " + updated.toLocaleString("en-IN", {
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+    });
         //Gold prices updated on 19 May
 
     //Gold prices updated on 19 May
