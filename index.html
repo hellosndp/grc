@@ -246,6 +246,8 @@
   <a href="https://forms.gle/HoEAeHRL19qyb5za6"
     target="_blank" onclick="trackEvent('top_banner', 'Advertisement')">
     Please provide Feedback to improve the Calcualator</a></p>
+        <button id="installBtn" hidden>Add to Home Screen</button>
+
         
         <div id="calcArea">
             <label>Select City</label>
@@ -554,6 +556,35 @@ function calculate(){
        //      'currency': 'INR'
        //  })
     }
+
+        //  PWA App code js
+        <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js');
+        }
+        </script>
+        <script>
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault(); // stop the default mini-info bar
+          deferredPrompt = e;
+          document.getElementById('installBtn').hidden = false;
+        });
+        
+        document.getElementById('installBtn').addEventListener('click', async () => {
+          document.getElementById('installBtn').hidden = true;
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`User response: ${outcome}`);
+          deferredPrompt = null;
+    });
     </script>
+
+
+        
+    </script>
+
+    
 </body>
 </html>
