@@ -246,7 +246,7 @@
   <a href="https://forms.gle/HoEAeHRL19qyb5za6"
     target="_blank" onclick="trackEvent('top_banner', 'Advertisement')">
     Please provide Feedback to improve the Calcualator</a></p>
-        <!-- <button id="installBtn" hidden>Add to Home Screen</button> -->
+        <button id="installBtn" hidden>Add to Home Screen</button>
 
         
         <div id="calcArea">
@@ -558,12 +558,11 @@ function calculate(){
     }
 
         //  PWA App code js
-        <script>
+        
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/sw.js');
         }
-        </script>
-        <script>
+        
         let deferredPrompt;
         
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -579,7 +578,7 @@ function calculate(){
           console.log(`User response: ${outcome}`);
           deferredPrompt = null;
     });
-    </script>
+    
 
 
         
