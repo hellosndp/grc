@@ -248,6 +248,13 @@
     Please provide Feedback to improve the Calcualator</a></p>
         <button id="installBtn" hidden>Add to Home Screen</button>
 
+        <!-- Add this near your other CTAs -->
+<a href="#" id="installLink"
+   onclick="trackEvent('pwa_download_clicked','PWA'); handleInstallClick(); return false;">
+  Download App 📲
+</a>
+
+
         
         <div id="calcArea">
             <label>Select City</label>
@@ -578,6 +585,42 @@ function calculate(){
           console.log(`User response: ${outcome}`);
           deferredPrompt = null;
     });
+
+  // Minimal handler that matches your analytics style.
+  function handleInstallClick() {
+    try {
+      // If the browser provided a deferred prompt, show it (must be user gesture — this is one).
+      if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then(function(choiceResult) {
+          if (choiceResult && choiceResult.outcome === 'accepted') {
+            trackEvent('pwa_install_accepted', 'PWA');
+          } else {
+            trackEvent('pwa_install_dismissed', 'PWA');
+          }
+          // clear it so we don't reuse a stale prompt
+          window.deferredPrompt = null;
+        }).catch(function(err){
+          console.error('deferredPrompt.userChoice error', err);
+        });
+        return;
+      }
+
+      // Fallback: native prompt not available — log it and optionally show short guidance
+      trackEvent('pwa_install_prompt_unavailable', 'PWA');
+      // Optional UX: show short instructions for Android/iOS
+      // For Android Chrome users: menu → "Add to Home screen"
+      // For iOS Safari users: Share → "Add to Home Screen"
+      if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        alert('iPhone: tap Share (⤴) → Add to Home Screen.');
+      } else {
+        alert('Open Chrome menu → Add to Home screen.');
+      }
+    } catch (e) {
+      console.error('handleInstallClick error', e);
+    }
+  }
+
     
 
 
