@@ -17,7 +17,12 @@
   </script>
 
   <meta charset="UTF-8">
-  <title>Gold Rate Calculator</title>
+  <!-- For each city file, CHANGE title + description + canonical manually -->
+  <title>Gold Rate in City Today | Gold Rate Calculator</title>
+  <meta name="description" content="Live gold rate in your city with a transparent calculator for making charges and GST. See true per-gram price, breakdowns, and tips to buy smarter.">
+  <!-- Example (manually set per file): -->
+  <!-- <link rel="canonical" href="https://goldratecalculator.in/gold-rate-chennai" /> -->
+
   <meta name="keywords" content="Gold rate,gold rate in India,gold rate today in India,today gold price,gold rate calculator, gold price calculator,18k gold rate, 22k gold rate, 24k gold rate">
   <meta name="author" content="Gold Rate Calculator">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -115,7 +120,7 @@
     /* SEO content: left aligned, mobile friendly */
     #content {
       margin-top: 10px;
-      text-align: left;           /* left aligned per your ask */
+      text-align: left;           /* left aligned */
     }
     #content h1, #content h2 { line-height:1.25; margin: 18px 0 10px 0; }
     #content h1 { font-size: 1.6rem; }
@@ -349,17 +354,55 @@
   </div>
 
   <script>
-    // CONFIG knobs
-    const PERCENT_CHANGE_YEAR = 70;  // fixed; you will update monthly
+    // -------------------------------
+    // CONFIG
+    // -------------------------------
+    const PERCENT_CHANGE_YEAR = 70;  // fixed YoY; update monthly
     const DEFAULT_PROFIT_WAIT = 14;  // months; manual
 
-    let goldRate = {}; // from goldRate.json
+    // -------------------------------
+    // STATE
+    // -------------------------------
+    let goldRate = {};   // loaded from goldRate.json
 
-    // Load JSON once
+    // Detect default city from filename (e.g., gold-rate-chennai.html -> Chennai)
+    function detectCityFromUrl() {
+      let file = location.pathname.split('/').pop() || '';
+      file = file.replace(/\.[^/.]+$/, ''); // remove .html
+      if (!file || file.toLowerCase() === 'index') return null;
+
+      // gold-rate-<city> / gold-price-<city> / <city>
+      const m = file.toLowerCase().match(/(?:gold[- ]?(rate|price)[- ]?)?([a-z-]+)$/);
+      let slug = (m && m[2]) ? m[2] : file.toLowerCase();
+
+      // hyphen -> space -> Title Case
+      let cityName = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+      // Normalize option value mismatches
+      const map = {
+        'Vasai Virar': 'VasaiVirar'
+      };
+      return map[cityName] || cityName;
+    }
+
+    function initDefaultCity() {
+      const qpCity = new URLSearchParams(location.search).get('city');
+      const inferred = qpCity || detectCityFromUrl();
+      const sel = document.getElementById('inputCity');
+      if (!sel) return;
+      if (inferred && Array.from(sel.options).some(o => o.value === inferred)) {
+        sel.value = inferred;
+      }
+    }
+
+    // -------------------------------
+    // BOOTSTRAP: load JSON once
+    // -------------------------------
     fetch('goldRate.json', { cache: 'no-store' })
-      .then(r => r.json())
+      .then(res => res.json())
       .then(data => {
         goldRate = data || {};
+
         const raw = (goldRate.lastUpdated || Date.now());
         const updated = new Date(raw);
         document.getElementById("lastUpdated").textContent =
@@ -368,6 +411,7 @@
             hour: "2-digit", minute: "2-digit"
           });
 
+        initDefaultCity();
         updateRate();
         renderSeo();
       })
@@ -379,11 +423,12 @@
     function getSelectedCity(){ return document.getElementById("inputCity").value; }
     function getSelectedQuality(){ return document.getElementById("inputQuality").value; }
 
+    // Update price field when city/quality changes
     function updateRate(){
       const city = getSelectedCity();
       const q = getSelectedQuality();
-      let price;
 
+      let price;
       if (goldRate && goldRate[city] && goldRate[city][q] != null) {
         price = goldRate[city][q];
       } else if (goldRate && goldRate.India && goldRate.India[q] != null) {
@@ -394,6 +439,7 @@
       renderSeo();
     }
 
+    // Calculator
     function calculate(){
       const grams = Number(document.getElementById("inputGrams").value);
       const makingCharges = Number(document.getElementById("inputMakingCharges").value);
@@ -412,15 +458,17 @@
       const rateFinal = rateGold + rateMakingCharges + rateGST;
       document.getElementById("grandTotal").textContent = rateFinal.toLocaleString('en-IN');
 
+      // Scroll only to results (not footer)
       const results = document.getElementById('summaryArea');
       if (results) {
-        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const y = results.getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
 
       renderSeo();
     }
 
-    // Build HEAVY long-form, left-aligned SEO sections (each ~300+ words)
+    // Heavy SEO sections
     function renderSeo(){
       const city = getSelectedCity();
       const rate22K = goldRate[city]?.['22K'] ?? goldRate.India?.['22K'] ?? 0;
@@ -434,7 +482,6 @@
       const extraPercent = base ? (((totalPerGram - base) / base) * 100) : 0;
       const profitWait = DEFAULT_PROFIT_WAIT;
 
-      // ---- Intro (300+ words) ----
       const intro = `
         <h1>Gold Rate in ${city} Today — Calculate the Real Cost of Gold</h1>
         <p>
@@ -445,26 +492,23 @@
           and <strong>₹${Number(rate24K).toLocaleString('en-IN')}</strong> per gram for 24K. But here’s the part that catches many buyers off guard:
           the “final bill” rarely matches the board rate because jewellery pricing includes <em>making charges</em>, potential <em>wastage</em>, and <em>GST</em>.
           That extra stack transforms a simple rate enquiry into a fuller cost picture that decides whether your purchase is good value or simply expensive sentiment.
-        </p>
-        <p>
           Our calculator is built to cut through the noise. Instead of asking you to memorize formulas or juggle percentage math on your phone,
           you enter the rate, select the purity, and add the making charge percentage your jeweller quotes. The tool instantly computes the effective per-gram cost,
-          the GST impact, and the exact rupee amount you’re spending beyond the base metal value. This matters because gold, though emotionally meaningful,
-          is also money. Whether you buy for a wedding, an investment, or a festival, you should know how much of your bill is the gold itself and how much is
-          add-ons that don’t hold resale value in the same way. If you ever tried to sell back a design-heavy piece, you already know the truth:
-          buyers quote you near the market rate for purity and weight, not for the design hours you paid for earlier. That’s precisely why transparency upfront
-          protects your wallet later.
+          the GST impact, and the exact rupee amount you’re spending beyond the base metal value.
         </p>
         <p>
+          This matters because gold, though emotionally meaningful, is also money. Whether you buy for a wedding, an investment, or a festival,
+          you should know how much of your bill is the gold itself and how much is add-ons that don’t hold resale value in the same way.
+          If you ever tried to sell back a design-heavy piece, you already know the truth: buyers quote you near the market rate for purity and weight,
+          not for the design hours you paid for earlier. That’s precisely why transparency upfront protects your wallet later.
           This page stays focused on clarity. You will find a practical explanation of how the price components work, why the rate you see online differs from
-          your bill, and how to plan purchases smartly in ${city}. We keep the language direct, the math visible, and the decisions yours. If you want a simple rule:
-          <em>always</em> check the final cost per gram after making charges and GST. If the number seems high, either negotiate or switch to a simpler design with
-          lower labour. That single habit can save thousands on a typical purchase, and it takes less than a minute using this calculator. Gold’s charm is timeless,
-          but the smartest buyers in ${city} also care about the arithmetic.
+          your bill, and how to plan purchases smartly in ${city}. We keep the language direct, the math visible, and the decisions yours.
+          If you want a simple rule: <em>always</em> check the final cost per gram after making charges and GST. If the number seems high, either negotiate
+          or switch to a simpler design with lower labour. That single habit can save thousands on a typical purchase, and it takes less than a minute using this calculator.
+          Gold’s charm is timeless, but the smartest buyers in ${city} also care about the arithmetic.
         </p>
       `;
 
-      // ---- Understanding Section (300+ words) ----
       const understanding = `
         <h2>Understanding the Gold Rate in ${city}</h2>
         <p>
@@ -480,17 +524,16 @@
           brand trust, and after-sales services, but the maths always resolves into a few inputs: purity, weight, the per-gram market rate, labour as a percentage of value,
           and applicable taxes. Our calculator respects that structure. It lets you simulate different making-charge scenarios so you can see how the total moves if a jeweller
           quotes 7%, 12%, or 18% for the same piece. As you play with numbers, you will quickly spot thresholds where the design premium stops making sense relative to the gold content.
+          A practical tip: treat the effective price per gram (after making charges and GST) as your anchor. If two stores in ${city} quote similar market rates but dramatically
+          different totals, the difference is not in gold — it’s in everything bolted on top.
         </p>
         <p>
-          A practical tip: treat the effective price per gram (after making charges and GST) as your anchor. If two stores in ${city} quote similar market rates but dramatically
-          different totals, the difference is not in gold — it’s in everything bolted on top. Another tip: simpler machine-made designs generally carry lower labour than intricate,
-          hand-crafted pieces. That does not mean you should avoid artistry; it means pay for artistry knowingly, not accidentally. When the purpose is investment, many buyers in
-          ${city} pivot to low-labour pieces or even to 24K formats. When the purpose is culture and celebration, buyers accept higher labour as part of the moment. Both choices are valid,
-          but knowing the difference keeps you in control.
+          Another tip: simpler machine-made designs generally carry lower labour than intricate, hand-crafted pieces. That does not mean you should avoid artistry; it means pay for
+          artistry knowingly, not accidentally. When the purpose is investment, many buyers in ${city} pivot to low-labour pieces or even to 24K formats. When the purpose is culture
+          and celebration, buyers accept higher labour as part of the moment. Both choices are valid, but knowing the difference keeps you in control.
         </p>
       `;
 
-      // ---- Hidden Cost Section (300+ words) ----
       const hiddenCost = `
         <h2>The Hidden Cost: Making Charges and GST</h2>
         <p>
@@ -517,7 +560,6 @@
         </p>
       `;
 
-      // ---- Buy Now / Profit Wait Section (300+ words) ----
       const buyNow = `
         <h2>Should You Buy Gold in ${city} Now?</h2>
         <p>
@@ -533,15 +575,12 @@
           bias towards transparent pricing and hallmarking, keep invoices safe, and avoid designs that require extreme labour premiums unless the piece is meant to be kept,
           not traded. For pure investment, many households in ${city} diversify with gold bonds, ETFs, or coins, and reserve jewellery purchases for occasions.
           Your mix can be personal, but the logic stays the same: separate emotional consumption from financial allocation and you will sleep better through price cycles.
-        </p>
-        <p>
           Bottom line: buying now can be sensible if you control the variables you can actually control — labour percentage, purity, and the per-gram effective price after tax.
           Use the calculator, pressure-test a few scenarios, and buy only when the numbers make sense for your situation. If a quote feels rich, it probably is.
           Try another store, ask for a simpler pattern, or negotiate a making-charge cap. In a market as competitive as ${city}, knowledge is bargaining power.
         </p>
       `;
 
-      // ---- How-to / Keywords Section (300+ words) ----
       const howTo = `
         <h2>Use the Gold Rate Calculator for ${city}</h2>
         <p>
@@ -557,8 +596,6 @@
           “making charges gold jewellery ${city}”, “gold price increase last 1 year India”, and “how much GST on gold in 2025”. This page exists to answer those questions without fluff.
           It gives you current rates, a realistic view of hidden costs, and a no-nonsense calculator that shows the math in rupees, not just percentages.
           Bookmark it, because prices move and quotes change. When you revisit with a new number from a different jeweller, plug it in and decide using hard data.
-        </p>
-        <p>
           Final suggestion: build a simple habit. Before any jewellery purchase in ${city}, note purity, weight, board rate, labour percent, and GST policy.
           Enter those into this calculator, verify the per-gram total, and only then commit. If you do this consistently, you will avoid most pricing traps and set
           clearer expectations within your family about budget, design, and trade-offs. Gold should feel good to buy. It feels even better when the numbers back your decision.
@@ -573,8 +610,7 @@
         </ul>
       `;
 
-      const el = document.getElementById('content');
-      el.innerHTML = intro + understanding + hiddenCost + buyNow + howTo;
+      document.getElementById('content').innerHTML = intro + understanding + hiddenCost + buyNow + howTo;
     }
 
     // Events
@@ -661,12 +697,10 @@
       padding: 18px; position: relative; transform: translateY(6px);
       animation: popIn .22s cubic-bezier(.2,.9,.3,1) both;
     }
-    @keyframes popIn { from { opacity: 0; transform: translateY(12px) scale(.995) } to { opacity:1; transform: translateY(0) scale(1) } }
     #grcfb-close {
       position: absolute; right: 12px; top: 10px; border: 0; background: transparent;
       color: #111827; font-size: 18px; cursor: pointer; padding: 6px; border-radius: 8px;
     }
-    #grcfb-close:hover{ background: rgba(0,0,0,0.04) }
     .grc-star-rating { display: inline-block; white-space: nowrap; line-height: 0; user-select: none; }
     .grc-star-rating [type="radio"] { appearance: none; position: absolute; width: 0; height: 0; margin: 0; padding: 0; opacity: 0; pointer-events: none; }
     .grc-star-rating label {
