@@ -528,7 +528,130 @@ function calculate(){
         
         updateRate();
         
-        
+        <script>
+  const PERCENT_CHANGE_YEAR = 70;     // you’ll update this monthly
+  const DEFAULT_PROFIT_WAIT = 14;     // months; you can tweak manually
+
+  let goldRate = {};
+
+  // Load JSON once
+  fetch('goldRate.json', { cache: 'no-store' })
+    .then(res => res.json())
+    .then(data => {
+      goldRate = data;
+
+      // Last updated
+      const updated = new Date(data.lastUpdated || Date.now());
+      document.getElementById("lastUpdated").textContent =
+        "Price Updated: " + updated.toLocaleString("en-IN", {
+          weekday: "short", year: "numeric", month: "short", day: "numeric",
+          hour: "2-digit", minute: "2-digit"
+        });
+
+      updateRate();      // set the inputGramCost
+      renderSeo();       // render SEO text initially
+    })
+    .catch(err => console.error('Failed to load gold rates:', err));
+
+  function getSelectedCity() {
+    return document.getElementById("inputCity").value;
+  }
+  function getSelectedQuality() {
+    return document.getElementById("inputQuality").value;
+  }
+
+  function updateRate() {
+    const city = getSelectedCity();
+    const quality = getSelectedQuality();
+    if (!goldRate[city] || !goldRate[city][quality]) return;
+    const price = goldRate[city][quality];
+    document.getElementById("inputGramCost").value = price;
+
+    // Re-render SEO block when city/quality changes
+    renderSeo();
+  }
+
+  function calculate(){
+    const grams = Number(document.getElementById("inputGrams").value);
+    const makingCharges = Number(document.getElementById("inputMakingCharges").value);
+    const gramRate = Number(document.getElementById("inputGramCost").value);
+
+    const rateGold = Math.floor(gramRate * grams);
+    document.getElementById("goldRate").innerHTML = rateGold.toLocaleString('en-IN');
+
+    const rateMakingCharges = Math.floor(rateGold * makingCharges/100);
+    document.getElementById("makingCharges").innerHTML = rateMakingCharges.toLocaleString('en-IN');
+    document.getElementById("labelMakingCharges").textContent = `Making Charges (${makingCharges}%)`;
+
+    const rateGST = Math.floor((rateGold + rateMakingCharges) * 0.03);
+    document.getElementById("GST").innerHTML = rateGST.toLocaleString('en-IN');
+
+    const rateFinal = rateGold + rateMakingCharges + rateGST;
+    document.getElementById("grandTotal").innerHTML = rateFinal.toLocaleString('en-IN');
+
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+    // Refresh the SEO copy with the latest inputs
+    renderSeo();
+  }
+
+  // Build long SEO text into #content, driven by current inputs + 70% fixed YoY
+  function renderSeo(){
+    const city = getSelectedCity();
+    const rate22K = goldRate[city]?.['22K'] ?? 0;
+    const rate24K = goldRate[city]?.['24K'] ?? 0;
+
+    // Use current inputs to compute “extra %” per gram without historicals
+    const making = Number(document.getElementById("inputMakingCharges").value || 0);
+    const base = Number(document.getElementById("inputGramCost").value || 0);
+    const mc = base * (making/100);
+    const gst = (base + mc) * 0.03;
+    const totalPerGram = base + mc + gst;
+    const extraPercent = base ? (((totalPerGram - base) / base) * 100) : 0;
+
+    // You asked not to calculate profit time from trends; keep a static knob
+    const profitWait = DEFAULT_PROFIT_WAIT;
+
+    const html = `
+      <h1>Gold Rate in ${city} Today — Calculate the Real Cost of Gold</h1>
+      <p>The gold rate in <strong>${city}</strong> today is around <strong>₹${rate22K.toLocaleString('en-IN')}</strong> per gram (22K)
+      and <strong>₹${rate24K.toLocaleString('en-IN')}</strong> per gram (24K).</p>
+
+      <h2>Understanding the Gold Rate in ${city}</h2>
+      <p>Gold prices in ${city} have increased by approximately <strong>${PERCENT_CHANGE_YEAR}%</strong> over the past year (indicative figure, updated monthly).</p>
+
+      <h2>The Hidden Cost: Making Charges and GST</h2>
+      <p>If the market gold rate is ₹${base.toLocaleString('en-IN')} and your jeweller charges ${making}% as making charge, plus 3% GST,
+      your real cost per gram becomes about <strong>₹${Math.round(totalPerGram).toLocaleString('en-IN')}</strong> — roughly
+      <strong>${extraPercent.toFixed(1)}%</strong> higher than the base rate.</p>
+
+      <h2>Should You Buy Gold in ${city} Now?</h2>
+      <p>With total costs included, buyers typically need to wait around <strong>${profitWait} months</strong> for the purchase to turn profitable
+      (varies by making charges and future price movement).</p>
+
+      <h2>Use the Gold Rate Calculator for ${city}</h2>
+      <p>Enter your making charges and GST to see how much extra you’re paying above the market gold rate today. The calculator shows the
+      breakdown instantly so you can buy smarter.</p>
+
+      <h2>Frequently Searched</h2>
+      <ul style="list-style:disc; text-align:left; margin:0 auto; max-width:720px;">
+        <li>today gold rate in ${city}</li>
+        <li>22K gold price in ${city} today per gram</li>
+        <li>making charges gold jewellery ${city}</li>
+        <li>gold price increase last 1 year India</li>
+        <li>how much GST on gold in 2025</li>
+      </ul>
+    `;
+    const el = document.getElementById('content');
+    if (el) el.innerHTML = html;
+  }
+
+  // Wire dropdown changes to re-render
+  document.getElementById("inputCity").addEventListener('change', updateRate);
+  document.getElementById("inputQuality").addEventListener('change', updateRate);
+
+</script>
+
         
         //calcualator function code
         function calculate(){
