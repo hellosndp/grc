@@ -412,7 +412,11 @@
       const rateFinal = rateGold + rateMakingCharges + rateGST;
       document.getElementById("grandTotal").textContent = rateFinal.toLocaleString('en-IN');
 
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      const results = document.getElementById('summaryArea');
+      if (results) {
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
       renderSeo();
     }
 
