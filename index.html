@@ -276,7 +276,7 @@
       </a>
     </p>
 
-    <!-- HEAVY, LEFT-ALIGNED SEO CONTENT -->
+    <!-- FULL SEO CONTENT (preserved in full) -->
     <div id="content"></div>
 
     <div id="ctas">
@@ -298,33 +298,20 @@
 
   <script>
     // -------------------------------
-    // CONFIG
+    // CONFIG + STATE
     // -------------------------------
-    const PERCENT_CHANGE_YEAR = 70;  // fixed YoY; update monthly
-    const DEFAULT_PROFIT_WAIT = 14;  // months; manual
+    const PERCENT_CHANGE_YEAR = 70;
+    const DEFAULT_PROFIT_WAIT = 14;
+    let goldRate = {}; // loaded from goldRate.json
 
-    // -------------------------------
-    // STATE
-    // -------------------------------
-    let goldRate = {};   // loaded from goldRate.json
-
-    // Detect default city from filename (e.g., gold-rate-chennai.html -> Chennai)
     function detectCityFromUrl() {
       let file = location.pathname.split('/').pop() || '';
-      file = file.replace(/\.[^/.]+$/, ''); // remove .html
+      file = file.replace(/\.[^/.]+$/, '');
       if (!file || file.toLowerCase() === 'index') return null;
-
-      // gold-rate-<city> / gold-price-<city> / <city>
       const m = file.toLowerCase().match(/(?:gold[- ]?(rate|price)[- ]?)?([a-z-]+)$/);
       let slug = (m && m[2]) ? m[2] : file.toLowerCase();
-
-      // hyphen -> space -> Title Case
       let cityName = slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-
-      // Normalize option value mismatches
-      const map = {
-        'Vasai Virar': 'VasaiVirar'
-      };
+      const map = { 'Vasai Virar': 'VasaiVirar' };
       return map[cityName] || cityName;
     }
 
@@ -333,9 +320,7 @@
       const inferred = qpCity || detectCityFromUrl();
       const sel = document.getElementById('inputCity');
       if (!sel) return;
-      if (inferred && Array.from(sel.options).some(o => o.value === inferred)) {
-        sel.value = inferred;
-      }
+      if (inferred && Array.from(sel.options).some(o => o.value === inferred)) sel.value = inferred;
     }
 
     // -------------------------------
@@ -345,7 +330,6 @@
       .then(res => res.json())
       .then(data => {
         goldRate = data || {};
-
         const raw = (goldRate.lastUpdated || Date.now());
         const updated = new Date(raw);
         document.getElementById("lastUpdated").textContent =
@@ -353,7 +337,6 @@
             weekday: "short", year: "numeric", month: "short", day: "numeric",
             hour: "2-digit", minute: "2-digit"
           });
-
         initDefaultCity();
         updateRate();
         renderSeo();
@@ -366,23 +349,16 @@
     function getSelectedCity(){ return document.getElementById("inputCity").value; }
     function getSelectedQuality(){ return document.getElementById("inputQuality").value; }
 
-    // Update price field when city/quality changes
     function updateRate(){
       const city = getSelectedCity();
       const q = getSelectedQuality();
-
       let price;
-      if (goldRate && goldRate[city] && goldRate[city][q] != null) {
-        price = goldRate[city][q];
-      } else if (goldRate && goldRate.India && goldRate.India[q] != null) {
-        price = goldRate.India[q];
-      }
-
+      if (goldRate && goldRate[city] && goldRate[city][q] != null) price = goldRate[city][q];
+      else if (goldRate && goldRate.India && goldRate.India[q] != null) price = goldRate.India[q];
       document.getElementById("inputGramCost").value = (typeof price === 'number') ? price : '';
       renderSeo();
     }
 
-    // Calculator
     function calculate(){
       const grams = Number(document.getElementById("inputGrams").value);
       const makingCharges = Number(document.getElementById("inputMakingCharges").value);
@@ -401,7 +377,6 @@
       const rateFinal = rateGold + rateMakingCharges + rateGST;
       document.getElementById("grandTotal").textContent = rateFinal.toLocaleString('en-IN');
 
-      // Scroll only to results (not footer)
       const results = document.getElementById('summaryArea');
       if (results) {
         const y = results.getBoundingClientRect().top + window.pageYOffset - 12;
@@ -411,12 +386,13 @@
       renderSeo();
     }
 
-    // Heavy SEO sections
+    // -------------------------------
+    // SEO content rendering (full paragraphs preserved)
+    // -------------------------------
     function renderSeo(){
       const city = getSelectedCity();
       const rate22K = goldRate[city]?.['22K'] ?? goldRate.India?.['22K'] ?? 0;
       const rate24K = goldRate[city]?.['24K'] ?? goldRate.India?.['24K'] ?? 0;
-
       const making = Number(document.getElementById("inputMakingCharges").value || 0);
       const base = Number(document.getElementById("inputGramCost").value || 0);
       const mc = base * (making/100);
@@ -479,17 +455,70 @@
 
       const hiddenCost = `
         <h2>The Hidden Cost: Making Charges and GST</h2>
-        <p> ... (full paragraph preserved in original) ... </p>
+        <p>
+          Let’s strip the problem to essentials. You have a base per-gram rate (₹${Number(base).toLocaleString('en-IN')}) for your chosen purity in ${city}.
+          Then a jeweller quotes <strong>${isFinite(making)?making:0}%</strong> as making charges. On top of that combined value, the bill attracts <strong>GST</strong> (3% in practice on the value of the goods,
+          and GST also applies on the making component as billed). The outcome is an effective per-gram cost of approximately
+          <strong>₹${Math.round(totalPerGram).toLocaleString('en-IN')}</strong>, which is about <strong>${extraPercent.toFixed(1)}%</strong> higher than the base rate you started with.
+          That gap is the difference between the price of gold as a commodity and the price of jewellery as a finished product. If you buy with eyes open, the gap is acceptable —
+          you receive design, finishing, and brand assurances. If you buy without numbers, the same gap can quietly eat into your future resale value.
+        </p>
+        <p>
+          The most common mistake is to compare shop A and shop B purely on the headline rate. A smarter comparison is to ask both shops in ${city} for the final invoice breakup
+          on the same hypothetical item: identical purity and weight, identical day’s rate, and a written breakdown of making charges and taxes. Put those numbers into this calculator.
+          You will often discover differences of several percentage points in the total. Over a 30-gram purchase, a few percentage points translate into real money.
+          Another frequent mistake is assuming higher labour always equals better durability or purity. Durability is a function of design and finishing quality,
+          and purity is guaranteed by hallmarking — not by how high the labour percentage looks on the bill. If a shop leans on a big making charge to signal quality,
+          ask for specifics: what does that labour pay for exactly? If the answers sound vague, you are likely paying a marketing premium, not a craftsmanship necessity.
+        </p>
+        <p>
+          Here’s a simple toolkit to control hidden costs in ${city}: first, decide your purpose (investment-first or design-first). Second, set a labour band you’re willing to accept
+          for that purpose (for example, up to 8–10% for investment-leaning purchases, more for ornate bridal sets). Third, simulate the total in the calculator before you commit.
+          Finally, never hesitate to negotiate or walk away; the market is competitive, and transparent stores will respect that you know your math. Over years of purchases,
+          this discipline compounds into meaningful savings while you still enjoy the cultural value of real gold.
+        </p>
       `;
 
       const buyNow = `
         <h2>Should You Buy Gold in ${city} Now?</h2>
-        <p> ... (full paragraph preserved in original) ... </p>
+        <p>
+          The honest answer depends on your goal. If you are buying for a wedding, festival, or heirloom, timing the exact bottom is a fantasy and often irrelevant.
+          Cultural value and emotional timing matter more, and gold’s long history in India supports those choices. If you are buying primarily for investment,
+          the entry point matters — not because you can predict the future, but because you can control the cost structure today. With total costs included,
+          many buyers find they need to wait about <strong>${profitWait} months</strong> for a purchase to turn profitable in mark-to-market terms. This is not a forecast;
+          it’s a reminder that making charges and GST create a starting deficit versus the raw commodity price. Lower the labour, narrow the deficit. Choose simpler designs,
+          shorten the time to break even.
+        </p>
+        <p>
+          Also factor in liquidity. Jewellery is liquid, but resellers usually value purity and weight over design history. If you expect to sell pieces in the future,
+          bias towards transparent pricing and hallmarking, keep invoices safe, and avoid designs that require extreme labour premiums unless the piece is meant to be kept,
+          not traded. For pure investment, many households in ${city} diversify with gold bonds, ETFs, or coins, and reserve jewellery purchases for occasions.
+          Your mix can be personal, but the logic stays the same: separate emotional consumption from financial allocation and you will sleep better through price cycles.
+          Bottom line: buying now can be sensible if you control the variables you can actually control — labour percentage, purity, and the per-gram effective price after tax.
+          Use the calculator, pressure-test a few scenarios, and buy only when the numbers make sense for your situation. If a quote feels rich, it probably is.
+          Try another store, ask for a simpler pattern, or negotiate a making-charge cap. In a market as competitive as ${city}, knowledge is bargaining power.
+        </p>
       `;
 
       const howTo = `
         <h2>Use the Gold Rate Calculator for ${city}</h2>
-        <p> ... (full paragraph preserved in original) ... </p>
+        <p>
+          Using this tool is deliberately straightforward. Step one: pick your city so the per-gram base rate loads correctly for your region.
+          Step two: select the purity (18K, 22K, or 24K) that matches your intended purchase. Step three: enter the making charge percentage your jeweller quoted.
+          If you are still collecting quotes, try a few values — 6%, 10%, 14% — and watch how the effective price per gram and final total move.
+          Step four: click “Calculate” and study the breakup: gold value by weight, labour in rupees, and GST added to the combined amount. Repeat as needed until you find a mix that fits your budget.
+          Keep an eye on the per-gram total. That single figure lets you compare apples to apples across shops and designs. If a store in ${city} offers aggressive discounts on labour,
+          verify that the base rate and purity are still accurate and that the piece is properly hallmarked. Transparency beats theatrics.
+        </p>
+        <p>
+          We also surface phrases many people search for, because you might be wondering the same things: “today gold rate in ${city}”, “22K gold price in ${city} today per gram”,
+          “making charges gold jewellery ${city}”, “gold price increase last 1 year India”, and “how much GST on gold in 2025”. This page exists to answer those questions without fluff.
+          It gives you current rates, a realistic view of hidden costs, and a no-nonsense calculator that shows the math in rupees, not just percentages.
+          Bookmark it, because prices move and quotes change. When you revisit with a new number from a different jeweller, plug it in and decide using hard data.
+          Final suggestion: build a simple habit. Before any jewellery purchase in ${city}, note purity, weight, board rate, labour percent, and GST policy.
+          Enter those into this calculator, verify the per-gram total, and only then commit. If you do this consistently, you will avoid most pricing traps and set
+          clearer expectations within your family about budget, design, and trade-offs. Gold should feel good to buy. It feels even better when the numbers back your decision.
+        </p>
         <h2>Frequently Searched</h2>
         <ul>
           <li>today gold rate in ${city}</li>
@@ -512,15 +541,14 @@
       trackEvent('button_Calculate', 'Calculator');
     });
 
-    // PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
+    // PWA install
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      document.getElementById('installBtn').hidden = false;
+      const btn = document.getElementById('installBtn');
+      if (btn) btn.hidden = false;
       window.deferredPrompt = deferredPrompt;
     });
     document.getElementById('installBtn').addEventListener('click', async () => {
@@ -536,26 +564,16 @@
         if (window.deferredPrompt) {
           window.deferredPrompt.prompt();
           window.deferredPrompt.userChoice.then(function(choiceResult) {
-            if (choiceResult && choiceResult.outcome === 'accepted') {
-              trackEvent('pwa_install_accepted', 'PWA');
-            } else {
-              trackEvent('pwa_install_dismissed', 'PWA');
-            }
+            if (choiceResult && choiceResult.outcome === 'accepted') trackEvent('pwa_install_accepted', 'PWA');
+            else trackEvent('pwa_install_dismissed', 'PWA');
             window.deferredPrompt = null;
-          }).catch(function(err){
-            console.error('deferredPrompt.userChoice error', err);
-          });
+          }).catch(function(err){ console.error('deferredPrompt.userChoice error', err); });
           return;
         }
         trackEvent('pwa_install_prompt_unavailable', 'PWA');
-        if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-          alert('iPhone: tap Share (⤴) → Add to Home Screen.');
-        } else {
-          alert('Open Chrome menu → Add to Home screen.');
-        }
-      } catch (e) {
-        console.error('handleInstallClick error', e);
-      }
+        if (/iphone|ipad|ipod/i.test(navigator.userAgent)) alert('iPhone: tap Share (⤴) → Add to Home Screen.');
+        else alert('Open Chrome menu → Add to Home screen.');
+      } catch (e) { console.error('handleInstallClick error', e); }
     }
     window.handleInstallClick = handleInstallClick;
   </script>
@@ -694,11 +712,11 @@
         </div>
         <div id="grcfb-stars" role="radiogroup" aria-label="Rating 1 to 5">
           <form class="grc-star-rating" aria-hidden="false">
-            <input type="radio" name="grc-rating" id="grc-rate-1" value="1"><label for="grc-rate-1" style="--i:1" data-value="1">★</label>
-            <input type="radio" name="grc-rating" id="grc-rate-2" value="2"><label for="grc-rate-2" style="--i:2" data-value="2">★</label>
-            <input type="radio" name="grc-rating" id="grc-rate-3" value="3"><label for="grc-rate-3" style="--i:3" data-value="3">★</label>
-            <input type="radio" name="grc-rating" id="grc-rate-4" value="4"><label for="grc-rate-4" style="--i:4" data-value="4">★</label>
-            <input type="radio" name="grc-rating" id="grc-rate-5" value="5"><label for="grc-rate-5" style="--i:5" data-value="5">★</label>
+            <input type="radio" name="grc-rating" id="grc-rate-1" value="1"><label for="grc-rate-1" data-value="1">★</label>
+            <input type="radio" name="grc-rating" id="grc-rate-2" value="2"><label for="grc-rate-2" data-value="2">★</label>
+            <input type="radio" name="grc-rating" id="grc-rate-3" value="3"><label for="grc-rate-3" data-value="3">★</label>
+            <input type="radio" name="grc-rating" id="grc-rate-4" value="4"><label for="grc-rate-4" data-value="4">★</label>
+            <input type="radio" name="grc-rating" id="grc-rate-5" value="5"><label for="grc-rate-5" data-value="5">★</label>
           </form>
         </div>
         <div class="grcfb-note">No accounts, no forms — your click is all we record.</div>
@@ -739,11 +757,8 @@
       }
       function sendEvent(n){
         try {
-          if(typeof trackEvent === 'function'){
-            trackEvent(n + '-star', 'User Interaction');
-          } else if (typeof gtag === 'function') {
-            gtag('event', n + '-star', { event_category: 'User Interaction' });
-          }
+          if(typeof trackEvent === 'function'){ trackEvent(n + '-star', 'User Interaction'); }
+          else if (typeof gtag === 'function') { gtag('event', n + '-star', { event_category: 'User Interaction' }); }
         } catch(e){ console.warn('feedback event error', e); }
       }
       radios.forEach(radio => {
@@ -758,12 +773,8 @@
         lbl.addEventListener('click', ()=>{
           const n = Number(lbl.getAttribute('data-value'));
           const matching = radios.find(r => Number(r.value) === n);
-          if(matching){
-            matching.checked = true; matching.dispatchEvent(new Event('change', { bubbles: true }));
-          } else {
-            fillUpTo(n); sendEvent(n);
-            step1.style.display = 'none'; step2.style.display = 'block';
-          }
+          if(matching){ matching.checked = true; matching.dispatchEvent(new Event('change', { bubbles: true })); }
+          else { fillUpTo(n); sendEvent(n); step1.style.display = 'none'; step2.style.display = 'block'; }
         });
       });
       closeX.addEventListener('click', ()=> overlay.style.display = 'none');
