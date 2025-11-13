@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- ===== Google tag (gtag.js) - GA4 + Google Ads =====
+       This single snippet loads gtag and configures both GA4 (G-...)
+       and Google Ads (AW-...). Paste this into the <head> of every page. -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-38QETKMKDV"></script>
-  <!--Google Adsense -->
-  <meta name="google-adsense-account" content="ca-pub-9898426685267130">
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+
+    /* GA4 Measurement ID */
     gtag('config', 'G-38QETKMKDV');
 
-    function trackEvent(eventName, eventCategory = 'User Interaction') {
-      gtag('event', eventName, { event_category: eventCategory });
+    /* Google Ads (replace with your AW- ID if different) */
+    gtag('config', 'AW-17696522000');
+
+    /* Utility helper for your inline code */
+    function trackEvent(eventName, eventCategory = 'User Interaction', params = {}) {
+      try {
+        // send to gtag with optional extra params
+        gtag('event', eventName, Object.assign({ event_category: eventCategory }, params));
+      } catch (e) {
+        console.warn('trackEvent failed', e);
+      }
     }
   </script>
 
+  <!--Google Adsense -->
+  <meta name="google-adsense-account" content="ca-pub-9898426685267130">
   <meta charset="UTF-8">
   <!-- For each city file, CHANGE title + description + canonical manually -->
   <title>Gold Rate in India Today | Gold Rate Calculator</title>
@@ -333,15 +346,13 @@
       </div>
     </div>
     <p style="text-align:center; margin-top:1.5em;">
-  <a href="https://razorpay.me/@GoldRateCalculator" 
-     target="_blank"
-     onclick="trackEvent('button_donate', 'Support');"
-     style="display:inline-block; background-color:#50FFB1; color:black; padding:8px 18px; border-radius:25px; font-weight:medium; text-decoration:none;">
-     ❤️ Helped a bit? Buy me a chai ☕ 
-  </a>
-</p>
-
-
+      <a href="https://razorpay.me/@GoldRateCalculator" 
+         target="_blank"
+         onclick="trackEvent('button_donate', 'Support');"
+         style="display:inline-block; background-color:#50FFB1; color:black; padding:8px 18px; border-radius:25px; font-weight:medium; text-decoration:none;">
+         ❤️ Helped a bit? Buy me a chai ☕ 
+      </a>
+    </p>
 
     <!-- HEAVY, LEFT-ALIGNED SEO CONTENT -->
     <div id="content"></div>
