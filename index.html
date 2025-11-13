@@ -346,12 +346,28 @@
       </div>
     </div>
     <p style="text-align:center; margin-top:1.5em;">
-      <a href="https://razorpay.me/@GoldRateCalculator" 
-         target="_blank"
-         onclick="trackEvent('button_donate', 'Support');"
-         style="display:inline-block; background-color:#50FFB1; color:black; padding:8px 18px; border-radius:25px; font-weight:medium; text-decoration:none;">
-         ❤️ Helped a bit? Buy me a chai ☕ 
-      </a>
+      <a href="https://razorpay.me/@GoldRateCalculator"
+   target="_blank"
+   onclick="
+     trackEvent('button_donate','Support');
+     gtag('event','conversion',{
+       'send_to':'AW-17696522000/j19xCN_hnLgbEJD-rfZB',
+       'value':1.0,
+       'currency':'INR'
+     });
+   "
+   style="
+     display:inline-block;
+     background-color:#50FFB1;
+     color:black;
+     padding:8px 18px;
+     border-radius:25px;
+     font-weight:medium;
+     text-decoration:none;
+   ">
+   ❤️ Helped a bit? Help me drink a chai ☕
+</a>
+
     </p>
 
     <!-- HEAVY, LEFT-ALIGNED SEO CONTENT -->
