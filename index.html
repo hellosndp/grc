@@ -4,28 +4,20 @@
   <!-- ===== Google tag (gtag.js) - GA4 + Google Ads =====
        This single snippet loads gtag and configures both GA4 (G-...)
        and Google Ads (AW-...). Paste this into the <head> of every page. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-38QETKMKDV"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-38QETKMKDV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    /* GA4 Measurement ID */
-    gtag('config', 'G-38QETKMKDV');
+  /* GA4 */
+  gtag('config', 'G-38QETKMKDV');
 
-    /* Google Ads (replace with your AW- ID if different) */
-    gtag('config', 'AW-17696522000');
+  /* Google Ads — REQUIRED for conversions */
+  gtag('config', 'AW-17696522000');
+</script>
 
-    /* Utility helper for your inline code */
-    function trackEvent(eventName, eventCategory = 'User Interaction', params = {}) {
-      try {
-        // send to gtag with optional extra params
-        gtag('event', eventName, Object.assign({ event_category: eventCategory }, params));
-      } catch (e) {
-        console.warn('trackEvent failed', e);
-      }
-    }
-  </script>
 
   <!--Google Adsense -->
   <meta name="google-adsense-account" content="ca-pub-9898426685267130">
@@ -346,27 +338,39 @@
       </div>
     </div>
     <p style="text-align:center; margin-top:1.5em;">
-      <a href="https://razorpay.me/@GoldRateCalculator"
-   target="_blank"
-   onclick="
-     trackEvent('button_donate','Support');
-     gtag('event','conversion',{
-       'send_to':'AW-17696522000/j19xCN_hnLgbEJD-rfZB',
-       'value':1.0,
-       'currency':'INR'
-     });
-   "
-   style="
-     display:inline-block;
-     background-color:#50FFB1;
-     color:black;
-     padding:8px 18px;
-     border-radius:25px;
-     font-weight:medium;
-     text-decoration:none;
-   ">
-   ❤️ Helped a bit? Help me drink a chai ☕
+      <a id="donateBtn" href="https://razorpay.me/@GoldRateCalculator" target="_blank"
+   style="display:inline-block;background-color:#50FFB1;color:black;padding:8px 18px;border-radius:25px;font-weight:600;text-decoration:none;">
+   ❤️ Helped a bit? Buy me a chai ☕
 </a>
+
+<script>
+(function(){
+  const SEND_TO = 'AW-17696522000/j19xCN_hnLgbEJD-rfZB';
+  const url = document.getElementById('donateBtn').href;
+
+  document.getElementById('donateBtn').addEventListener('click', function(e){
+    e.preventDefault(); // wait for conversion to send
+
+    if (typeof trackEvent === 'function') {
+      trackEvent('button_donate','Support');
+    }
+
+    gtag('event','conversion',{
+      'send_to': SEND_TO,
+      'value': 1.0,
+      'currency': 'INR',
+      'transport_type': 'beacon',
+      'event_callback': function(){
+        window.open(url, '_blank');
+      }
+    });
+
+    // fallback in case callback doesn't run
+    setTimeout(() => window.open(url, '_blank'), 500);
+  });
+})();
+</script>
+
 
     </p>
 
