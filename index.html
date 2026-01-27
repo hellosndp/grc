@@ -777,9 +777,12 @@
               <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="grcfb-thanks-msg">Thanks — rating recorded</div>
-          <div class="grcfb-thanks-sub">We really appreciate your feedback.</div>
-          <button class="grcfb-close-btn" id="grcfb-thanks-close">Close</button>
+          <div class="grcfb-thanks-msg">Thanks for the ❤️!</div>
+        <div class="grcfb-thanks-sub">
+        Want to keep this tool alive?  At Price of one tea ☕ ₹10</div>
+        <button class="grcfb-close-btn" id="grcfb-donate-btn">Yes, support ₹20</button>
+        <button class="grcfb-close-btn" id="grcfb-close-btn">Close</button>
+
         </div>
       </div>
     </div>
@@ -832,5 +835,34 @@
       window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') overlay.style.display = 'none'; });
     })();
   </script>
+  <script>
+  (function () {
+    const donateBtn = document.getElementById('grcfb-donate-btn');
+    const closeBtn = document.getElementById('grcfb-close-btn');
+    const overlay = document.getElementById('grcfb-overlay');
+
+    if (donateBtn) {
+      donateBtn.addEventListener('click', function () {
+        try {
+          trackEvent('feedback_donate_clicked', 'Support');
+        } catch (e) {}
+
+        window.open(
+          'https://rzp.io/rzp/GoldRateCalculator',
+          '_blank'
+        );
+
+        overlay.style.display = 'none';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        overlay.style.display = 'none';
+      });
+    }
+  })();
+</script>
+
 </body>
 </html>
