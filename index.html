@@ -87,6 +87,38 @@
     @media (max-width:480px){ #container { width:94%; } input, select, button { height:44px; font-size:16px; } #content h1 { font-size:1.35rem; } #content h2 { font-size:1.1rem; } }
   </style>
 
+  <style>
+  :root {
+    --yt-red: #FF0000;
+  }
+
+  .flash-effect::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: shimmer 3.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -150%; }
+    60% { left: 150%; }
+    100% { left: 150%; }
+  }
+</style>
+
+
+
+  
+
   <link rel="manifest" href="/manifest.json">
 </head>
 <body>
@@ -274,6 +306,47 @@
       <div class="result3"><label id="labelMakingCharges">Making Charges</label><span id="makingCharges">0</span></div>
       <div class="result4"><label>GST (3%)</label><span id="GST">0</span></div>
     </div>
+
+    <a
+  href="https://www.youtube.com/@GoldRateCalculator"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="relative overflow-hidden
+         flex items-center gap-4 px-6 py-4
+         rounded-2xl shadow-lg
+         bg-[color:var(--yt-red)]
+         hover:scale-[1.02] transition-transform
+         max-w-lg w-full
+         flash-effect"
+>
+
+  <!-- YouTube Logo -->
+  <div class="flex items-center justify-center w-14 h-14 rounded-full bg-white shrink-0">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="#FF0000"
+      class="w-7 h-7"
+    >
+      <path d="M23.498 6.186a2.97 2.97 0 00-2.09-2.102C19.555 3.5 12 3.5 12 3.5s-7.555 0-9.408.584A2.97 2.97 0 00.502 6.186 31.39 31.39 0 000 12a31.39 31.39 0 00.502 5.814 2.97 2.97 0 002.09 2.102C4.445 20.5 12 20.5 12 20.5s7.555 0 9.408-.584a2.97 2.97 0 002.09-2.102A31.39 31.39 0 0024 12a31.39 31.39 0 00-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/>
+    </svg>
+  </div>
+
+  <!-- Text -->
+  <div class="flex flex-col text-white">
+    <span class="text-sm opacity-90">YouTube Channel</span>
+    <span class="text-lg font-semibold">
+      Subscribe to GoldRateCalculator
+    </span>
+    <span class="text-xs opacity-80">
+      Daily gold explanation & tomorrow’s outlook
+    </span>
+  </div>
+
+</a>
+
+
+
     
   <!-- <div id="supportBanner" style="
   margin-top:14px;
