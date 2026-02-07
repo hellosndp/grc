@@ -88,30 +88,31 @@
   </style>
 
   <style>
-  /* YouTube Subscribe Banner */
+  /* YouTube Subscribe Banner — full width like GST row */
   .yt-banner {
-    margin: 18px auto;
-    max-width: 520px;
+    margin: 14px 0;
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 14px 18px;
-    border-radius: 18px;
+    gap: 16px;
+    padding: 18px 18px;
+    border-radius: 16px;
     background: #FF0000; /* YouTube Red */
     color: #fff;
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
 
   .yt-banner:hover {
-    transform: scale(1.02);
+    transform: translateY(-1px);
   }
 
+  /* Slightly larger logo */
   .yt-logo {
-    width: 52px;
-    height: 52px;
+    width: 56px;
+    height: 56px;
     background: #fff;
     border-radius: 50%;
     display: flex;
@@ -120,30 +121,32 @@
     flex-shrink: 0;
   }
 
+  /* Text aligned with result rows */
   .yt-text {
     display: flex;
     flex-direction: column;
-    line-height: 1.3;
+    line-height: 1.35;
   }
 
   .yt-text small {
+    font-size: 13px;
     opacity: 0.9;
-    font-size: 12px;
   }
 
   .yt-text strong {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 17px;
+    font-weight: 800;
   }
 
   .yt-text span {
-    font-size: 12px;
-    opacity: 0.85;
+    font-size: 14px;
+    opacity: 0.9;
   }
-    #btnCalc {
-  background: var(--brand);
-}
 
+  /* Ensure Calculate button color survives Tailwind */
+  #btnCalc {
+    background: var(--brand);
+  }
 
   /* Flash shimmer */
   .yt-banner::before {
@@ -156,7 +159,7 @@
     background: linear-gradient(
       120deg,
       transparent,
-      rgba(255,255,255,0.45),
+      rgba(255,255,255,0.4),
       transparent
     );
     animation: yt-shimmer 3.5s infinite;
@@ -171,10 +174,13 @@
 
   @media (max-width: 480px) {
     .yt-banner {
-      padding: 12px 14px;
+      padding: 16px 14px;
     }
     .yt-text strong {
-      font-size: 15px;
+      font-size: 16px;
+    }
+    .yt-text span {
+      font-size: 13px;
     }
   }
 </style>
