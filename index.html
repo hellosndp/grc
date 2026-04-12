@@ -615,17 +615,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const extraPercent = base ? (((totalPerGram - base) / base) * 100) : 0;
       const profitWait = DEFAULT_PROFIT_WAIT;
 
-      function renderSeo() {
-  const city = getSelectedCity();
-  const rate22K = goldRate[city]?.['22K'] ?? goldRate.India?.['22K'] ?? 0;
-  const rate24K = goldRate[city]?.['24K'] ?? goldRate.India?.['24K'] ?? 0;
-  const making = Number(document.getElementById("inputMakingCharges").value || 0);
-  const base = Number(document.getElementById("inputGramCost").value || 0);
-  const mc = base * (making/100);
-  const gst = (base + mc) * 0.03;
-  const totalPerGram = base + mc + gst;
-  const extraPercent = base ? (((totalPerGram - base) / base) * 100) : 0;
-  const profitWait = DEFAULT_PROFIT_WAIT;
 
   const intro = `
     <h1>Gold Rate in ${city} Today — Calculate the Real Cost of Gold</h1>
