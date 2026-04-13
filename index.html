@@ -785,7 +785,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // // Events
     document.getElementById("inputCity").addEventListener('change', updateRate);
     document.getElementById("inputQuality").addEventListener('change', updateRate);
-    document.getElementById("inputMakingCharges").addEventListener('input', renderSeo);
+    // document.getElementById("inputMakingCharges").addEventListener('input', renderSeo);
     document.getElementById("btnCalc").addEventListener('click', function(){
       calculate();
       trackEvent('button_Calculate', 'Calculator');
@@ -812,12 +812,7 @@ if (installBtn) {
     deferredPrompt = null;
     window.deferredPrompt = null;
   });
-}      document.getElementById('installBtn').hidden = true;
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response: ${outcome}`);
-      deferredPrompt = null;
-      window.deferredPrompt = null;
+}      
     });
     function handleInstallClick() {
       try {
