@@ -801,8 +801,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (btn) btn.hidden = false;
       window.deferredPrompt = deferredPrompt;
     });
-    document.getElementById('installBtn').addEventListener('click', async () => {
-      document.getElementById('installBtn').hidden = true;
+const installBtn = document.getElementById('installBtn');
+
+if (installBtn) {
+  installBtn.addEventListener('click', async () => {
+    installBtn.hidden = true;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response: ${outcome}`);
+    deferredPrompt = null;
+    window.deferredPrompt = null;
+  });
+}      document.getElementById('installBtn').hidden = true;
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       console.log(`User response: ${outcome}`);
