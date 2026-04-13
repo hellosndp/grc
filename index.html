@@ -589,7 +589,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           });
         initDefaultCity();
         updateRate();
-        // renderSeo();
+        
       })
       .catch(err => {
         console.error('Failed to load gold rates:', err);
@@ -606,7 +606,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (goldRate && goldRate[city] && goldRate[city][q] != null) price = goldRate[city][q];
       else if (goldRate && goldRate.India && goldRate.India[q] != null) price = goldRate.India[q];
       document.getElementById("inputGramCost").value = (typeof price === 'number') ? price : '';
-      renderSeo();
+      
     }
 
     function calculate(){
@@ -633,7 +633,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
 
-      renderSeo();
+      
     }
 
     // -------------------------------
@@ -783,13 +783,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // }
 
     // // Events
-    // document.getElementById("inputCity").addEventListener('change', updateRate);
-    // document.getElementById("inputQuality").addEventListener('change', updateRate);
-    // document.getElementById("inputMakingCharges").addEventListener('input', renderSeo);
-    // document.getElementById("btnCalc").addEventListener('click', function(){
-    //   calculate();
-    //   trackEvent('button_Calculate', 'Calculator');
-    // });
+    document.getElementById("inputCity").addEventListener('change', updateRate);
+    document.getElementById("inputQuality").addEventListener('change', updateRate);
+    document.getElementById("inputMakingCharges").addEventListener('input', renderSeo);
+    document.getElementById("btnCalc").addEventListener('click', function(){
+      calculate();
+      trackEvent('button_Calculate', 'Calculator');
+    });
 
     // PWA install
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
