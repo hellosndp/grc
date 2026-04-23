@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRD9L68P');</script>
+  <!-- End Google Tag Manager -->
+
+  <meta name="google-adsense-account" content="ca-pub-9898426685267130">
+  <meta charset="UTF-8">
+
+  <!-- ============================================================
+    CITY PAGE — Delhi
+    To create a new city page:
+    1. Save this file as: gold-rate-calculator-[cityname].html
+       e.g. gold-rate-calculator-chennai.html
+    2. Find and Replace "Delhi" with the new city name
+    That's it. Rates are pulled automatically from goldRate.json
+  ============================================================ -->
+
+  <title>Gold Rate Calculator Delhi Today 2026 | 22K 24K 18K Price with GST & Making Charges</title>
+  <meta name="description" content="Gold Suresh explains today's gold rate in Delhi — live 22K, 24K & 18K prices. Calculate exact jewellery cost with making charges and GST. Free tool, updated daily.">
+  <meta name="keywords" content="gold rate Delhi, gold rate Delhi today, 22k gold rate Delhi, gold calculator Delhi, gold making charges Delhi, gold rate with GST Delhi, today gold price Delhi, 916 gold rate Delhi">
+  <meta name="author" content="Gold Suresh — GoldRateCalculator.in">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <link rel="canonical" href="https://goldratecalculator.in/gold-rate-calculator-delhi">
+  <link rel="icon" href="https://emoji.aranja.com/static/emoji-data/img-apple-160/2b50.png" type="image/x-icon">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Gold Rate Calculator Delhi — Live 22K 24K Price Today 2026" />
+  <meta property="og:description" content="Gold Suresh explains Delhi gold rates. Calculate jewellery price with making charges and GST. Free, updated daily." />
+  <meta property="og:url" content="https://goldratecalculator.in/gold-rate-calculator-delhi" />
+  <meta property="og:type" content="website" />
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Gold Rate Calculator Delhi",
+    "url": "https://goldratecalculator.in/gold-rate-calculator-delhi",
+    "description": "Calculate gold jewellery price in Delhi with live 22K, 24K, 18K rates, making charges and GST.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://goldratecalculator.in" },
+      { "@type": "ListItem", "position": 2, "name": "Gold Rate Calculator Delhi", "item": "https://goldratecalculator.in/gold-rate-calculator-delhi" }
+    ]
+  }
+  </script>
+
+  <link rel="manifest" href="/manifest.json">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --brand: #50FFB1;
+      --panel: #E9F1F7;
+      --border: #d1d5db;
+      --maxw: 900px;
+    }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+
+    #logo { display: none; }
+
+    #container {
+      margin: 0 auto;
+      width: 92%;
+      max-width: var(--maxw);
+      min-height: 100vh;
+      font: 400 16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: -8px;
+    }
+    .breadcrumb a { color: #374151; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* City heading */
+    .city-heading {
+      text-align: center;
+      margin: 0;
+    }
+    .city-heading h1 {
+      font-size: clamp(1.3rem, 5vw, 1.9rem);
+      font-weight: 800;
+      color: #111827;
+      margin: 0 0 4px 0;
+      line-height: 1.25;
+    }
+    .city-heading p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Live rate strip */
+    .rate-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .rate-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .rate-card .karat {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .rate-card .rate-val {
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      font-weight: 800;
+      color: #111827;
+    }
+    .rate-card .rate-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Calculator */
+    #calcArea { display: flex; flex-direction: column; gap: 8px; }
+    label { font-size: 13px; color: #374151; margin-top: 8px; }
+    input, select {
+      height: 46px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      font-size: 18px;
+      color: #111;
+      padding: 0 12px;
+      text-align: right;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      height: 48px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--brand);
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+    }
+    #btnCalc { background: var(--brand); }
+
+    /* Results */
+    #summaryArea { margin-top: 10px; }
+    .result1, .result2, .result3, .result4 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 8px 0;
+    }
+    .result1 { font-size: 1.15rem; font-weight: 800; }
+    .result2, .result4 { background: #f8fafc; }
+
+    #lastUpdated { font-size: 12px; color: var(--muted); text-align: center; margin: 0; }
+
+    /* YouTube banner */
+    .yt-banner {
+      margin: 14px 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #FF0000;
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      box-sizing: border-box;
+    }
+    .yt-banner:hover { transform: translateY(-1px); }
+    .yt-logo {
+      width: 56px; height: 56px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .yt-text { display: flex; flex-direction: column; line-height: 1.35; }
+    .yt-text small { font-size: 13px; opacity: 0.9; }
+    .yt-text strong { font-size: 17px; font-weight: 800; }
+    .yt-text span { font-size: 14px; opacity: 0.9; }
+    .yt-banner::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -150%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: yt-shimmer 3.5s infinite;
+      pointer-events: none;
+    }
+    @keyframes yt-shimmer {
+      0% { left: -150%; } 60% { left: 150%; } 100% { left: 150%; }
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 40px;
+      padding: 16px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .footer-links a { color: #374151; text-decoration: none; }
+
+    /* Other cities */
+    .other-cities { margin-top: 8px; }
+    .other-cities h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+    .city-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .city-pill {
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 5px 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .city-pill:hover { background: #111827; color: #fff; border-color: #111827; }
+
+    /* ── SURESH BLOCK ── */
+    #suresh-block {
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color: #374151;
+      line-height: 1.7;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+    #suresh-block h2 {
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      font-weight: 800;
+      color: #111827;
+      margin: 0 0 12px 0;
+      line-height: 1.3;
+    }
+    #suresh-block h3 {
+      font-size: clamp(1rem, 3.5vw, 1.15rem);
+      font-weight: 700;
+      color: #111827;
+      margin: 20px 0 8px 0;
+    }
+    #suresh-block p { margin: 0 0 12px 0; }
+    #suresh-block ul { padding-left: 18px; margin: 10px 0; }
+    #suresh-block li { margin-bottom: 10px; }
+    #suresh-block strong { color: #111827; }
+
+    .suresh-author-card {
+      background: #0f172a;
+      border-radius: 16px;
+      padding: 22px 20px;
+      margin-bottom: 28px;
+      color: #e2e8f0;
+    }
+    .suresh-author-card .author-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .suresh-author-card h2 {
+      color: #f8fafc !important;
+      margin-bottom: 14px !important;
+    }
+    .suresh-author-card p { color: #cbd5e1; margin-bottom: 10px; }
+    .suresh-author-card .author-quote {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #1e293b;
+      font-style: italic;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    .suresh-author-card .author-sign {
+      margin-top: 12px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .suresh-section { margin-bottom: 28px; }
+
+    .suresh-callout {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px;
+      margin: 14px 0;
+    }
+    .suresh-callout table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .suresh-callout table tr:nth-child(odd) { background: #f0fdf4; }
+    .suresh-callout table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+    .suresh-callout table tr:last-child td { border-bottom: none; }
+    .suresh-callout table td:last-child { font-weight: 700; color: #111827; white-space: nowrap; }
+
+    .suresh-step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .suresh-step-num {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 50%;
+      width: 26px; height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .suresh-step-body strong { display: block; margin-bottom: 3px; }
+    .suresh-step-body span { font-size: 14px; color: #6b7280; }
+
+    .suresh-faq { background: #f8fafc; border-radius: 16px; padding: 22px 18px; margin-bottom: 28px; }
+    .suresh-faq-item { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid #e5e7eb; }
+    .suresh-faq-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .suresh-faq-item .faq-q { font-weight: 700; color: #111827; margin-bottom: 6px; }
+    .suresh-faq-item .faq-a { font-size: 14px; color: #374151; margin: 0; }
+
+    .suresh-signoff {
+      background: #0f172a;
+      border-radius: 16px;
+      padding: 22px 20px;
+      margin-bottom: 10px;
+      color: #e2e8f0;
+    }
+    .suresh-signoff p { color: #cbd5e1; margin-bottom: 12px; }
+    .suresh-signoff .sign { font-weight: 700; color: #f8fafc; margin: 0; }
+    .suresh-signoff .sign span { font-size: 13px; font-weight: 400; color: #94a3b8; display: block; margin-top: 3px; }
+
+    /* Mobile tweaks */
+    @media (max-width: 480px) {
+      #container { width: 94%; }
+      input, select, button { height: 44px; font-size: 16px; }
+      .rate-card .rate-val { font-size: 1rem; }
+      .rate-card { padding: 10px 6px; }
+      .yt-banner { padding: 14px 12px; gap: 12px; }
+      .yt-text strong { font-size: 15px; }
+      .yt-logo { width: 44px; height: 44px; }
+      .suresh-author-card { padding: 18px 16px; }
+      .suresh-faq { padding: 18px 14px; }
+      .suresh-signoff { padding: 18px 16px; }
+      .suresh-callout { padding: 14px 12px; }
+      .suresh-callout table td { padding: 8px 6px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRD9L68P" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div id="logo">Gold Rate Calculator</div>
+
+  <div id="container">
+
+    <!-- City H1 -->
+    <div class="city-heading">
+      <h1>Gold Rate Calculator Delhi</h1>
+      <p>Live 22K · 24K · 18K rates · Making charges · GST · Updated daily</p>
+    </div>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="https://goldratecalculator.in">Home</a> › Gold Rate Calculator Delhi
+    </nav>
+
+    <p id="lastUpdated"></p>
+
+    <!-- Live Rate Strip -->
+    <div class="rate-strip">
+      <div class="rate-card">
+        <div class="karat">22K Gold</div>
+        <div class="rate-val" id="strip22">—</div>
+        <div class="rate-sub">per gram</div>
+      </div>
+      <div class="rate-card">
+        <div class="karat">24K Gold</div>
+        <div class="rate-val" id="strip24">—</div>
+        <div class="rate-sub">per gram</div>
+      </div>
+      <div class="rate-card">
+        <div class="karat">18K Gold</div>
+        <div class="rate-val" id="strip18">—</div>
+        <div class="rate-sub">per gram</div>
+      </div>
+    </div>
+
+    <!-- Calculator -->
+    <div id="calcArea">
+      <label>Select City</label>
+      <select id="inputCity">
+        <option value="India">India</option>
+        <option value="Agra">Agra</option>
+        <option value="Ahmedabad">Ahmedabad</option>
+        <option value="Alappuzha">Alappuzha</option>
+        <option value="Amaravati">Amaravati</option>
+        <option value="Ambur">Ambur</option>
+        <option value="Amravati">Amravati</option>
+        <option value="Amritsar">Amritsar</option>
+        <option value="Anantapur">Anantapur</option>
+        <option value="Arcot">Arcot</option>
+        <option value="Ariyalur">Ariyalur</option>
+        <option value="Aurangabad">Aurangabad</option>
+        <option value="Ayodhya">Ayodhya</option>
+        <option value="Bagalkot">Bagalkot</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Belgaum">Belgaum</option>
+        <option value="Bellary">Bellary</option>
+        <option value="Berhampur">Berhampur</option>
+        <option value="Bhadravathi">Bhadravathi</option>
+        <option value="Bhiwandi">Bhiwandi</option>
+        <option value="Bhopal">Bhopal</option>
+        <option value="Bhubaneswar">Bhubaneswar</option>
+        <option value="Chandigarh">Chandigarh</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Chitradurga">Chitradurga</option>
+        <option value="Coimbatore">Coimbatore</option>
+        <option value="Cuddalore">Cuddalore</option>
+        <option value="Cuttack">Cuttack</option>
+        <option value="Davanagere">Davanagere</option>
+        <option value="Delhi" selected>Delhi</option>
+        <option value="Dharmapuri">Dharmapuri</option>
+        <option value="Dindigul">Dindigul</option>
+        <option value="Erode">Erode</option>
+        <option value="Gadag">Gadag</option>
+        <option value="Ghaziabad">Ghaziabad</option>
+        <option value="Goa">Goa</option>
+        <option value="Guntur">Guntur</option>
+        <option value="Gurgaon">Gurgaon</option>
+        <option value="Guwahati">Guwahati</option>
+        <option value="Hosur">Hosur</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Indore">Indore</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Jalgaon">Jalgaon</option>
+        <option value="Jayankondam">Jayankondam</option>
+        <option value="Kadapa">Kadapa</option>
+        <option value="Kakinada">Kakinada</option>
+        <option value="Kallakurichi">Kallakurichi</option>
+        <option value="Kanchipuram">Kanchipuram</option>
+        <option value="Kannur">Kannur</option>
+        <option value="Kanpur">Kanpur</option>
+        <option value="Kanyakumari">Kanyakumari</option>
+        <option value="Karaikudi">Karaikudi</option>
+        <option value="Karur">Karur</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Khammam">Khammam</option>
+        <option value="Kochi">Kochi</option>
+        <option value="Kodaikanal">Kodaikanal</option>
+        <option value="Kolar">Kolar</option>
+        <option value="Kolhapur">Kolhapur</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Kollam">Kollam</option>
+        <option value="Kottayam">Kottayam</option>
+        <option value="Kovilpatti">Kovilpatti</option>
+        <option value="Kozhikode">Kozhikode</option>
+        <option value="Krishnagiri">Krishnagiri</option>
+        <option value="Kumbakonam">Kumbakonam</option>
+        <option value="Latur">Latur</option>
+        <option value="Lucknow">Lucknow</option>
+        <option value="Ludhiana">Ludhiana</option>
+        <option value="Madurai">Madurai</option>
+        <option value="Malappuram">Malappuram</option>
+        <option value="Mandya">Mandya</option>
+        <option value="Mangalore">Mangalore</option>
+        <option value="Meerut">Meerut</option>
+        <option value="Mohali">Mohali</option>
+        <option value="Delhi" selected>Delhi</option>
+        <option value="Mysore">Mysore</option>
+        <option value="Nagapattinam">Nagapattinam</option>
+        <option value="Nagercoil">Nagercoil</option>
+        <option value="Nagpur">Nagpur</option>
+        <option value="Namakkal">Namakkal</option>
+        <option value="Nashik">Nashik</option>
+        <option value="Nellore">Nellore</option>
+        <option value="Nizamabad">Nizamabad</option>
+        <option value="Noida">Noida</option>
+        <option value="Ooty">Ooty</option>
+        <option value="Palakkad">Palakkad</option>
+        <option value="Palani">Palani</option>
+        <option value="Paramakudi">Paramakudi</option>
+        <option value="Patna">Patna</option>
+        <option value="Perambalur">Perambalur</option>
+        <option value="Pollachi">Pollachi</option>
+        <option value="Pondicherry">Pondicherry</option>
+        <option value="Pudukkottai">Pudukkottai</option>
+        <option value="Pune">Pune</option>
+        <option value="Raipur">Raipur</option>
+        <option value="Rajahmundry">Rajahmundry</option>
+        <option value="Rajkot">Rajkot</option>
+        <option value="Ramanathapuram">Ramanathapuram</option>
+        <option value="Rameswaram">Rameswaram</option>
+        <option value="Rourkela">Rourkela</option>
+        <option value="Salem">Salem</option>
+        <option value="Sambalpur">Sambalpur</option>
+        <option value="Sivagangai">Sivagangai</option>
+        <option value="Solapur">Solapur</option>
+        <option value="Surat">Surat</option>
+        <option value="Thane">Thane</option>
+        <option value="Thanjavur">Thanjavur</option>
+        <option value="Theni">Theni</option>
+        <option value="Thrissur">Thrissur</option>
+        <option value="Tirunelveli">Tirunelveli</option>
+        <option value="Tirupati">Tirupati</option>
+        <option value="Tirupur">Tirupur</option>
+        <option value="Tiruvannamalai">Tiruvannamalai</option>
+        <option value="Tiruvarur">Tiruvarur</option>
+        <option value="Trichy">Trichy</option>
+        <option value="Trivandrum">Trivandrum</option>
+        <option value="Tumkur">Tumkur</option>
+        <option value="Tuticorin">Tuticorin</option>
+        <option value="Vadodara">Vadodara</option>
+        <option value="Varanasi">Varanasi</option>
+        <option value="VasaiVirar">Vasai-Virar</option>
+        <option value="Vellore">Vellore</option>
+        <option value="Vijayawada">Vijayawada</option>
+        <option value="Villupuram">Villupuram</option>
+        <option value="Virudhunagar">Virudhunagar</option>
+        <option value="Visakhapatnam">Visakhapatnam</option>
+        <option value="Warangal">Warangal</option>
+      </select>
+
+      <label>Quality</label>
+      <select id="inputQuality">
+        <option>18K</option>
+        <option selected>22K</option>
+        <option>24K</option>
+      </select>
+
+      <label>Gold cost (INR)</label>
+      <input id="inputGramCost" type="number" min="0">
+
+      <label>Weight (grams)</label>
+      <input id="inputGrams" type="number" min="0" value="10" autofocus>
+
+      <label>Making charges (%)</label>
+      <input id="inputMakingCharges" type="number" value="24" min="0">
+
+      <button id="btnCalc">Calculate</button>
+    </div>
+
+    <!-- Results -->
+    <div id="summaryArea">
+      <h4 style="text-align:center; text-decoration:underline;">Price Breakup (in INR)</h4>
+      <div class="result1"><label>Grand Total</label><span id="grandTotal">0</span></div>
+      <div class="result2"><label>Gold Rate</label><span id="goldRate">0</span></div>
+      <div class="result3"><label id="labelMakingCharges">Making Charges</label><span id="makingCharges">0</span></div>
+      <div class="result4"><label>GST (3%)</label><span id="GST">0</span></div>
+    </div>
+
+    <!-- YouTube Banner -->
+    <a href="https://www.youtube.com/@GoldRateCalculatorDotIn" target="_blank" rel="noopener noreferrer" class="yt-banner" onclick="trackEvent('youtube_subscribe_banner','YouTube')">
+      <div class="yt-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="#FF0000">
+          <path d="M23.498 6.186a2.97 2.97 0 00-2.09-2.102C19.555 3.5 12 3.5 12 3.5s-7.555 0-9.408.584A2.97 2.97 0 00.502 6.186 31.39 31.39 0 000 12a31.39 31.39 0 00.502 5.814 2.97 2.97 0 002.09 2.102C4.445 20.5 12 20.5 12 20.5s7.555 0 9.408-.584a2.97 2.97 0 002.09-2.102A31.39 31.39 0 0024 12a31.39 31.39 0 00-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/>
+        </svg>
+      </div>
+      <div class="yt-text">
+        <small>YouTube Channel</small>
+        <strong>Subscribe to GoldRateCalculator</strong>
+        <span>Daily gold explanation & tomorrow's outlook</span>
+      </div>
+    </a>
+
+    <!-- ============================================================
+      SURESH SEO BLOCK
+      Everything below is static HTML — Google reads all of it.
+      Only the rate numbers inside spans are filled by JS.
+      City name "Delhi" is hardcoded — change it when copying.
+    ============================================================ -->
+    <article id="suresh-block">
+
+      <!-- AUTHOR CARD -->
+      <div class="suresh-author-card">
+        <p class="author-label">✍️ About the Author</p>
+        <h2>Who is Gold Suresh? And why should you listen to him?</h2>
+        <p>My name is Suresh. I am 47 years old. I have a regular job, a wife who has very strong opinions about gold, and a daughter whose future wedding I am apparently already supposed to be saving gold for — even though she is still figuring out her career. My mother-in-law has been reminding me about this since 2019.</p>
+        <p>A few years ago I walked into a jewellery shop with my wife, stood next to a glass counter full of shiny things I did not understand, nodded at everything the jeweller said, and handed over an amount of money that made me slightly dizzy. On the way home I asked my wife what exactly we had paid for. She said "gold." I said "yes but what else." She changed the subject.</p>
+        <p>That night I sat down and started researching. What is 22K? What are making charges? Why does the bill always look like it went through a blender before reaching me? I went deep. I made mistakes. I asked questions that apparently every jeweller finds very annoying. I slowly started understanding.</p>
+        <p>My wife started calling me <strong style="color:#f8fafc;">Gold Suresh</strong> as a joke because I would not stop talking about gold rates at the dinner table, during dinner, after dinner, and occasionally at breakfast. The name stuck. My family finds it embarrassing. I find it accurate.</p>
+        <p>Now I write everything I learn here — so that other husbands, fathers, and regular people like me do not have to start from zero like I did. Or worse — smile and swipe like I used to.</p>
+        <p class="author-quote">"I don't know much about gold. But I know more than I did three years ago. And I am sharing everything here so you don't have to figure this out alone at a jewellery counter while your wife waits."</p>
+        <p class="author-sign">— Gold Suresh 🙏</p>
+      </div>
+
+      <!-- CITY INTRO -->
+      <div class="suresh-section">
+        <h2>Gold Rate in Delhi Today — My Notes 📝</h2>
+        <p>
+          So I checked the gold rate in <strong>Delhi</strong> today. The
+          <strong>22K gold rate in Delhi is ₹<span id="suresh22">—</span> per gram</strong>,
+          the <strong>24K gold rate in Delhi is ₹<span id="suresh24">—</span> per gram</strong>,
+          and the <strong>18K gold rate in Delhi is ₹<span id="suresh18">—</span> per gram</strong>.
+          These are already loaded into the calculator above — just enter your weight and making charges to get your full price breakdown instantly.
+        </p>
+        <p>Before you use the calculator and leave, let me tell you what I wish someone had told me before I walked into a jewellery shop in <strong>Delhi</strong> for the first time with actual money in my pocket. Because that board rate you see? That is just the beginning of the story. The bill is a much longer document.</p>
+      </div>
+
+      <!-- WHAT NOBODY TELLS YOU -->
+      <div class="suresh-section">
+        <h2>What Nobody Tells You Before You Walk Into a Jewellery Shop in Delhi</h2>
+        <p>The first time I bought gold jewellery in Delhi, I had done exactly zero research. My wife had done extensive research — on designs. So between the two of us we had excellent taste and absolutely no idea what anything should cost.</p>
+        <p>The rate board said ₹<span id="suresh22b">—</span> per gram for 22K gold. I was buying a 10 gram chain. I mentally prepared for that amount multiplied by 10. The bill was significantly more. I did not say anything. I paid. I smiled. I went home and stared at the bill for twenty minutes wondering what happened.</p>
+        <p>What happened was three things that are not written on the rate board and not explained unless you ask. And most people do not ask because they do not know they should.</p>
+        <ul>
+          <li><strong>Making charges</strong> — what the jeweller charges for turning raw gold into the actual piece of jewellery. Usually a percentage of the gold value. Varies from shop to shop and sometimes apparently from customer to customer depending on how confident you look walking in.</li>
+          <li><strong>Wastage or Value Addition (VA)</strong> — some jewellers add a separate wastage percentage claiming gold is lost during manufacturing. Not every shop charges this. Some include it quietly inside the making charges. The more you know, the better you can ask.</li>
+          <li><strong>GST at 3%</strong> — mandatory, goes to the government, no jeweller anywhere in India can waive it. Many buyers forget to include it when estimating their budget. I forgot it three times before I stopped forgetting it.</li>
+        </ul>
+        <p>Once I understood these three things I built this calculator so I could check the math before walking into any jewellery shop in Delhi. I now use it every single time. My wife thinks I have taken this too far. She is probably right. But at least we know what we are paying for.</p>
+      </div>
+
+      <!-- HOW TO CALCULATE -->
+      <div class="suresh-section">
+        <h2>How to Calculate Gold Jewellery Price in Delhi — Step by Step</h2>
+        <p>Let me walk you through the exact formula using today's Delhi gold rate. I have done the maths so you do not have to.</p>
+        <div class="suresh-callout">
+          <p style="font-weight:700; margin-bottom:14px; margin-top:0;">Example: Buying a 10 gram 22K gold chain in Delhi today</p>
+          <p style="margin:0 0 10px 0;"><strong>Step 1 — Metal Cost</strong><br>
+          22K rate in Delhi = ₹<span id="calc22">—</span> per gram × 10 grams = ₹<span id="calcMetal">—</span></p>
+          <p style="margin:0 0 10px 0;"><strong>Step 2 — Making Charges at 12%</strong><br>
+          12% of ₹<span id="calcMetal2">—</span> = ₹<span id="calcMaking">—</span><br>
+          <span style="font-size:13px; color:#6b7280;">(This percentage varies — always ask upfront before looking at any designs)</span></p>
+          <p style="margin:0 0 10px 0;"><strong>Step 3 — Subtotal before GST</strong><br>
+          ₹<span id="calcMetal3">—</span> + ₹<span id="calcMaking2">—</span> = ₹<span id="calcSubtotal">—</span></p>
+          <p style="margin:0 0 10px 0;"><strong>Step 4 — GST at 3%</strong><br>
+          3% of ₹<span id="calcSubtotal2">—</span> = ₹<span id="calcGST">—</span></p>
+          <p style="margin:14px 0 0 0; padding-top:12px; border-top:1px solid #e5e7eb; font-size:1.05rem;"><strong>Final Bill = ₹<span id="calcTotal">—</span></strong></p>
+          <p style="margin:8px 0 0 0; font-size:13px; color:#6b7280;">That difference between what you expected and the final bill — that is exactly what this calculator helps you see before you are standing at the counter.</p>
+        </div>
+        <p>The calculator at the top does all of this automatically. Enter weight and making charges percentage — it gives you the grand total in seconds. No mental arithmetic required at the jewellery shop while your wife waits.</p>
+      </div>
+
+      <!-- 22K vs 24K vs 18K -->
+      <div class="suresh-section">
+        <h2>22K vs 24K vs 18K Gold in Delhi — What I Learned After Asking Too Many Questions</h2>
+        <p>For a long time I assumed 24K was always better and everyone should always buy 24K. I said this out loud at a jewellery shop in Delhi once. The jeweller smiled very patiently. My wife asked me to go wait outside.</p>
+        <p>Here is what is actually true.</p>
+        <p><strong>24K gold — ₹<span id="about24">—</span> per gram in Delhi today</strong><br>
+        99.9% pure gold. Beautiful. Also extremely soft — soft enough to scratch with a fingernail. This is why nobody makes wearable jewellery in 24K. It would lose its shape within weeks. 24K is for gold coins, gold bars, and investment purposes.</p>
+        <p><strong>22K gold — ₹<span id="about22">—</span> per gram in Delhi today</strong><br>
+        91.6% pure gold mixed with a small amount of copper and silver to make it strong enough to actually wear. Standard for jewellery across India. You will also see this called 916 gold — 916 out of 1000 parts are pure gold. Same thing, different name, equally confusing the first time you hear it.</p>
+        <p><strong>18K gold — ₹<span id="about18">—</span> per gram in Delhi today</strong><br>
+        75% pure gold. Used mainly for diamond jewellery and studded pieces because the harder alloy holds the settings better. Lower gold content means lower price but also lower gold resale value specifically.</p>
+        <p>Always check the BIS hallmark. For 22K, look for 916 stamped on the piece. For 18K, look for 750. No hallmark is a red flag. I learned this late. You are learning it now. You are already ahead of where I was.</p>
+      </div>
+
+      <!-- MAKING CHARGES -->
+      <div class="suresh-section">
+        <h2>Making Charges in Delhi — The Number That Changed How I Shop</h2>
+        <p>Making charges are the single most negotiable and least talked about part of your gold jewellery bill in Delhi. I spent years not knowing this. I am still a little annoyed about it.</p>
+        <p>The range I have seen in Delhi is genuinely wide — anywhere from 6% on simple machine-made pieces to 35% on elaborate handcrafted bridal sets. No government rule fixes this number. Every shop decides their own. Two shops on the same street can have completely different making charges for the same type of chain.</p>
+        <div class="suresh-callout">
+          <p style="font-weight:700; margin:0 0 12px 0;">Typical Making Charges in Delhi:</p>
+          <table>
+            <tr><td>Plain chains and bangles</td><td>6% – 12%</td></tr>
+            <tr><td>Necklaces and sets</td><td>10% – 18%</td></tr>
+            <tr><td>Earrings</td><td>12% – 22%</td></tr>
+            <tr><td>Bridal jewellery sets</td><td>18% – 35%</td></tr>
+            <tr><td>Machine-made simple designs</td><td>6% – 10%</td></tr>
+          </table>
+        </div>
+        <p>Here is what nobody told me: <strong>making charges are negotiable.</strong> Especially for plain or machine-made jewellery. I have walked into shops in Delhi, politely asked if they can do better on making charges, and had the percentage come down 2 to 3 points just like that. The jeweller knows this is negotiable. The customer usually does not. Now you do.</p>
+        <p>Also important — making charges do not come back when you sell the gold later. When you sell old gold in Delhi, the shop pays you for weight and purity only. The making charges you paid are gone. They were the price of the design and the experience. Fine. But know this going in so you are not surprised going out.</p>
+      </div>
+
+      <!-- GST -->
+      <div class="suresh-section">
+        <h2>GST on Gold in Delhi — The 3% I Kept Forgetting to Budget For</h2>
+        <p>I forgot to include GST in my budget on my first gold purchase in Delhi. And my second. And if I am being honest, my third. Each time the bill was slightly higher than I expected and I would do that thing where you look at the amount, look at the jeweller, look at the amount again, and then quietly pay.</p>
+        <p>GST on gold jewellery in India is 3%. This is applied on the combined total of gold value plus making charges. Not just on the gold — on everything including the labour.</p>
+        <p>On a ₹1,00,000 jewellery purchase in Delhi, GST adds ₹3,000. On a big bridal set worth ₹5,00,000, that is ₹15,000 in GST alone. Non-negotiable, goes to the government, every shop charges it. You just need to remember to budget for it — which is exactly what this calculator does automatically.</p>
+      </div>
+
+      <!-- GOLD FOR DAUGHTER -->
+      <div class="suresh-section">
+        <h2>Buying Gold for My Daughter's Future Wedding — What I Am Learning</h2>
+        <p>My daughter is young and her wedding is very much a future event. But according to my mother-in-law, preparation for a future event should have started in the past, which means we are already behind. This is why I spend a significant amount of my free time researching gold rates in Delhi.</p>
+        <ul>
+          <li><strong>Buying in smaller quantities over time is smarter than one big purchase.</strong> You average out the price and avoid the pressure of trying to time the market. Nobody times the gold market consistently. I have tried. I have failed. I have made peace with this.</li>
+          <li><strong>For long-term accumulation, lower making charges matter more.</strong> If the gold is sitting in a locker for years before being made into wedding jewellery, paying high making charges now adds no value over time.</li>
+          <li><strong>Sovereign Gold Bonds are worth exploring.</strong> They earn 2.5% annual interest on top of gold price appreciation. I am still reading about these and will write a full post once I understand them properly. My wife is already tired of hearing me mention them.</li>
+          <li><strong>Keep every invoice.</strong> When the wedding jewellery is eventually made, having records helps with valuation and exchange negotiations.</li>
+        </ul>
+        <p>My daughter finds the whole thing slightly embarrassing. I find it responsible. We have agreed to disagree.</p>
+      </div>
+
+      <!-- CHECKLIST -->
+      <div class="suresh-section">
+        <h2>My Personal Checklist Before Buying Gold in Delhi</h2>
+        <p>After too many confusing visits to jewellery shops in Delhi, I made myself a checklist. Here it is. Use it freely.</p>
+
+        <div class="suresh-step">
+          <span class="suresh-step-num">1</span>
+          <div class="suresh-step-body">
+            <strong>Check today's gold rate in Delhi before leaving home</strong>
+            <span>The rate board in the shop should match what this page shows. If it is significantly higher with no explanation, that is worth asking about.</span>
+          </div>
+        </div>
+        <div class="suresh-step">
+          <span class="suresh-step-num">2</span>
+          <div class="suresh-step-body">
+            <strong>Ask for making charges percentage before looking at any designs</strong>
+            <span>Sets the right tone immediately. Transparent shops tell you straight away. Evasive shops make you work for it. Both tell you something useful about the shop.</span>
+          </div>
+        </div>
+        <div class="suresh-step">
+          <span class="suresh-step-num">3</span>
+          <div class="suresh-step-body">
+            <strong>Put the numbers into this calculator before agreeing to anything</strong>
+            <span>I do this on my phone while the jeweller is getting the piece weighed. If their number is very different from my calculation, I ask calmly why.</span>
+          </div>
+        </div>
+        <div class="suresh-step">
+          <span class="suresh-step-num">4</span>
+          <div class="suresh-step-body">
+            <strong>Check for BIS hallmark on every piece</strong>
+            <span>For 22K look for 916. For 18K look for 750. No hallmark is a red flag. Reputable shops in Delhi will have this on every piece.</span>
+          </div>
+        </div>
+        <div class="suresh-step">
+          <span class="suresh-step-num">5</span>
+          <div class="suresh-step-body">
+            <strong>Ask specifically about wastage charges</strong>
+            <span>Ask directly: "Is wastage included in the making charges or is it separate?" Some will remove it if you ask confidently. Some will look slightly annoyed. Both reactions are acceptable outcomes.</span>
+          </div>
+        </div>
+        <div class="suresh-step">
+          <span class="suresh-step-num">6</span>
+          <div class="suresh-step-body">
+            <strong>Negotiate politely but actually negotiate</strong>
+            <span>Making charges are not fixed by law in Delhi or anywhere in India. A calm "can you do a little better on the making charges?" has worked for me more times than I can count. The worst they can say is no.</span>
+          </div>
+        </div>
+        <div class="suresh-step">
+          <span class="suresh-step-num">7</span>
+          <div class="suresh-step-body">
+            <strong>Keep every invoice in a safe place</strong>
+            <span>I have a folder specifically for gold invoices. My wife calls it excessive. I call it organised. It has paid for itself many times over during resale and exchange negotiations.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELLING OLD GOLD -->
+      <div class="suresh-section">
+        <h2>Selling Old Gold in Delhi — What Actually Happens</h2>
+        <p>I once went with my mother-in-law to sell some old gold jewellery in Delhi. I thought it would be simple. You walk in, they weigh it, they pay you the market rate, everyone goes home happy. It was not simple. It was an education.</p>
+        <p>The jeweller weighs the piece, checks the purity, and offers you a price below the current market rate. How far below depends on whether the piece is hallmarked, how old it is, and frankly how much they think you know.</p>
+        <p>Today's 22K gold rate in Delhi is ₹<span id="sell22">—</span> per gram. For hallmarked 22K gold, a reasonable offer would be roughly 3% to 5% below that — so somewhere around ₹<span id="sellLow">—</span> to ₹<span id="sellHigh">—</span> per gram. For non-hallmarked gold, deductions can be significantly higher because the jeweller is taking a risk on the actual purity.</p>
+        <p>My advice: visit at least two or three shops in Delhi before selling. The difference between the best and worst offer can be ₹200 to ₹500 per gram. On a 20 gram piece that is ₹4,000 to ₹10,000 for the exact same gold. Worth the extra hour.</p>
+        <p>And remember — when you sell gold you recover only the metal value. The making charges you paid when buying are gone forever. Not a scam. Just how it works. I remind myself of this every time so I do not feel bad about it.</p>
+      </div>
+
+      <!-- INVESTMENT -->
+      <div class="suresh-section">
+        <h2>Is Now a Good Time to Buy Gold in Delhi? My Completely Non-Expert Opinion</h2>
+        <p>I am not a financial advisor. I am a 47 year old man who researches gold rates to avoid looking confused at jewellery shops. Please do not make large financial decisions based on what I write here. Talk to someone who is actually qualified.</p>
+        <p>That said — gold prices in India have gone up significantly over the last several years. In April 2026, 24K gold in Delhi is at ₹<span id="invest24">—</span> per gram which is near historic highs. People who bought gold five years ago have seen strong appreciation. People who keep saying "wait for it to come down" have been waiting for a long time.</p>
+        <p>However — if you are buying jewellery specifically as an investment, making charges and GST create an immediate gap between what you pay and what the gold is actually worth as metal. You need the gold price to rise by the making charge percentage before you are even back at zero on the metal. This is why for pure investment purposes, people often prefer gold coins, Sovereign Gold Bonds, or Gold ETFs — minimal or zero making charges.</p>
+        <p>For jewellery you will actually wear and enjoy — just buy it. Use this calculator, know what you are paying, negotiate where you can, and enjoy the purchase. Life is short and gold is beautiful. Just go in informed.</p>
+      </div>
+
+      <!-- FAQ -->
+      <div class="suresh-faq">
+        <h2 style="margin-top:0;">Questions People Ask Me About Gold in Delhi 🙋</h2>
+        <p style="font-size:13px; color:#6b7280; font-style:italic; margin-bottom:20px;">Real questions from my wife, my daughter, my colleagues, and strangers who find out I run a gold calculator website and immediately have many opinions about it.</p>
+
+        <div class="suresh-faq-item">
+          <p class="faq-q">What is today's gold rate in Delhi?</p>
+          <p class="faq-a">As of today, the 22K gold rate in Delhi is ₹<span id="faq22">—</span> per gram, 24K is ₹<span id="faq24">—</span> per gram, and 18K is ₹<span id="faq18">—</span> per gram. These are updated regularly. The calculator at the top of this page already has these numbers loaded — just enter your weight and making charges to get the full price breakdown.</p>
+        </div>
+        <div class="suresh-faq-item">
+          <p class="faq-q">Why is the gold rate in Delhi slightly different from other cities?</p>
+          <p class="faq-a">Local jewellers associations in each city set their own daily rates based on the national IBJA benchmark plus local factors like transportation costs and demand. Delhi's rate is set by the Delhi Bullion and Jewellers Welfare Association. The difference between cities is usually ₹10 to ₹100 per gram but it exists and it is worth knowing.</p>
+        </div>
+        <div class="suresh-faq-item">
+          <p class="faq-q">What is 916 gold and why does everyone in Delhi call it that?</p>
+          <p class="faq-a">916 gold is just 22K gold. The 916 means 91.6% pure gold. It is the standard purity for jewellery across India. Jewellers say 916 because it sounds precise and technical. It means the exact same thing as 22K. Once you know this, a lot of jewellery shop conversations suddenly make much more sense.</p>
+        </div>
+        <div class="suresh-faq-item">
+          <p class="faq-q">How much making charges is normal in Delhi?</p>
+          <p class="faq-a">For most plain gold jewellery in Delhi, 8% to 14% is a reasonable range. Above 20% should come with a clear reason — usually highly intricate handcrafted work. If a shop is quoting 25% for a plain chain with no explanation, you are allowed to ask why. You are also allowed to go to a different shop.</p>
+        </div>
+        <div class="suresh-faq-item">
+          <p class="faq-q">Is gold cheaper on Akshaya Tritiya or Dhanteras in Delhi?</p>
+          <p class="faq-a">The gold rate itself does not become cheaper on these days. High demand can actually push it slightly higher. What some shops offer during festive seasons is a discount on making charges — not on the gold rate. So when you see festive offers in Delhi, check specifically what the discount applies to. Making charge discounts are real and useful. Gold rate discounts on festive days are mostly marketing.</p>
+        </div>
+        <div class="suresh-faq-item">
+          <p class="faq-q">My jeweller in Delhi quoted a rate very different from what is shown here. What do I do?</p>
+          <p class="faq-a">First check you are comparing the same purity — 22K to 22K. Second, ask them to show you their daily rate certificate. Third, show them this page politely and ask them to explain the difference. Most good jewellers in Delhi are transparent once they know the customer is informed. If they become defensive or evasive, that tells you something useful.</p>
+        </div>
+        <div class="suresh-faq-item">
+          <p class="faq-q">What is the best time to buy gold in Delhi?</p>
+          <p class="faq-a">Nobody knows consistently. I have read a lot of analysis, tracked prices for years, and the honest answer is that timing the gold market reliably is something nobody does well. What you can control is the making charges you pay, the purity you verify, and the total price you agree to. Focus on those. Buy when you need to or when the numbers make sense for your budget.</p>
+        </div>
+      </div>
+
+      <!-- OTHER CITIES -->
+      <div class="other-cities">
+        <h3>Gold Rate Calculator — Other Cities</h3>
+        <nav class="city-pills">
+          <a class="city-pill" href="/gold-rate-calculator-chennai">Chennai</a>
+          <a class="city-pill" href="/gold-rate-calculator-delhi">Delhi</a>
+          <a class="city-pill" href="/gold-rate-calculator-bangalore">Bangalore</a>
+          <a class="city-pill" href="/gold-rate-calculator-hyderabad">Hyderabad</a>
+          <a class="city-pill" href="/gold-rate-calculator-kolkata">Kolkata</a>
+          <a class="city-pill" href="/gold-rate-calculator-pune">Pune</a>
+          <a class="city-pill" href="/gold-rate-calculator-ahmedabad">Ahmedabad</a>
+          <a class="city-pill" href="/gold-rate-calculator-jaipur">Jaipur</a>
+          <a class="city-pill" href="/gold-rate-calculator-surat">Surat</a>
+          <a class="city-pill" href="/gold-rate-calculator-coimbatore">Coimbatore</a>
+          <a class="city-pill" href="/gold-rate-calculator-kochi">Kochi</a>
+          <a class="city-pill" href="/gold-rate-calculator-lucknow">Lucknow</a>
+          <a class="city-pill" href="/gold-rate-calculator-nagpur">Nagpur</a>
+          <a class="city-pill" href="/gold-rate-calculator-visakhapatnam">Visakhapatnam</a>
+          <a class="city-pill" href="/gold-rate-calculator-madurai">Madurai</a>
+          <a class="city-pill" href="/gold-rate-calculator-patna">Patna</a>
+          <a class="city-pill" href="/gold-rate-calculator-indore">Indore</a>
+          <a class="city-pill" href="/gold-rate-calculator-bhopal">Bhopal</a>
+          <a class="city-pill" href="/gold-rate-calculator-trichy">Trichy</a>
+          <a class="city-pill" href="/gold-rate-calculator-vadodara">Vadodara</a>
+        </nav>
+      </div>
+
+      <!-- SIGN OFF -->
+      <div class="suresh-signoff" style="margin-top:28px;">
+        <p>That is everything I currently know about buying gold in <strong style="color:#f8fafc;">Delhi</strong>. I am still learning — every shop visit, every bill, every question my wife asks that I cannot immediately answer sends me back to research. When I learn something new I update these pages.</p>
+        <p>Use the calculator. Check the math. Ask the questions. Do not let anyone rush you into a decision with your own money — not even a very charming jeweller with very good lighting in his showroom.</p>
+        <p class="sign">— Gold Suresh 🙏<span>A regular guy learning about gold so his family can shop smarter. Slowly. Embarrassingly slowly, but making progress.</span></p>
+      </div>
+
+    </article>
+    <!-- END SURESH BLOCK -->
+
+    <div style="text-align:center; margin-top:10px;">
+      <a href="https://wa.me/?text=Check%20out%20Daily%20Gold%20Rates%20and%20Calculate%20Jewellery%20value%20on%20Gold%20Rate%20Calculator%3A%20http%3A%2F%2Fgoldratecalculator.in" target="_blank" onclick="trackEvent('share_partner','Social Share')">Share the link ❤️</a>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://goldratecalculator.in/blog/">Blogs</a>
+        <a href="https://goldratecalculator.in/Terms-and-Conditions">Terms & Conditions</a>
+        <a href="https://goldratecalculator.in/privacy-policy">Privacy Policy</a>
+        <a href="https://forms.gle/v2hrxQeYyvHD8diw8">Contact</a>
+      </div>
+    </footer>
+  </div><!-- end #container -->
+
+  <script>
+    // ── State ──────────────────────────────────────────────────────────
+    let goldRate = {};
+
+    // ── Helpers ────────────────────────────────────────────────────────
+    function fmt(n) {
+      return Number(n).toLocaleString('en-IN');
+    }
+    function setTxt(id, val) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+
+    // ── Fill all Suresh rate spans from goldRate data ──────────────────
+    function fillSureshRates(r22, r24, r18) {
+      var f22 = fmt(r22), f24 = fmt(r24), f18 = fmt(r18);
+
+      // City intro
+      setTxt('suresh22', f22);
+      setTxt('suresh24', f24);
+      setTxt('suresh18', f18);
+
+      // What nobody tells you
+      setTxt('suresh22b', f22);
+
+      // Step by step example (10g at 12% making)
+      var metal   = r22 * 10;
+      var making  = Math.floor(metal * 0.12);
+      var sub     = metal + making;
+      var gst     = Math.floor(sub * 0.03);
+      var total   = sub + gst;
+      setTxt('calc22',       f22);
+      setTxt('calcMetal',    fmt(metal));
+      setTxt('calcMetal2',   fmt(metal));
+      setTxt('calcMaking',   fmt(making));
+      setTxt('calcMetal3',   fmt(metal));
+      setTxt('calcMaking2',  fmt(making));
+      setTxt('calcSubtotal', fmt(sub));
+      setTxt('calcSubtotal2',fmt(sub));
+      setTxt('calcGST',      fmt(gst));
+      setTxt('calcTotal',    fmt(total));
+
+      // About each karat
+      setTxt('about22', f22);
+      setTxt('about24', f24);
+      setTxt('about18', f18);
+
+      // Selling old gold
+      setTxt('sell22',  f22);
+      setTxt('sellLow', fmt(Math.floor(r22 * 0.95)));
+      setTxt('sellHigh',fmt(Math.floor(r22 * 0.97)));
+
+      // Investment section
+      setTxt('invest24', f24);
+
+      // FAQ
+      setTxt('faq22', f22);
+      setTxt('faq24', f24);
+      setTxt('faq18', f18);
+
+      // Rate strip at top
+      setTxt('strip22', '₹' + f22);
+      setTxt('strip24', '₹' + f24);
+      setTxt('strip18', '₹' + f18);
+    }
+
+    // ── City detection (your existing logic) ──────────────────────────
+    function detectCityFromUrl() {
+      var file = location.pathname.split('/').pop() || '';
+      file = file.replace(/\.[^/.]+$/, '');
+      if (!file || file.toLowerCase() === 'index') return null;
+      var m = file.toLowerCase().match(/(?:gold[- ]?(rate|price)[- ]?)?([a-z-]+)$/);
+      var slug = (m && m[2]) ? m[2] : file.toLowerCase();
+      var cityName = slug.replace(/-/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+      var map = { 'Vasai Virar': 'VasaiVirar' };
+      return map[cityName] || cityName;
+    }
+
+    function initDefaultCity() {
+      var qpCity = new URLSearchParams(location.search).get('city');
+      var inferred = qpCity || detectCityFromUrl();
+      var sel = document.getElementById('inputCity');
+      if (!sel) return;
+      if (inferred && Array.from(sel.options).some(function(o){ return o.value === inferred; })) {
+        sel.value = inferred;
+      }
+    }
+
+    function getSelectedCity() { return document.getElementById('inputCity').value; }
+    function getSelectedQuality() { return document.getElementById('inputQuality').value; }
+
+    function updateRate() {
+      var city = getSelectedCity();
+      var q = getSelectedQuality();
+      var price;
+      if (goldRate && goldRate[city] && goldRate[city][q] != null) price = goldRate[city][q];
+      else if (goldRate && goldRate.India && goldRate.India[q] != null) price = goldRate.India[q];
+      document.getElementById('inputGramCost').value = (typeof price === 'number') ? price : '';
+    }
+
+    function calculate() {
+      var grams = Number(document.getElementById('inputGrams').value);
+      var makingCharges = Number(document.getElementById('inputMakingCharges').value);
+      var gramRate = Number(document.getElementById('inputGramCost').value);
+
+      var rateGold = Math.floor(gramRate * grams) || 0;
+      document.getElementById('goldRate').textContent = rateGold.toLocaleString('en-IN');
+
+      var rateMakingCharges = Math.floor(rateGold * (makingCharges / 100)) || 0;
+      document.getElementById('makingCharges').textContent = rateMakingCharges.toLocaleString('en-IN');
+      document.getElementById('labelMakingCharges').textContent = 'Making Charges (' + (isFinite(makingCharges) ? makingCharges : 0) + '%)';
+
+      var rateGST = Math.floor((rateGold + rateMakingCharges) * 0.03) || 0;
+      document.getElementById('GST').textContent = rateGST.toLocaleString('en-IN');
+
+      var rateFinal = rateGold + rateMakingCharges + rateGST;
+      document.getElementById('grandTotal').textContent = rateFinal.toLocaleString('en-IN');
+
+      var results = document.getElementById('summaryArea');
+      if (results) {
+        var y = results.getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+
+    // ── Bootstrap ─────────────────────────────────────────────────────
+    fetch('goldRate.json', { cache: 'no-store' })
+      .then(function(res){ return res.json(); })
+      .then(function(data) {
+        goldRate = data || {};
+
+        var raw = goldRate.lastUpdated || Date.now();
+        var updated = new Date(raw);
+        document.getElementById('lastUpdated').textContent =
+          'Price Updated: ' + updated.toLocaleString('en-IN', {
+            weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          });
+
+        initDefaultCity();
+        updateRate();
+
+        // Fill Suresh block with city-specific rates
+        var city = getSelectedCity();
+        var r22 = (goldRate[city] && goldRate[city]['22K']) || (goldRate.India && goldRate.India['22K']) || 0;
+        var r24 = (goldRate[city] && goldRate[city]['24K']) || (goldRate.India && goldRate.India['24K']) || 0;
+        var r18 = (goldRate[city] && goldRate[city]['18K']) || (goldRate.India && goldRate.India['18K']) || 0;
+        fillSureshRates(r22, r24, r18);
+      })
+      .catch(function(err) {
+        console.error('Failed to load gold rates:', err);
+        document.getElementById('lastUpdated').textContent = 'Price Updated: --';
+      });
+
+    // ── Events ────────────────────────────────────────────────────────
+    document.getElementById('inputCity').addEventListener('change', updateRate);
+    document.getElementById('inputQuality').addEventListener('change', updateRate);
+    document.getElementById('btnCalc').addEventListener('click', function() {
+      calculate();
+      trackEvent('button_Calculate', 'Calculator');
+    });
+
+    // ── PWA ───────────────────────────────────────────────────────────
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+    var deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      window.deferredPrompt = deferredPrompt;
+    });
+
+    // ── Analytics helper ──────────────────────────────────────────────
+    function trackEvent(eventName, eventCategory) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: eventName, event_category: eventCategory });
+    }
+    window.trackEvent = trackEvent;
+  </script>
+
+</body>
+</html>
