@@ -74,12 +74,7 @@
     }
     html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
 
-    #logo {
-      width: 100%;
-      font: 700 1.6rem/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      text-align: center;
-      padding: 14px 0;
-    }
+    #logo { display: none; }
 
     #container {
       margin: 0 auto;
@@ -423,16 +418,16 @@
 
   <div id="container">
 
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb">
-      <a href="https://goldratecalculator.in">Home</a> › Gold Rate Calculator Mumbai
-    </nav>
-
     <!-- City H1 -->
     <div class="city-heading">
       <h1>Gold Rate Calculator Mumbai</h1>
       <p>Live 22K · 24K · 18K rates · Making charges · GST · Updated daily</p>
     </div>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="https://goldratecalculator.in">Home</a> › Gold Rate Calculator Mumbai
+    </nav>
 
     <p id="lastUpdated"></p>
 
