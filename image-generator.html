@@ -3,303 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gold Suresh — Image Generator</title>
+  <title>Gold Price Image Generator — GoldRateCalculator.in</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing:border-box; margin:0; padding:0; }
-    body { background:#1a1035; font-family:'Inter',system-ui,Arial; color:#fff; min-height:100vh; }
-
-    header {
-      background:rgba(255,255,255,0.05);
-      border-bottom:1px solid rgba(255,255,255,0.1);
-      padding:14px 24px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    header h1 { font-size:15px; font-weight:700; color:#f8fafc; }
-    header span { font-size:12px; color:#94a3b8; }
-
-    .page { max-width:900px; margin:0 auto; padding:28px 20px; }
-
-    .controls {
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius:14px;
-      padding:22px 24px;
-      margin-bottom:24px;
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr 1fr;
-      gap:14px;
-      align-items:end;
-    }
-    .field { display:flex; flex-direction:column; gap:6px; }
-    .field label { font-size:11px; font-weight:600; color:#94a3b8; text-transform:uppercase; letter-spacing:0.07em; }
-    .field input {
-      height:44px; border-radius:8px;
-      border:1.5px solid rgba(255,255,255,0.15);
-      background:rgba(255,255,255,0.08);
-      color:#fff; font-size:16px; font-weight:700;
-      padding:0 12px; outline:none;
-      transition:border-color 0.15s;
-    }
-    .field input:focus { border-color:#F5C842; }
-    .field input[readonly] { color:#F5C842; cursor:default; font-size:13px; }
-
-    .gen-btn {
-      height:44px; border-radius:8px;
-      background:#F5C842; border:none;
-      color:#1a1035; font-size:14px; font-weight:800;
-      cursor:pointer; transition:opacity 0.15s;
-      width:100%; margin-top:0;
-    }
-    .gen-btn:hover { opacity:0.88; }
-
-    /* Canvas preview area */
-    .preview-wrap {
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:16px;
-      padding:24px;
-      text-align:center;
-    }
-    .preview-label {
-      font-size:11px; font-weight:600; color:#64748b;
-      text-transform:uppercase; letter-spacing:0.08em;
-      margin-bottom:16px;
-    }
-    canvas {
-      max-width:100%; border-radius:12px;
-      box-shadow:0 20px 60px rgba(0,0,0,0.5);
-    }
-    .dl-btn {
-      display:inline-block; margin-top:18px;
-      padding:11px 32px; background:#F5C842;
-      color:#1a1035; font-size:14px; font-weight:800;
-      border-radius:99px; cursor:pointer; border:none;
-      transition:opacity 0.15s;
-    }
-    .dl-btn:hover { opacity:0.88; }
-
-    @media(max-width:580px) {
-      .controls { grid-template-columns:1fr 1fr; }
-    }
-    @media(max-width:380px) {
-      .controls { grid-template-columns:1fr; }
-    }
+    body { background:#f8fafc; font-family:'Inter',system-ui,Arial; color:#111827; padding:24px 16px; }
+    h1 { font-size:18px; font-weight:700; margin-bottom:20px; }
+    .rate-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:12px; }
+    .field label { display:block; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:5px; }
+    .field input { width:100%; height:42px; border:1.5px solid #d1d5db; border-radius:8px; padding:0 12px; font-size:16px; font-weight:700; color:#111827; background:#fff; outline:none; }
+    .field input:focus { border-color:#111827; }
+    .gen-btn { width:100%; height:46px; background:#111827; color:#fff; border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; margin-bottom:20px; }
+    .gen-btn:hover { background:#374151; }
+    .preview-wrap { text-align:center; }
+    .preview-label { font-size:11px; color:#9ca3af; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px; }
+    canvas { max-width:100%; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.12); }
+    .dl-btn { display:inline-block; margin-top:14px; padding:10px 28px; background:#111827; color:#fff; border:none; border-radius:99px; font-size:14px; font-weight:700; cursor:pointer; }
+    .dl-btn:hover { background:#374151; }
+    @media(max-width:480px) { .rate-row { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>⚡ Gold Price Image Generator</h1>
-  <span>Generates 1200×630 shareable image</span>
-</header>
+<h1>Gold Price Image Generator</h1>
 
-<div class="page">
-  <div class="controls">
-    <div class="field">
-      <label>Date</label>
-      <input type="text" id="iDate" readonly />
-    </div>
-    <div class="field">
-      <label>22K ₹/gram</label>
-      <input type="number" id="i22" placeholder="14120" />
-    </div>
-    <div class="field">
-      <label>24K ₹/gram</label>
-      <input type="number" id="i24" placeholder="15404" />
-    </div>
-    <div class="field">
-      <label>18K ₹/gram</label>
-      <input type="number" id="i18" placeholder="11553" />
-    </div>
-    <div class="field" style="grid-column:1/-1">
-      <button class="gen-btn" onclick="generateImage()">Generate Image ✦</button>
-    </div>
-  </div>
+<div class="rate-row">
+  <div class="field"><label>22K ₹/gram</label><input type="number" id="i22" placeholder="14120" /></div>
+  <div class="field"><label>24K ₹/gram</label><input type="number" id="i24" placeholder="15404" /></div>
+  <div class="field"><label>18K ₹/gram</label><input type="number" id="i18" placeholder="11553" /></div>
+</div>
+<button class="gen-btn" onclick="generateImage()">Generate Image</button>
 
-  <div class="preview-wrap">
-    <div class="preview-label">Preview — 1200 × 630</div>
-    <canvas id="c" width="1200" height="630"></canvas>
-    <br>
-    <button class="dl-btn" id="dlBtn" onclick="downloadImage()">Download PNG</button>
-  </div>
+<div class="preview-wrap">
+  <div class="preview-label">Preview — 1200 × 630</div>
+  <canvas id="c" width="1200" height="630"></canvas>
+  <br>
+  <button class="dl-btn" onclick="downloadImage()">Download PNG</button>
 </div>
 
 <script>
-// ── Auto date ─────────────────────────────────────────────────────────────────
-(function(){
-  var now = new Date();
-  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('iDate').value = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-})();
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-// ── Auto-load India rates from goldRate.json ──────────────────────────────────
-fetch('goldRate.json', {cache:'no-store'})
-  .then(function(r){ return r.json(); })
+function todayStr()  { var d=new Date(); return d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+function todaySlug() { var d=new Date(); return d.getDate()+'-'+MONTHS[d.getMonth()].toLowerCase()+'-'+d.getFullYear(); }
+function todayDay()  { return DAYS[new Date().getDay()]; }
+function fmt(n)      { return String.fromCharCode(8377)+Number(n).toLocaleString('en-IN'); }
+
+fetch('goldRate.json',{cache:'no-store'})
+  .then(function(r){return r.json();})
   .then(function(d){
-    if (d.India) {
-      if (d.India['22K']) document.getElementById('i22').value = d.India['22K'];
-      if (d.India['24K']) document.getElementById('i24').value = d.India['24K'];
-      if (d.India['18K']) document.getElementById('i18').value = d.India['18K'];
+    if(d.India){
+      if(d.India['22K']) document.getElementById('i22').value=d.India['22K'];
+      if(d.India['24K']) document.getElementById('i24').value=d.India['24K'];
+      if(d.India['18K']) document.getElementById('i18').value=d.India['18K'];
     }
     generateImage();
   })
-  .catch(function(){ generateImage(); });
+  .catch(function(){generateImage();});
 
-// ── Suresh image ──────────────────────────────────────────────────────────────
+function generateImage(){
+  var r22=+document.getElementById('i22').value||14120;
+  var r24=+document.getElementById('i24').value||15404;
+  var r18=+document.getElementById('i18').value||11553;
 
+  var canvas=document.getElementById('c');
+  var ctx=canvas.getContext('2d');
+  var W=1200,H=630;
+  ctx.clearRect(0,0,W,H);
 
-// ── Format ─────────────────────────────────────────────────────────────────────
-function fmt(n) {
-  return '₹' + Number(n).toLocaleString('en-IN');
-}
+  // ── BACKGROUND — near black with very subtle warm tint ──────────────────────
+  ctx.fillStyle='#0A0A0F';
+  ctx.fillRect(0,0,W,H);
 
-// ── Generate ───────────────────────────────────────────────────────────────────
-function generateImage() {
-  var dateStr = document.getElementById('iDate').value;
-  var r22 = +document.getElementById('i22').value || 14120;
-  var r24 = +document.getElementById('i24').value || 15404;
-  var r18 = +document.getElementById('i18').value || 11553;
-
-  var c = document.getElementById('c');
-  var ctx = c.getContext('2d');
-  var W = 1200, H = 630;
-
-  // ── Background — deep violet gradient ───────────────────────────────────────
-  var bg = ctx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0,   '#2D1B69');
-  bg.addColorStop(0.5, '#1E1245');
-  bg.addColorStop(1,   '#0F0A2A');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, W, H);
-
-  // ── Decorative circles (credit card feel) ────────────────────────────────────
+  // subtle noise texture feel via thin horizontal lines
   ctx.save();
-  ctx.globalAlpha = 0.06;
-  ctx.fillStyle = '#F5C842';
-  ctx.beginPath(); ctx.arc(980, -80, 350, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(1050, 580, 280, 0, Math.PI*2); ctx.fill();
-  ctx.globalAlpha = 0.04;
-  ctx.fillStyle = '#fff';
-  ctx.beginPath(); ctx.arc(120, 580, 300, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha=0.018;
+  ctx.fillStyle='#fff';
+  for(var i=0;i<H;i+=2){ ctx.fillRect(0,i,W,1); }
   ctx.restore();
 
-  // ── Gold shimmer line across top ─────────────────────────────────────────────
-  var shimmer = ctx.createLinearGradient(0, 0, W, 0);
-  shimmer.addColorStop(0,   'rgba(245,200,66,0)');
-  shimmer.addColorStop(0.3, 'rgba(245,200,66,0.7)');
-  shimmer.addColorStop(0.7, 'rgba(245,200,66,0.7)');
-  shimmer.addColorStop(1,   'rgba(245,200,66,0)');
-  ctx.fillStyle = shimmer;
-  ctx.fillRect(0, 0, W, 3);
+  // ── GOLD accent strip — top ──────────────────────────────────────────────────
+  var topStrip=ctx.createLinearGradient(0,0,W,0);
+  topStrip.addColorStop(0,'rgba(245,200,66,0)');
+  topStrip.addColorStop(0.15,'rgba(245,200,66,1)');
+  topStrip.addColorStop(0.85,'rgba(245,200,66,1)');
+  topStrip.addColorStop(1,'rgba(245,200,66,0)');
+  ctx.fillStyle=topStrip;
+  ctx.fillRect(0,0,W,5);
 
-  // ── Gold shimmer line across bottom ──────────────────────────────────────────
-  ctx.fillStyle = shimmer;
-  ctx.fillRect(0, H-3, W, 3);
+  // ── TOP ROW — site + date ────────────────────────────────────────────────────
+  // Site name — left
+  ctx.font='600 20px Inter,Arial';
+  ctx.fillStyle='rgba(245,200,66,0.75)';
+  ctx.textAlign='left';
+  ctx.fillText('GoldRateCalculator.in',64,58);
 
-  // ── Vertical divider ─────────────────────────────────────────────────────────
-  var divider = ctx.createLinearGradient(0, 60, 0, H-60);
-  divider.addColorStop(0,   'rgba(245,200,66,0)');
-  divider.addColorStop(0.3, 'rgba(245,200,66,0.4)');
-  divider.addColorStop(0.7, 'rgba(245,200,66,0.4)');
-  divider.addColorStop(1,   'rgba(245,200,66,0)');
-  ctx.fillStyle = divider;
-  
+  // Date — right
+  ctx.font='500 20px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.35)';
+  ctx.textAlign='right';
+  ctx.fillText(todayDay().toUpperCase()+', '+todayStr().toUpperCase(),W-64,58);
+  ctx.textAlign='left';
 
-  // ── LEFT SIDE — Text content ──────────────────────────────────────────────────
-  var LX = 72;
+  // ── GIANT 22K RATE — hero number ─────────────────────────────────────────────
+  // Label
+  ctx.font='700 18px Inter,Arial';
+  ctx.fillStyle='rgba(245,200,66,0.6)';
+  ctx.fillText('22K GOLD — 916 — JEWELLERY',64,118);
 
-  // Website name
-  ctx.font = '600 22px Inter, Arial';
-  ctx.fillStyle = 'rgba(245,200,66,0.9)';
-  ctx.fillText('GoldRateCalculator.in', LX, 72);
+  // The number itself — massive
+  ctx.font='900 210px Inter,Arial';
+  var goldGrad=ctx.createLinearGradient(60,100,900,340);
+  goldGrad.addColorStop(0,'#FFE27A');
+  goldGrad.addColorStop(0.4,'#F5C842');
+  goldGrad.addColorStop(1,'#C8930A');
+  ctx.fillStyle=goldGrad;
+  ctx.fillText(fmt(r22),60,318);
 
-  // Main headline
-  ctx.font = '800 58px Inter, Arial';
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText("Today's Gold", LX, 155);
-  ctx.fillText("Rate — India", LX, 225);
+  // per gram suffix — aligned to bottom right of the number
+  var numW=ctx.measureText(fmt(r22)).width;
+  ctx.font='500 24px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.3)';
+  ctx.fillText('per gram',60,358);
 
-  // Date
-  ctx.font = '500 22px Inter, Arial';
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.fillText(dateStr, LX, 275);
+  // ── BOTTOM ROW — 24K and 18K + dividers ──────────────────────────────────────
+  // Horizontal rule
+  ctx.save();
+  ctx.globalAlpha=0.12;
+  ctx.fillStyle='#fff';
+  ctx.fillRect(60,390,W-120,1);
+  ctx.restore();
 
-  // Divider line under headline
-  var hline = ctx.createLinearGradient(LX, 0, LX+380, 0);
-  hline.addColorStop(0, 'rgba(245,200,66,0.8)');
-  hline.addColorStop(1, 'rgba(245,200,66,0)');
-  ctx.fillStyle = hline;
-  ctx.fillRect(LX, 295, W - LX*2, 2);
+  // 24K block
+  var col1x=64;
+  ctx.font='600 15px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.35)';
+  ctx.fillText('24K GOLD  ·  999  ·  INVESTMENT',col1x,432);
+  ctx.font='800 52px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.82)';
+  ctx.fillText(fmt(r24),col1x,498);
+  ctx.font='400 14px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.25)';
+  ctx.fillText('per gram',col1x,520);
 
-  // ── Rate rows ─────────────────────────────────────────────────────────────────
-  var rates = [
-    { karat:'22K Gold', purity:'916 · Jewellery', val:r22, highlight:true },
-    { karat:'24K Gold', purity:'999 · Investment', val:r24, highlight:false },
-    { karat:'18K Gold', purity:'750 · Diamond',   val:r18, highlight:false },
-  ];
+  // Vertical divider between 24K and 18K
+  ctx.save();
+  ctx.globalAlpha=0.1;
+  ctx.fillStyle='#fff';
+  ctx.fillRect(620,400,1,130);
+  ctx.restore();
 
-  var rowY = 330;
-  rates.forEach(function(rate) {
-    // Row background pill for 22K
-    if (rate.highlight) {
-      var pillGrad = ctx.createLinearGradient(LX-10, rowY-28, LX+420, rowY+18);
-      pillGrad.addColorStop(0, 'rgba(245,200,66,0.18)');
-      pillGrad.addColorStop(1, 'rgba(245,200,66,0.04)');
-      ctx.fillStyle = pillGrad;
-      roundRect(ctx, LX-10, rowY-30, W - LX - 52, 58, 10);
-    }
+  // 18K block
+  var col2x=640;
+  ctx.font='600 15px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.35)';
+  ctx.fillText('18K GOLD  ·  750  ·  DIAMOND',col2x,432);
+  ctx.font='800 52px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.82)';
+  ctx.fillText(fmt(r18),col2x,498);
+  ctx.font='400 14px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.25)';
+  ctx.fillText('per gram',col2x,520);
 
-    // Karat label
-    ctx.font = '700 20px Inter, Arial';
-    ctx.fillStyle = rate.highlight ? '#F5C842' : 'rgba(255,255,255,0.6)';
-    ctx.fillText(rate.karat, LX + 4, rowY);
+  // ── BOTTOM STRIP ─────────────────────────────────────────────────────────────
+  // Horizontal rule
+  ctx.save();
+  ctx.globalAlpha=0.1;
+  ctx.fillStyle='#fff';
+  ctx.fillRect(60,548,W-120,1);
+  ctx.restore();
 
-    // Purity tag
-    ctx.font = '500 14px Inter, Arial';
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.fillText(rate.purity, LX + 4, rowY + 18);
+  ctx.font='400 16px Inter,Arial';
+  ctx.fillStyle='rgba(255,255,255,0.18)';
+  ctx.fillText('Source: IBJA  ·  Updated daily  ·  Calculate your exact jewellery price at goldratecalculator.in',64,586);
 
-    // Price — right aligned
-    ctx.font = rate.highlight ? '800 30px Inter, Arial' : '700 26px Inter, Arial';
-    ctx.fillStyle = rate.highlight ? '#F5C842' : 'rgba(255,255,255,0.85)';
-    var priceStr = fmt(rate.val) + '/g';
-    var pw = ctx.measureText(priceStr).width;
-    ctx.fillText(priceStr, W - 72 - pw, rowY + 4);
-
-    rowY += 75;
-  });
-
-  // ── Footer tag ────────────────────────────────────────────────────────────────
-  ctx.font = '500 16px Inter, Arial';
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.fillText('Updated daily · Free calculator at GoldRateCalculator.in', LX, H - 36);
-
-  // ── Round rect helper ──────────────────────────────────────────────────────────
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x+r, y);
-  ctx.lineTo(x+w-r, y);
-  ctx.quadraticCurveTo(x+w, y, x+w, y+r);
-  ctx.lineTo(x+w, y+h-r);
-  ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
-  ctx.lineTo(x+r, y+h);
-  ctx.quadraticCurveTo(x, y+h, x, y+h-r);
-  ctx.lineTo(x, y+r);
-  ctx.quadraticCurveTo(x, y, x+r, y);
-  ctx.closePath();
-  ctx.fill();
+  // ── Bottom gold strip ─────────────────────────────────────────────────────────
+  ctx.fillStyle=topStrip;
+  ctx.fillRect(0,H-5,W,5);
 }
 
-// ── Download ───────────────────────────────────────────────────────────────────
-function downloadImage() {
-  var c = document.getElementById('c');
-  var now = new Date();
-  var months = ['january','february','march','april','may','june','july','august','september','october','november','december'];
-  var fname = 'gold-rate-' + now.getDate() + '-' + months[now.getMonth()] + '-' + now.getFullYear() + '.png';
-  var link = document.createElement('a');
-  link.download = fname;
-  link.href = c.toDataURL('image/png');
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+function downloadImage(){
+  var canvas=document.getElementById('c');
+  var link=document.createElement('a');
+  link.download='gold-rate-india-today-'+todaySlug()+'.png';
+  link.href=canvas.toDataURL('image/png');
   link.click();
 }
 </script>
