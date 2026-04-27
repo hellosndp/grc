@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-KRD9L68P");</script>
+  <meta name="google-adsense-account" content="ca-pub-9898426685267130">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Gold Rate Map India — City-wise 22K 24K 18K Prices | GoldRateCalculator.in</title>
+  <meta name="description" content="Interactive India gold rate map. Tap any city to see today's 22K, 24K and 18K gold price. Live rates for 120+ cities updated daily by Gold Suresh.">
+  <link rel="canonical" href="https://goldratecalculator.in/goldmap">
+  <link rel="icon" href="https://emoji.aranja.com/static/emoji-data/img-apple-160/2b50.png" type="image/x-icon">
+  <style>
+    :root {
+      --bg:#ffffff; --text:#111827; --muted:#6b7280;
+      --brand:#50FFB1; --panel:#E9F1F7; --border:#d1d5db;
+      --dark:#0f172a; --gold:#F5C842; --maxw:900px;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--text); font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; }
+
+    /* Header */
+    .site-header { background:var(--bg); border-bottom:1px solid var(--border); padding:0 16px; position:sticky; top:0; z-index:100; }
+    .header-inner { max-width:var(--maxw); margin:0 auto; height:52px; display:flex; align-items:center; justify-content:space-between; }
+    .site-logo { font-size:1.1rem; font-weight:700; color:var(--text); text-decoration:none; }
+    .header-nav { display:flex; gap:18px; }
+    .header-nav a { font-size:13px; color:var(--muted); text-decoration:none; }
+    .header-nav a:hover { color:var(--text); }
+
+    /* Page */
+    .container { max-width:var(--maxw); margin:0 auto; padding:0 16px 40px; }
+    .breadcrumb { font-size:12px; color:var(--muted); padding:14px 0 0; }
+    .breadcrumb a { color:var(--muted); text-decoration:none; }
+
+    .page-title { font-size:clamp(1.3rem,4vw,1.8rem); font-weight:800; color:var(--text); margin:14px 0 4px; letter-spacing:-0.02em; }
+    .page-sub { font-size:13px; color:var(--muted); margin-bottom:18px; }
+
+    /* Controls */
+    .controls {
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+      background:var(--dark); border-radius:14px; padding:14px 18px;
+      margin-bottom:16px;
+    }
+    .controls label { font-size:13px; color:#94a3b8; font-weight:600; white-space:nowrap; }
+    .karat-select {
+      height:38px; border-radius:8px; border:1.5px solid #334155;
+      background:#1e293b; color:#f8fafc; font-size:15px; font-weight:700;
+      padding:0 12px; outline:none; cursor:pointer; min-width:160px;
+    }
+    .karat-select:focus { border-color:var(--gold); }
+
+    /* Selected city card */
+    .city-card {
+      margin-left:auto;
+      display:flex; align-items:center; gap:14px;
+    }
+    .city-name { font-size:1rem; font-weight:700; color:#f8fafc; }
+    .city-rate {
+      font-size:1.4rem; font-weight:800; color:var(--gold);
+      letter-spacing:-0.02em;
+    }
+    .city-hint { font-size:12px; color:#64748b; }
+
+    /* Map container */
+    .map-wrap {
+      background:#f0f9ff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      position:relative;
+    }
+    .map-wrap svg { width:100%; height:auto; display:block; }
+
+    /* India map paths */
+    .state-path {
+      fill:#dbeafe; stroke:#93c5fd; stroke-width:0.8;
+      transition:fill 0.15s;
+    }
+
+    /* City dots */
+    .city-dot {
+      fill:var(--dark); stroke:#fff; stroke-width:1.5;
+      cursor:pointer; transition:fill 0.15s, r 0.15s;
+      r:5;
+    }
+    .city-dot:hover { fill:var(--gold); r:7; }
+    .city-dot.active { fill:var(--gold); r:8; stroke:var(--dark); stroke-width:2; }
+
+    /* City label */
+    .city-label {
+      font-size:8px; fill:#1e293b; font-family:system-ui,Arial;
+      pointer-events:none; user-select:none;
+      font-weight:600;
+    }
+
+    /* Tooltip */
+    .map-tooltip {
+      position:absolute; background:var(--dark); color:#f8fafc;
+      border-radius:8px; padding:8px 12px; font-size:12px;
+      pointer-events:none; display:none; white-space:nowrap;
+      box-shadow:0 4px 16px rgba(0,0,0,0.2);
+      z-index:10;
+    }
+    .map-tooltip .tt-city { font-weight:700; margin-bottom:3px; }
+    .map-tooltip .tt-rate { color:var(--gold); font-size:14px; font-weight:800; }
+
+    /* City list below map */
+    .city-list-section { margin-top:24px; }
+    .city-list-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px; }
+    .city-list {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr));
+      gap:8px;
+    }
+    .city-btn {
+      background:var(--panel); border:1px solid var(--border);
+      border-radius:10px; padding:10px 12px; cursor:pointer;
+      text-align:left; transition:all 0.15s; display:block; text-decoration:none;
+    }
+    .city-btn:hover { background:var(--dark); border-color:var(--dark); }
+    .city-btn:hover .cb-name { color:#f8fafc; }
+    .city-btn:hover .cb-rate { color:var(--gold); }
+    .city-btn.active { background:var(--dark); border-color:var(--gold); }
+    .city-btn.active .cb-name { color:#f8fafc; }
+    .city-btn.active .cb-rate { color:var(--gold); }
+    .cb-name { font-size:12px; font-weight:600; color:var(--text); display:block; margin-bottom:3px; }
+    .cb-rate { font-size:14px; font-weight:800; color:var(--dark); display:block; }
+
+    /* Calculator CTA */
+    .calc-cta { background:var(--gold); border:none; border-radius:14px; padding:20px 22px; margin:24px 0 0; display:flex; align-items:center; gap:16px; text-decoration:none; color:#111827; }
+    .calc-cta:hover { background:#EDB820; }
+    .calc-cta-icon { font-size:2rem; flex-shrink:0; }
+    .calc-cta-text strong { display:block; font-size:15px; font-weight:700; margin-bottom:3px; }
+    .calc-cta-text span { font-size:13px; color:#3D2C0F; }
+
+    /* Footer */
+    .site-footer { border-top:1px solid var(--border); padding:20px 16px; text-align:center; font-size:13px; color:var(--muted); margin-top:40px; }
+    .footer-links { display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:8px; }
+    .footer-links a { color:var(--muted); text-decoration:none; }
+
+    @media(max-width:520px) {
+      .controls { flex-direction:column; align-items:flex-start; gap:10px; }
+      .city-card { margin-left:0; }
+      .city-list { grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); }
+    }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRD9L68P" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://goldratecalculator.in" class="site-logo">Gold Rate Calculator</a>
+    <nav class="header-nav">
+      <a href="https://goldratecalculator.in">Calculator</a>
+      <a href="https://goldratecalculator.in/blog/">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb">
+    <a href="https://goldratecalculator.in">Home</a> › Gold Rate Map India
+  </nav>
+
+  <h1 class="page-title">Gold Rate Map — India</h1>
+  <p class="page-sub">Tap any city dot to see today's gold rate. Switch purity using the dropdown.</p>
+
+  <!-- Controls bar -->
+  <div class="controls">
+    <label for="karatSelect">Gold Purity</label>
+    <select class="karat-select" id="karatSelect" onchange="onKaratChange()">
+      <option value="22K" selected>22K — 916 (Jewellery)</option>
+      <option value="24K">24K — 999 (Investment)</option>
+      <option value="18K">18K — 750 (Diamond)</option>
+    </select>
+    <div class="city-card" id="cityCard">
+      <div>
+        <div class="city-name" id="selCityName">Tap a city on the map</div>
+        <div class="city-hint" id="selCityHint">or select from the list below</div>
+      </div>
+      <div class="city-rate" id="selCityRate"></div>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="map-tooltip" id="tooltip">
+    <div class="tt-city" id="ttCity"></div>
+    <div class="tt-rate" id="ttRate"></div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-wrap" id="mapWrap">
+    <svg viewBox="0 0 500 550" xmlns="http://www.w3.org/2000/svg" id="indiaMap">
+
+      <!-- Simplified India outline - single path -->
+      <path class="state-path" d="
+        M 200,30 L 215,28 L 230,32 L 248,30 L 265,35 L 280,30 L 295,38
+        L 310,35 L 325,42 L 335,50 L 340,62 L 338,75 L 345,85 L 355,95
+        L 358,108 L 352,118 L 358,128 L 365,138 L 368,152 L 362,165
+        L 370,175 L 375,188 L 372,200 L 365,210 L 370,222 L 368,235
+        L 360,245 L 355,258 L 348,270 L 342,282 L 335,292 L 328,305
+        L 318,315 L 308,325 L 298,335 L 288,345 L 278,358 L 268,370
+        L 258,382 L 250,395 L 245,408 L 242,420 L 248,432 L 252,442
+        L 256,452 L 258,462 L 255,472 L 248,480 L 240,488 L 232,495
+        L 224,500 L 218,495 L 215,485 L 218,475 L 215,465 L 210,458
+        L 205,448 L 202,438 L 198,428 L 192,418 L 185,408 L 178,398
+        L 170,388 L 162,378 L 155,368 L 148,355 L 142,342 L 138,328
+        L 132,315 L 126,302 L 120,290 L 115,278 L 108,265 L 102,252
+        L 98,238 L 95,225 L 92,212 L 90,198 L 88,185 L 85,172
+        L 82,158 L 80,144 L 78,130 L 80,116 L 85,104 L 92,94
+        L 100,85 L 108,76 L 115,66 L 122,57 L 130,50 L 140,44
+        L 150,40 L 162,36 L 175,32 L 188,30 Z
+        M 310,35 L 320,30 L 330,25 L 342,22 L 355,24 L 365,30
+        L 372,40 L 375,52 L 370,62 L 360,68 L 348,65 L 338,58 L 328,50 Z
+        M 248,480 L 252,490 L 248,498 L 242,502 L 236,498 L 234,490 L 238,482 Z
+      " fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+
+      <!-- Northeast blob -->
+      <path class="state-path" d="M 345,85 L 358,78 L 372,80 L 385,88 L 390,100 L 385,112 L 372,118 L 360,115 L 350,105 Z" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+
+      <!-- City dots group - will be populated by JS -->
+      <g id="cityDotsGroup"></g>
+    </svg>
+  </div>
+
+  <!-- City list -->
+  <div class="city-list-section">
+    <div class="city-list-title">All Cities — tap to see rate</div>
+    <div class="city-list" id="cityListEl"></div>
+  </div>
+
+  <!-- Calculator CTA -->
+  <a href="https://goldratecalculator.in" class="calc-cta">
+    <span class="calc-cta-icon">&#x2696;&#xFE0F;</span>
+    <div class="calc-cta-text">
+      <strong>Calculate your exact jewellery price</strong>
+      <span>Enter weight + making charges &rarr; get the full bill with GST instantly</span>
+    </div>
+  </a>
+</div>
+
+<footer class="site-footer">
+  <div>&copy; 2026 GoldRateCalculator.in &middot; by Gold Suresh &middot; Updated daily</div>
+  <div class="footer-links">
+    <a href="https://goldratecalculator.in/blog/">Blog</a>
+    <a href="https://goldratecalculator.in/Terms-and-Conditions">Terms</a>
+    <a href="https://goldratecalculator.in/privacy-policy">Privacy</a>
+    <a href="https://forms.gle/v2hrxQeYyvHD8diw8">Contact</a>
+  </div>
+</footer>
+
+<script>
+// ── City coordinates on the 500x550 SVG viewBox ──────────────────────────────
+// Positions are approximate lat/long mapped to viewBox
+var CITIES = [
+  // name, x, y
+  ["Mumbai",      148, 265],
+  ["Delhi",       218, 148],
+  ["Chennai",     278, 368],
+  ["Bangalore",   248, 370],
+  ["Hyderabad",   255, 320],
+  ["Kolkata",     335, 248],
+  ["Pune",        158, 288],
+  ["Ahmedabad",   148, 218],
+  ["Jaipur",      198, 178],
+  ["Lucknow",     258, 185],
+  ["Surat",       145, 248],
+  ["Nagpur",      228, 278],
+  ["Indore",      192, 238],
+  ["Bhopal",      205, 228],
+  ["Coimbatore",  248, 395],
+  ["Madurai",     258, 410],
+  ["Visakhapatnam", 305, 318],
+  ["Patna",       290, 195],
+  ["Chandigarh",  210, 128],
+  ["Kochi",       238, 415],
+  ["Vadodara",    152, 238],
+  ["Trichy",      260, 398],
+  ["Bhubaneswar", 315, 278],
+  ["Mysore",      238, 382],
+  ["Ludhiana",    202, 118],
+  ["Amritsar",    192, 108],
+  ["Rajkot",      128, 228],
+  ["Nashik",      162, 268],
+  ["Varanasi",    270, 195],
+  ["Guwahati",    368, 185],
+  ["Raipur",      265, 262],
+  ["Kanpur",      252, 185],
+  ["Goa",         162, 330],
+  ["Mangalore",   218, 368],
+  ["Trivandrum",  238, 432],
+  ["Agra",        222, 170],
+  ["Meerut",      220, 155],
+  ["Noida",       222, 158],
+  ["Gurgaon",     215, 155],
+  ["Salem",       255, 388],
+  ["Vellore",     268, 372],
+  ["Tirupur",     248, 392],
+  ["Tirunelveli", 255, 418],
+  ["Vijayawada",  278, 340],
+  ["Warangal",    262, 318],
+  ["Ghaziabad",   222, 155],
+  ["Kolhapur",    158, 300],
+  ["Aurangabad",  178, 272],
+  ["Thrissur",    232, 408],
+  ["Pondicherry", 272, 380]
+];
+
+var goldData = {};
+var selectedKarat = "22K";
+var selectedCity  = null;
+
+// ── Format ────────────────────────────────────────────────────────────────────
+function fmt(n) {
+  return "₹" + Number(n).toLocaleString("en-IN");
+}
+
+// ── Load goldRate.json ────────────────────────────────────────────────────────
+fetch("goldRate.json", { cache:"no-store" })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    goldData = data;
+    renderDots();
+    renderCityList();
+    // default select India
+    showCity("India");
+  })
+  .catch(function(e){
+    console.error("Could not load goldRate.json", e);
+  });
+
+// ── Get rate for city + karat ─────────────────────────────────────────────────
+function getRate(city, karat) {
+  var r = goldData[city] || goldData["India"] || {};
+  return r[karat] || 0;
+}
+
+// ── Render SVG dots ───────────────────────────────────────────────────────────
+function renderDots() {
+  var g = document.getElementById("cityDotsGroup");
+  g.innerHTML = "";
+  CITIES.forEach(function(c) {
+    var name = c[0], x = c[1], y = c[2];
+    if (!goldData[name] && !goldData["India"]) return;
+
+    // dot
+    var circle = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    circle.setAttribute("cx", x);
+    circle.setAttribute("cy", y);
+    circle.setAttribute("r", 5);
+    circle.setAttribute("class","city-dot");
+    circle.setAttribute("data-city", name);
+    circle.addEventListener("click",  function(){ selectCity(name); });
+    circle.addEventListener("mouseenter", function(e){ showTooltip(e, name); });
+    circle.addEventListener("mouseleave", hideTooltip);
+    circle.addEventListener("touchstart", function(e){ e.preventDefault(); selectCity(name); }, { passive:false });
+    g.appendChild(circle);
+
+    // label
+    var text = document.createElementNS("http://www.w3.org/2000/svg","text");
+    text.setAttribute("x", x + 7);
+    text.setAttribute("y", y + 3);
+    text.setAttribute("class","city-label");
+    text.textContent = name;
+    g.appendChild(text);
+  });
+}
+
+// ── Render city list below map ────────────────────────────────────────────────
+function renderCityList() {
+  var el = document.getElementById("cityListEl");
+  el.innerHTML = "";
+  var allCities = Object.keys(goldData).filter(function(k){ return k !== "lastUpdated" && k !== "India"; });
+  allCities.sort();
+  allCities.forEach(function(city) {
+    var btn = document.createElement("button");
+    btn.className = "city-btn";
+    btn.setAttribute("data-city", city);
+    btn.innerHTML = "<span class=\"cb-name\">" + city + "</span><span class=\"cb-rate\" id=\"cbr-" + city.replace(/[^a-z]/gi,"_") + "\">" + fmt(getRate(city, selectedKarat)) + "</span>";
+    btn.addEventListener("click", function(){ selectCity(city); });
+    el.appendChild(btn);
+  });
+}
+
+// ── Select a city ─────────────────────────────────────────────────────────────
+function selectCity(name) {
+  selectedCity = name;
+
+  // Update header card
+  document.getElementById("selCityName").textContent = name;
+  document.getElementById("selCityHint").textContent = selectedKarat + " gold rate";
+  document.getElementById("selCityRate").textContent = fmt(getRate(name, selectedKarat));
+
+  // Highlight dot
+  document.querySelectorAll(".city-dot").forEach(function(d){
+    d.classList.toggle("active", d.getAttribute("data-city") === name);
+  });
+
+  // Highlight city list btn
+  document.querySelectorAll(".city-btn").forEach(function(b){
+    b.classList.toggle("active", b.getAttribute("data-city") === name);
+  });
+}
+
+// ── Show city (no highlight — for default India) ──────────────────────────────
+function showCity(name) {
+  document.getElementById("selCityName").textContent = name === "India" ? "India (National)" : name;
+  document.getElementById("selCityHint").textContent = selectedKarat + " gold rate";
+  document.getElementById("selCityRate").textContent = fmt(getRate(name, selectedKarat));
+}
+
+// ── Karat change ──────────────────────────────────────────────────────────────
+function onKaratChange() {
+  selectedKarat = document.getElementById("karatSelect").value;
+
+  // Update all city list rates
+  Object.keys(goldData).forEach(function(city) {
+    var el = document.getElementById("cbr-" + city.replace(/[^a-z]/gi,"_"));
+    if (el) el.textContent = fmt(getRate(city, selectedKarat));
+  });
+
+  // Update selected city card
+  if (selectedCity) {
+    document.getElementById("selCityRate").textContent = fmt(getRate(selectedCity, selectedKarat));
+    document.getElementById("selCityHint").textContent = selectedKarat + " gold rate";
+  } else {
+    showCity("India");
+  }
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+function showTooltip(e, name) {
+  var tt = document.getElementById("tooltip");
+  document.getElementById("ttCity").textContent = name;
+  document.getElementById("ttRate").textContent = fmt(getRate(name, selectedKarat)) + " / gram";
+  tt.style.display = "block";
+  positionTooltip(e);
+}
+function hideTooltip() {
+  document.getElementById("tooltip").style.display = "none";
+}
+function positionTooltip(e) {
+  var tt = document.getElementById("tooltip");
+  var wrap = document.getElementById("mapWrap");
+  var rect = wrap.getBoundingClientRect();
+  var x = e.clientX - rect.left + 10;
+  var y = e.clientY - rect.top - 40;
+  if (x + 180 > rect.width) x = x - 200;
+  tt.style.left = x + "px";
+  tt.style.top  = y + "px";
+}
+document.getElementById("indiaMap").addEventListener("mousemove", function(e){
+  if (document.getElementById("tooltip").style.display === "block") {
+    positionTooltip(e);
+  }
+});
+</script>
+
+</body>
+</html>
