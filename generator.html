@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Suresh — Daily Blog Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Arial, sans-serif;
+      background: #f8fafc;
+      color: #111827;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    header {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 { font-size: 1.1rem; font-weight: 700; }
+    header span { font-size: 12px; color: #94a3b8; }
+
+    .container { max-width: 780px; margin: 0 auto; padding: 28px 20px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #6b7280;
+      margin-bottom: 14px;
+    }
+
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 12px; font-weight: 500; color: #374151; }
+    .field input {
+      height: 42px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 15px;
+      color: #111827;
+      background: #f9fafb;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus { border-color: #50FFB1; background: #fff; }
+    .field input[readonly] { background: #f0fdf4; color: #065f46; font-weight: 600; cursor: default; }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .status-bar.loading { background: #fef9c3; color: #854d0e; border: 1px solid #fde68a; }
+    .status-bar.success { background: #f0fdf4; color: #065f46; border: 1px solid #86efac; }
+    .status-bar.error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+
+    .rates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px;
+      background: #f9fafb;
+    }
+    .rate-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding: 4px 8px;
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #f3f4f6;
+    }
+    .rate-row .city { font-weight: 500; color: #111827; }
+    .rate-row .vals { color: #6b7280; font-size: 11px; }
+
+    .btn {
+      width: 100%;
+      height: 50px;
+      background: #50FFB1;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      margin-top: 4px;
+    }
+    .btn:hover  { opacity: 0.88; }
+    .btn:active { transform: scale(0.99); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .output-wrap { display: none; }
+    .output-wrap.show { display: block; }
+
+    .output-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .filename {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      background: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .copy-btn {
+      padding: 8px 20px;
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .copy-btn:hover { opacity: 0.85; }
+    .copy-btn.copied { background: #065f46; }
+
+    textarea.output-code {
+      width: 100%;
+      height: 300px;
+      font-family: monospace;
+      font-size: 11px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px;
+      resize: vertical;
+      background: #f8fafc;
+      color: #111827;
+      outline: none;
+    }
+    textarea.output-code:focus { border-color: #50FFB1; }
+
+    .instruction {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    .instruction strong { color: #111827; }
+
+    .reload-btn {
+      font-size: 12px;
+      color: #0f172a;
+      background: none;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .reload-btn:hover { background: #f1f5f9; }
+
+    @media (max-width: 500px) {
+      .row2, .row3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚙️ Gold Suresh — Daily Blog Generator</h1>
+  <span>Keep this file in the same folder as goldRate.json</span>
+</header>
+
+<div class="container">
+
+  <!-- DATE CARD -->
+  <div class="card">
+    <div class="card-title">📅 Date — auto-filled from today</div>
+    <div class="row2">
+      <div class="field">
+        <label>Full Date</label>
+        <input type="text" id="dateFull" readonly />
+      </div>
+      <div class="field">
+        <label>Day of Week</label>
+        <input type="text" id="dateDay" readonly />
+      </div>
+    </div>
+  </div>
+
+  <!-- INDIA RATES -->
+  <div class="card">
+    <div class="card-title">🇮🇳 India Rates — for title, tiles & Suresh note</div>
+    <div class="row3">
+      <div class="field">
+        <label>22K ₹/gram</label>
+        <input type="number" id="i22" placeholder="e.g. 14120" />
+      </div>
+      <div class="field">
+        <label>24K ₹/gram</label>
+        <input type="number" id="i24" placeholder="e.g. 15404" />
+      </div>
+      <div class="field">
+        <label>18K ₹/gram</label>
+        <input type="number" id="i18" placeholder="e.g. 11553" />
+      </div>
+    </div>
+    <p class="instruction" style="margin-top:10px;">These are the national headline rates that appear in the title, tiles and Suresh's note. Usually same as your India entry in goldRate.json.</p>
+  </div>
+
+  <!-- CITY RATES FROM JSON -->
+  <div class="card">
+    <div class="card-title">🏙️ City Rates — loaded from goldRate.json</div>
+    <div id="jsonStatus" class="status-bar loading">⏳ Looking for goldRate.json in the same folder...</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <span id="cityCount" style="font-size:13px; color:#6b7280;"></span>
+      <button class="reload-btn" onclick="loadJSON()">↺ Reload JSON</button>
+    </div>
+    <div class="rates-grid" id="ratesPreview"></div>
+    <p class="instruction" style="margin-top:10px;">
+      <strong>If rates don't load:</strong> your browser may block local file access. Open this file via a local server — run <code>python3 -m http.server 8000</code> in the folder, then open <code>http://localhost:8000/blog-generator.html</code>
+    </p>
+  </div>
+
+  <!-- GENERATE -->
+  <button class="btn" id="genBtn" onclick="generate()" disabled>Generate Blog Post HTML</button>
+
+  <!-- OUTPUT -->
+  <div class="output-wrap" id="outputWrap" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">✅ Your Blog Post HTML</div>
+      <div class="output-header">
+        <span class="filename" id="fname"></span>
+        <button class="copy-btn" id="copyBtn" onclick="copyHTML()">Copy HTML</button>
+      </div>
+      <textarea class="output-code" id="outCode" readonly></textarea>
+      <p class="instruction" style="margin-top:10px;">
+        <strong>Steps:</strong> 1. Click Copy HTML &nbsp;·&nbsp; 2. Create a new file named as shown above &nbsp;·&nbsp; 3. Paste and save &nbsp;·&nbsp; 4. Upload to your <code>/blog/</code> folder &nbsp;·&nbsp; 5. Add the post link to <code>blog/index.html</code>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var goldRates = null;
+
+  // ── Auto-fill date ────────────────────────────────────────────────
+  (function() {
+    var now = new Date();
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var day    = now.getDate();
+    var month  = months[now.getMonth()];
+    var year   = now.getFullYear();
+    var dow    = days[now.getDay()];
+    document.getElementById('dateFull').value = day + ' ' + month + ' ' + year;
+    document.getElementById('dateDay').value  = dow;
+  })();
+
+  // ── Load goldRate.json ────────────────────────────────────────────
+  function loadJSON() {
+    var status = document.getElementById('jsonStatus');
+    var preview = document.getElementById('ratesPreview');
+    var countEl = document.getElementById('cityCount');
+    status.className = 'status-bar loading';
+    status.textContent = '⏳ Loading goldRate.json...';
+    preview.innerHTML = '';
+    countEl.textContent = '';
+
+    fetch('goldRate.json', { cache: 'no-store' })
+      .then(function(r) {
+        if (!r.ok) throw new Error('File not found');
+        return r.json();
+      })
+      .then(function(data) {
+        goldRates = data;
+        var cities = Object.keys(data).filter(function(k) { return k !== 'lastUpdated' && k !== 'India'; });
+
+        // Auto-fill India rates if present
+        if (data.India) {
+          if (data.India['22K']) document.getElementById('i22').value = data.India['22K'];
+          if (data.India['24K']) document.getElementById('i24').value = data.India['24K'];
+          if (data.India['18K']) document.getElementById('i18').value = data.India['18K'];
+        }
+
+        // Preview
+        preview.innerHTML = cities.map(function(c) {
+          var r = data[c] || {};
+          return '<div class="rate-row"><span class="city">'+c+'</span><span class="vals">18K: '+fmt(r['18K'])+' · 22K: '+fmt(r['22K'])+' · 24K: '+fmt(r['24K'])+'</span></div>';
+        }).join('');
+
+        countEl.textContent = cities.length + ' cities loaded';
+        status.className = 'status-bar success';
+        status.textContent = '✅ goldRate.json loaded — ' + cities.length + ' cities found. India rates auto-filled above.';
+        document.getElementById('genBtn').disabled = false;
+      })
+      .catch(function(err) {
+        status.className = 'status-bar error';
+        status.textContent = '❌ Could not load goldRate.json. Make sure this file is in the same folder and open via localhost (see instructions below).';
+        document.getElementById('genBtn').disabled = true;
+      });
+  }
+
+  loadJSON();
+
+  // ── Helpers ───────────────────────────────────────────────────────
+  function fmt(n) {
+    if (!n) return '—';
+    return Number(n).toLocaleString('en-IN');
+  }
+
+  function slugDate(d) {
+    return d.trim().toLowerCase().replace(/\s+/g, '-');
+  }
+
+  function isoDate(d) {
+    var mo = {january:'01',february:'02',march:'03',april:'04',may:'05',june:'06',july:'07',august:'08',september:'09',october:'10',november:'11',december:'12'};
+    var p = d.trim().toLowerCase().split(' ');
+    if (p.length === 3) return p[2] + '-' + (mo[p[1]] || '04') + '-' + p[0].padStart(2, '0');
+    return '2026-04-28';
+  }
+
+  // ── Build city table rows ─────────────────────────────────────────
+  function buildRows() {
+    var TOP = ['Chennai','Mumbai','Delhi','Kolkata','Bangalore','Hyderabad','Pune','Ahmedabad','Jaipur','Coimbatore'];
+    var all = goldRates;
+    var topRows = '', extraRows = '';
+
+    TOP.forEach(function(c) {
+      var r = all[c] || all['India'] || {};
+      topRows += '          <tr><td>' + c + '</td><td>' + fmt(r['18K']) + '</td><td>' + fmt(r['22K']) + '</td><td>' + fmt(r['24K']) + '</td></tr>\n';
+    });
+
+    Object.keys(all).forEach(function(c) {
+      if (TOP.indexOf(c) !== -1 || c === 'India' || c === 'lastUpdated') return;
+      var r = all[c] || {};
+      extraRows += '          <tr><td>' + c + '</td><td>' + fmt(r['18K']) + '</td><td>' + fmt(r['22K']) + '</td><td>' + fmt(r['24K']) + '</td></tr>\n';
+    });
+
+    return { topRows: topRows, extraRows: extraRows };
+  }
+
+  // ── Generate ──────────────────────────────────────────────────────
+  function generate() {
+    var dateFull = document.getElementById('dateFull').value.trim();
+    var dateDay  = document.getElementById('dateDay').value.trim();
+    var i22 = +document.getElementById('i22').value;
+    var i24 = +document.getElementById('i24').value;
+    var i18 = +document.getElementById('i18').value;
+
+    if (!i22 || !i24 || !i18) {
+      alert('Please enter the India 22K, 24K and 18K rates.');
+      return;
+    }
+    if (!goldRates) {
+      alert('City rates not loaded. Please reload goldRate.json first.');
+      return;
+    }
+
+    var slug  = slugDate(dateFull);
+    var iso   = isoDate(dateFull);
+    var rows  = buildRows();
+
+    var metal10g = i22 * 10;
+    var making12 = Math.floor(metal10g * 0.12);
+    var sub      = metal10g + making12;
+    var gst      = Math.floor(sub * 0.03);
+    var total    = sub + gst;
+    var coin5g   = i24 * 5;
+
+    var html = '<!DOCTYPE html>\n'
+      + '<html lang="en">\n'
+      + '<head>\n'
+      + '  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-KRD9L68P");<\/script>\n'
+      + '  <meta name="google-adsense-account" content="ca-pub-9898426685267130">\n'
+      + '  <meta charset="UTF-8">\n'
+      + '  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">\n'
+      + '  <title>Today\'s Gold Rate in India \u2014 ' + dateFull + ' | 22K \u20b9' + fmt(i22) + '/g \u00b7 24K \u20b9' + fmt(i24) + '/g \u00b7 18K \u20b9' + fmt(i18) + '/g</title>\n'
+      + '  <meta name="description" content="Gold rate in India today ' + dateFull + ' \u2014 22K gold is \u20b9' + fmt(i22) + ' per gram, 24K is \u20b9' + fmt(i24) + ' per gram, 18K is \u20b9' + fmt(i18) + ' per gram. City-wise rates for Chennai, Mumbai, Delhi, Hyderabad and 120+ cities.">\n'
+      + '  <meta name="keywords" content="gold rate today ' + dateFull + ', today gold price India, 22k gold rate today, 24k gold rate today, 18k gold rate today, gold rate per gram today India, today gold rate all cities">\n'
+      + '  <link rel="canonical" href="https://goldratecalculator.in/blog/gold-rate-today-' + slug + '">\n'
+      + '  <link rel="icon" href="https://emoji.aranja.com/static/emoji-data/img-apple-160/2b50.png" type="image/x-icon">\n'
+      + '  <meta property="og:title" content="Today\'s Gold Rate India \u2014 ' + dateFull + ' | 22K \u20b9' + fmt(i22) + ' \u00b7 24K \u20b9' + fmt(i24) + ' \u00b7 18K \u20b9' + fmt(i18) + '" />\n'
+      + '  <meta property="og:description" content="Gold Suresh\'s daily gold rate update for ' + dateFull + '. City-wise rates and what it means for buyers." />\n'
+      + '  <meta property="og:url" content="https://goldratecalculator.in/blog/gold-rate-today-' + slug + '" />\n'
+      + '  <meta property="og:type" content="article" />\n'
+      + '  <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","headline":"Today\'s Gold Rate in India \u2014 ' + dateFull + ' | 22K \u20b9' + fmt(i22) + '/g","datePublished":"' + iso + '","dateModified":"' + iso + '","author":{"@type":"Person","name":"Gold Suresh","url":"https://goldratecalculator.in"},"publisher":{"@type":"Organization","name":"GoldRateCalculator.in","url":"https://goldratecalculator.in"}}<\/script>\n'
+      + '  <style>\n'
+      + '    :root{--bg:#ffffff;--text:#111827;--muted:#6b7280;--brand:#50FFB1;--panel:#E9F1F7;--border:#d1d5db;--maxw:900px;--dark:#0f172a;}\n'
+      + '    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}\n'
+      + '    html,body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}\n'
+      + '    .site-header{background:var(--bg);border-bottom:1px solid var(--border);padding:0 16px;position:sticky;top:0;z-index:100;}\n'
+      + '    .header-inner{max-width:var(--maxw);margin:0 auto;height:52px;display:flex;align-items:center;justify-content:space-between;}\n'
+      + '    .site-logo{font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;}\n'
+      + '    .header-nav{display:flex;gap:18px;}\n'
+      + '    .header-nav a{font-size:13px;color:var(--muted);text-decoration:none;}\n'
+      + '    .header-nav a:hover{color:var(--text);}\n'
+      + '    .container{max-width:var(--maxw);margin:0 auto;padding:0 16px;}\n'
+      + '    .breadcrumb{font-size:12px;color:var(--muted);padding:14px 0 0;}\n'
+      + '    .breadcrumb a{color:var(--muted);text-decoration:none;}\n'
+      + '    .post-header{padding:16px 0 20px;}\n'
+      + '    .post-date{display:inline-block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}\n'
+      + '    .post-title{font-size:clamp(1.3rem,4vw,1.85rem);font-weight:800;color:var(--text);line-height:1.25;letter-spacing:-0.02em;}\n'
+      + '    .post-byline{margin-top:10px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}\n'
+      + '    .byline-author{font-weight:600;color:var(--text);}\n'
+      + '    .rate-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;}\n'
+      + '    .rate-tile{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;}\n'
+      + '    .rate-tile .karat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:6px;}\n'
+      + '    .rate-tile .price{font-size:clamp(1.1rem,4vw,1.5rem);font-weight:800;color:var(--text);line-height:1;}\n'
+      + '    .rate-tile .per{font-size:11px;color:var(--muted);margin-top:4px;}\n'
+      + '    .post-body{font-size:15px;line-height:1.75;color:#374151;}\n'
+      + '    .post-body p{margin-bottom:14px;}\n'
+      + '    .post-body strong{color:var(--text);}\n'
+      + '    .post-body h2{font-size:clamp(1.05rem,3vw,1.25rem);font-weight:800;color:var(--text);margin:28px 0 12px;letter-spacing:-0.01em;}\n'
+      + '    .suresh-card{background:var(--dark);border-radius:14px;padding:18px 20px;margin:20px 0;color:#e2e8f0;}\n'
+      + '    .suresh-card .label{font-size:11px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;}\n'
+      + '    .suresh-card p{color:#cbd5e1;font-size:14px;line-height:1.65;margin-bottom:8px;}\n'
+      + '    .suresh-card p:last-child{margin-bottom:0;}\n'
+      + '    .suresh-card .sign{font-weight:700;color:#f8fafc;font-size:14px;}\n'
+      + '    .city-table-wrap{margin:20px 0;}\n'
+      + '    .city-table-wrap h2{font-size:clamp(1.05rem,3vw,1.2rem);font-weight:800;color:var(--text);margin-bottom:12px;}\n'
+      + '    .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}\n'
+      + '    table{width:100%;border-collapse:collapse;font-size:13px;min-width:400px;}\n'
+      + '    thead tr{background:var(--dark);}\n'
+      + '    thead th{padding:10px 12px;text-align:left;font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;}\n'
+      + '    thead th:not(:first-child){text-align:right;}\n'
+      + '    tbody tr:nth-child(odd){background:#f8fafc;}\n'
+      + '    tbody tr:nth-child(even){background:#ffffff;}\n'
+      + '    tbody tr:hover{background:#f0fdf4;}\n'
+      + '    tbody td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);font-size:13px;}\n'
+      + '    tbody td:first-child{font-weight:500;}\n'
+      + '    tbody td:not(:first-child){text-align:right;font-weight:600;color:#111827;}\n'
+      + '    .show-more-wrap{text-align:center;margin-top:14px;}\n'
+      + '    .show-more-btn{padding:9px 24px;background:var(--brand);border:none;border-radius:99px;font-size:13px;font-weight:700;cursor:pointer;color:#111827;}\n'
+      + '    #extra-cities{display:none;}\n'
+      + '    .calc-cta{background:#F5C842;border:none;border-radius:14px;padding:20px 22px;margin:24px 0;display:flex;align-items:center;gap:16px;text-decoration:none;color:#111827;}\n'
+      + '    .calc-cta:hover{background:#EDB820;}\n'
+      + '    .calc-cta-icon{font-size:2rem;flex-shrink:0;}\n'
+      + '    .calc-cta-text strong{display:block;font-size:15px;font-weight:700;margin-bottom:3px;color:#111827;}\n'
+      + '    .calc-cta-text span{font-size:13px;color:#3D2C0F;}\n'
+      + '    .site-footer{border-top:1px solid var(--border);padding:20px 16px;text-align:center;font-size:13px;color:var(--muted);margin-top:40px;}\n'
+      + '    .footer-links{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:8px;}\n'
+      + '    .footer-links a{color:var(--muted);text-decoration:none;}\n'
+      + '    @media(max-width:480px){.rate-tiles{gap:8px;}.rate-tile{padding:12px 6px;}.rate-tile .price{font-size:1rem;}.suresh-card{padding:16px 14px;}.calc-cta{flex-direction:column;text-align:center;gap:8px;}}\n'
+      + '  </style>\n'
+      + '</head>\n'
+      + '<body>\n'
+      + '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRD9L68P" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n'
+      + '<header class="site-header">\n'
+      + '  <div class="header-inner">\n'
+      + '    <a href="https://goldratecalculator.in" class="site-logo">Gold Rate Calculator</a>\n'
+      + '    <nav class="header-nav">\n'
+      + '      <a href="https://goldratecalculator.in">Calculator</a>\n'
+      + '      <a href="https://goldratecalculator.in/blog/">Blog</a>\n'
+      + '    </nav>\n'
+      + '  </div>\n'
+      + '</header>\n'
+      + '<div class="container">\n'
+      + '  <nav class="breadcrumb">\n'
+      + '    <a href="https://goldratecalculator.in">Home</a> ›\n'
+      + '    <a href="https://goldratecalculator.in/blog/">Blog</a> ›\n'
+      + '    Gold Rate Today ' + dateFull + '\n'
+      + '  </nav>\n'
+      + '  <div class="post-header">\n'
+      + '    <span class="post-date">\uD83D\uDCC5 ' + dateFull + ' \u00b7 ' + dateDay + '</span>\n'
+      + '    <h1 class="post-title">Today\'s Gold Rate in India \u2014 ' + dateFull + '<br>22K \u20b9' + fmt(i22) + '/g \u00b7 24K \u20b9' + fmt(i24) + '/g \u00b7 18K \u20b9' + fmt(i18) + '/g</h1>\n'
+      + '    <div class="post-byline">\n'
+      + '      <span>By</span><span class="byline-author">Gold Suresh</span>\n'
+      + '      <span>\u00b7</span><span>GoldRateCalculator.in</span>\n'
+      + '      <span>\u00b7</span><span>Updated daily</span>\n'
+      + '    </div>\n'
+      + '  </div>\n'
+      + '  <div class="rate-tiles">\n'
+      + '    <div class="rate-tile"><div class="karat">22K Gold</div><div class="price">\u20b9' + fmt(i22) + '</div><div class="per">per gram \u00b7 India</div></div>\n'
+      + '    <div class="rate-tile"><div class="karat">24K Gold</div><div class="price">\u20b9' + fmt(i24) + '</div><div class="per">per gram \u00b7 India</div></div>\n'
+      + '    <div class="rate-tile"><div class="karat">18K Gold</div><div class="price">\u20b9' + fmt(i18) + '</div><div class="per">per gram \u00b7 India</div></div>\n'
+      + '  </div>\n'
+      + '  <div class="post-body">\n'
+      + '    <div class="suresh-card">\n'
+      + '      <p class="label">\u270d\uFE0F Gold Suresh\'s Note \u2014 ' + dateFull + '</p>\n'
+      + '      <p>Checked the rates this morning as usual. Today\'s <strong style="color:#f8fafc;">22K gold rate in India is \u20b9' + fmt(i22) + ' per gram</strong>, 24K is \u20b9' + fmt(i24) + ', and 18K is \u20b9' + fmt(i18) + '. I update this every morning after the IBJA publishes the daily benchmark so you have the number before you walk into any jewellery shop today.</p>\n'
+      + '      <p>If you are buying jewellery today, do not forget to add making charges and GST on top of these numbers. The rate you see here is just the metal cost. Use the calculator on the homepage to get your exact bill amount before you agree to anything at the counter.</p>\n'
+      + '      <p class="sign">\u2014 Gold Suresh \uD83D\uDE4F</p>\n'
+      + '    </div>\n'
+      + '    <h2>What Does Today\'s Gold Rate Mean If You Are Buying?</h2>\n'
+      + '    <p>At \u20b9' + fmt(i22) + ' per gram for 22K gold today, a 10 gram gold chain will cost you roughly \u20b9' + fmt(metal10g) + ' in metal cost alone. Add a typical 12% making charge and 3% GST and your total comes to approximately <strong>\u20b9' + fmt(total) + '</strong> for a plain 10 gram chain.</p>\n'
+      + '    <p>For those buying 24K gold coins or bars for investment \u2014 today\'s rate is \u20b9' + fmt(i24) + ' per gram. A 5 gram coin will cost you around <strong>\u20b9' + fmt(coin5g) + '</strong> plus GST.</p>\n'
+      + '    <p>18K gold, used mainly for diamond and studded jewellery, is at \u20b9' + fmt(i18) + ' per gram today.</p>\n'
+      + '    <h2>City-Wise Gold Rate Table \u2014 ' + dateFull + '</h2>\n'
+      + '    <p>Rates vary slightly by city because local jewellers associations adjust the national IBJA benchmark for local transportation and demand.</p>\n'
+      + '  </div>\n'
+      + '  <div class="city-table-wrap">\n'
+      + '    <div class="table-scroll">\n'
+      + '      <table>\n'
+      + '        <thead><tr><th>City</th><th>18K (\u20b9/g)</th><th>22K (\u20b9/g)</th><th>24K (\u20b9/g)</th></tr></thead>\n'
+      + '        <tbody>\n'
+      + rows.topRows
+      + '          <tbody id="extra-cities">\n'
+      + rows.extraRows
+      + '          </tbody>\n'
+      + '        </tbody>\n'
+      + '      </table>\n'
+      + '    </div>\n'
+      + '    <div class="show-more-wrap">\n'
+      + '      <button class="show-more-btn" id="showMoreBtn" onclick="toggleCities()">Show All Cities \u25be</button>\n'
+      + '    </div>\n'
+      + '  </div>\n'
+      + '  <a href="https://goldratecalculator.in" class="calc-cta">\n'
+      + '    <span class="calc-cta-icon">\u2696\uFE0F</span>\n'
+      + '    <div class="calc-cta-text">\n'
+      + '      <strong>Calculate your exact jewellery price</strong>\n'
+      + '      <span>Enter weight + making charges \u2192 get the full bill with GST instantly</span>\n'
+      + '    </div>\n'
+      + '  </a>\n'
+      + '</div>\n'
+      + '<footer class="site-footer">\n'
+      + '  <div>\u00a9 2026 GoldRateCalculator.in \u00b7 Written by Gold Suresh \u00b7 Updated daily</div>\n'
+      + '  <div class="footer-links">\n'
+      + '    <a href="https://goldratecalculator.in/blog/">Blog</a>\n'
+      + '    <a href="https://goldratecalculator.in/Terms-and-Conditions">Terms</a>\n'
+      + '    <a href="https://goldratecalculator.in/privacy-policy">Privacy</a>\n'
+      + '    <a href="https://forms.gle/v2hrxQeYyvHD8diw8">Contact</a>\n'
+      + '  </div>\n'
+      + '</footer>\n'
+      + '<script>\n'
+      + '  function toggleCities(){var e=document.getElementById("extra-cities"),b=document.getElementById("showMoreBtn");if(e.style.display==="none"||e.style.display===""){e.style.display="table-row-group";b.textContent="Show Less \u25b4";}else{e.style.display="none";b.textContent="Show All Cities \u25be";}}\n'
+      + '  function trackEvent(n,c){window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:n,event_category:c});}\n'
+      + '<\/script>\n'
+      + '</body>\n'
+      + '</html>';
+
+    var filename = 'gold-rate-today-' + slug + '.html';
+    document.getElementById('fname').textContent = filename;
+    document.getElementById('outCode').value = html;
+    document.getElementById('outputWrap').classList.add('show');
+    document.getElementById('outputWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Copy ──────────────────────────────────────────────────────────
+  function copyHTML() {
+    var ta = document.getElementById('outCode');
+    ta.select();
+    document.execCommand('copy');
+    var btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = 'Copy HTML';
+      btn.classList.remove('copied');
+    }, 2500);
+  }
+</script>
+
+</body>
+</html>
