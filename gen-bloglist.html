@@ -148,6 +148,31 @@
       font-size: 11px;
     }
 
+    .reload-btn {
+      font-size: 12px;
+      color: #0f172a;
+      background: none;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .reload-btn:hover { background: #f1f5f9; }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .status-bar.loading { background: #fef9c3; color: #854d0e; border: 1px solid #fde68a; }
+    .status-bar.success { background: #f0fdf4; color: #065f46; border: 1px solid #86efac; }
+    .status-bar.error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+
     .info-badge {
       display: inline-block;
       background: #dbeafe;
@@ -200,22 +225,34 @@
 
   <!-- RATES CARD -->
   <div class="card">
-    <div class="card-title">💰 Gold Rates — for card title & description</div>
+    <div class="card-title">💰 Gold Rates — loaded from goldRate.json</div>
+    <div id="jsonStatus" class="status-bar loading">⏳ Looking for goldRate.json...</div>
     <div class="row3">
       <div class="field">
         <label>22K ₹/gram</label>
-        <input type="number" id="r22" placeholder="e.g. 14120" />
+        <input type="number" id="r22" placeholder="e.g. 14120" readonly />
       </div>
       <div class="field">
         <label>24K ₹/gram</label>
-        <input type="number" id="r24" placeholder="e.g. 15404" />
+        <input type="number" id="r24" placeholder="e.g. 15404" readonly />
       </div>
       <div class="field">
         <label>18K ₹/gram</label>
-        <input type="number" id="r18" placeholder="e.g. 11553" />
+        <input type="number" id="r18" placeholder="e.g. 11553" readonly />
       </div>
     </div>
-    <p class="instruction" style="margin-top:10px;">These are the same rates you used in the blog post generator — the national India rates.</p>
+    <button class="reload-btn" onclick="loadJSON()" style="margin-top:10px;">↺ Reload JSON</button>
+    <p class="instruction" style="margin-top:10px;">Rates auto-filled from goldRate.json. Make sure this file is in the same folder.</p>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="card">
+    <div class="card-title">✍️ Custom Description — your daily insight</div>
+    <div class="field">
+      <label>Post Description (like "Rates steady for the third day...")</label>
+      <textarea id="postDesc" rows="3" style="width:100%;border:1.5px solid #d1d5db;border-radius:8px;padding:12px;font-size:14px;font-family:inherit;background:#f9fafb;resize:vertical;outline:none;" placeholder="e.g. Rates steady for the third day — 22K stays at ₹13,870 per gram. If you are planning to buy this week, the market looks stable. Full city-wise breakdown inside."></textarea>
+    </div>
+    <p class="instruction" style="margin-top:8px;">This appears below the title in your blog index. Make it engaging and mention the key insight for the day.</p>
   </div>
 
   <!-- PREVIEW -->
@@ -242,8 +279,8 @@
         <strong>Steps:</strong><br>
         1. Click <strong>Copy HTML</strong> above<br>
         2. Open <code>/blogs/index.html</code> in your editor<br>
-        3. Find the <code>&lt;!-- POSTS START HERE --&gt;</code> comment<br>
-        4. Paste this snippet as the <strong>first post</strong> (right after the comment)<br>
+        3. Find where your posts list begins<br>
+        4. Paste this snippet as the <strong>first post</strong> (so latest appears at top)<br>
         5. Save and upload to your server<br>
         <span class="info-badge">💡 Always add new posts at the TOP so latest appears first</span>
       </p>
@@ -253,6 +290,8 @@
 </div>
 
 <script>
+  var goldRates = null;
+
   // ── Auto-fill date ────────────────────────────────────────────────
   (function() {
     var now = new Date();
@@ -275,6 +314,41 @@
     document.getElementById('dateShort').value = shortDate;
   })();
 
+  // ── Load goldRate.json ────────────────────────────────────────────
+  function loadJSON() {
+    var status = document.getElementById('jsonStatus');
+    status.className = 'status-bar loading';
+    status.textContent = '⏳ Loading goldRate.json...';
+
+    fetch('goldRate.json', { cache: 'no-store' })
+      .then(function(r) {
+        if (!r.ok) throw new Error('File not found');
+        return r.json();
+      })
+      .then(function(data) {
+        goldRates = data;
+
+        // Auto-fill India rates if present
+        if (data.India) {
+          if (data.India['22K']) document.getElementById('r22').value = data.India['22K'];
+          if (data.India['24K']) document.getElementById('r24').value = data.India['24K'];
+          if (data.India['18K']) document.getElementById('r18').value = data.India['18K'];
+        }
+
+        status.className = 'status-bar success';
+        status.textContent = '✅ goldRate.json loaded — India rates auto-filled below.';
+        document.getElementById('genBtn').disabled = false;
+        updatePreview();
+      })
+      .catch(function(err) {
+        status.className = 'status-bar error';
+        status.textContent = '❌ Could not load goldRate.json. Make sure this file is in the same folder and open via localhost.';
+        document.getElementById('genBtn').disabled = true;
+      });
+  }
+
+  loadJSON();
+
   // ── Helpers ───────────────────────────────────────────────────────
   function fmt(n) {
     if (!n) return '—';
@@ -288,34 +362,41 @@
     var r18 = document.getElementById('r18').value;
     var dateShort = document.getElementById('dateShort').value;
     var slug = document.getElementById('dateSlug').value;
+    var desc = document.getElementById('postDesc').value;
     var preview = document.getElementById('livePreview');
 
     if (!r22 || !r24 || !r18) {
-      preview.innerHTML = '<em style="color:#9ca3af;">Fill in the rates above to see preview...</em>';
+      preview.innerHTML = '<em style="color:#9ca3af;">Rates will auto-load from goldRate.json...</em>';
       return;
     }
 
-    var html = `<div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;max-width:400px;">
-  <div style="font-size:11px;color:#6b7280;margin-bottom:6px;">${dateShort}</div>
-  <div style="font-weight:700;color:#111827;font-size:13px;margin-bottom:8px;line-height:1.3;">
-    Today's Gold Rate in India — ${dateShort}<br>
-    22K ₹${fmt(r22)}/g · 24K ₹${fmt(r24)}/g · 18K ₹${fmt(r18)}/g
+    var previewDesc = desc || 'Add your custom description above...';
+
+    var html = `<div style="display:flex;gap:16px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;align-items:flex-start;">
+  <img src="https://goldratecalculator.in/images/gold-rate-india-today-${slug}.png" 
+       style="width:120px;height:80px;object-fit:cover;border-radius:8px;background:#1e293b;" 
+       onerror="this.style.background='#1e293b';this.alt='Image placeholder';" />
+  <div style="flex:1;">
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;font-size:12px;color:#6b7280;">
+      <span>${dateShort}</span>
+      <span style="width:3px;height:3px;background:#d1d5db;border-radius:50%;"></span>
+      <span>Gold Suresh</span>
+    </div>
+    <div style="font-weight:700;color:#111827;font-size:14px;margin-bottom:8px;line-height:1.4;">
+      Today's Gold Rate in India — ${dateShort} 22K ₹${fmt(r22)}/g · 24K ₹${fmt(r24)}/g · 18K ₹${fmt(r18)}/g
+      <span style="margin-left:6px;">→</span>
+    </div>
+    <p style="font-size:13px;color:#6b7280;line-height:1.5;margin:0;">
+      ${previewDesc}
+    </p>
   </div>
-  <div style="font-size:11px;color:#6b7280;margin-bottom:10px;">
-    Daily gold rate update for India with city-wise rates...
-  </div>
-  <a href="gold-rate-today-${slug}" style="display:inline-block;background:#50FFB1;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;color:#111827;text-decoration:none;">
-    Read Full Post →
-  </a>
 </div>`;
 
     preview.innerHTML = html;
   }
 
   // Listen to input changes
-  ['r22', 'r24', 'r18'].forEach(function(id) {
-    document.getElementById(id).addEventListener('input', updatePreview);
-  });
+  document.getElementById('postDesc').addEventListener('input', updatePreview);
 
   // ── Generate ──────────────────────────────────────────────────────
   function generate() {
@@ -325,26 +406,34 @@
     var r22 = +document.getElementById('r22').value;
     var r24 = +document.getElementById('r24').value;
     var r18 = +document.getElementById('r18').value;
+    var desc = document.getElementById('postDesc').value.trim();
 
     if (!r22 || !r24 || !r18) {
-      alert('Please enter all three gold rates (22K, 24K, 18K).');
+      alert('Please make sure goldRate.json is loaded with India rates.');
       return;
     }
 
-    // Generate the HTML snippet for index.html
-    var snippet = `    <article class="post-card">
-      <div class="post-date">${dateShort}</div>
-      <h2 class="post-title">
-        <a href="gold-rate-today-${slug}">
-          Today's Gold Rate in India — ${dateShort}<br>
-          22K ₹${fmt(r22)}/g · 24K ₹${fmt(r24)}/g · 18K ₹${fmt(r18)}/g
-        </a>
-      </h2>
-      <p class="post-excerpt">
-        Daily gold rate update for India with city-wise rates for Chennai, Mumbai, Delhi, Bangalore, Hyderabad and 120+ cities. Updated this morning after IBJA benchmark.
-      </p>
-      <a href="gold-rate-today-${slug}" class="read-more">Read Full Post →</a>
-    </article>
+    if (!desc) {
+      alert('Please write a custom description for this post.');
+      return;
+    }
+
+    // Generate the HTML snippet matching the exact structure
+    var snippet = `  <a class="post-item" href="https://goldratecalculator.in/blogs/gold-rate-today-${slug}.html">
+    <img class="post-thumbnail" src="/images/gold-rate-india-today-${slug}.png" alt="Gold Rate India ${dateShort}" />
+    <div class="post-content">
+      <div class="post-meta">
+        <span class="post-date">${dateShort}</span>
+        <span class="post-dot"></span>
+        <span class="post-author">Gold Suresh</span>
+      </div>
+      <div class="post-title">
+        Today's Gold Rate in India — ${dateShort} 22K ₹${fmt(r22)}/g · 24K ₹${fmt(r24)}/g · 18K ₹${fmt(r18)}/g     
+        <span class="post-arrow">→</span>
+      </div>
+      <p class="post-desc">${desc}</p>
+    </div>
+  </a>
 `;
 
     document.getElementById('outCode').value = snippet;
