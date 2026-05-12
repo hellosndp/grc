@@ -258,7 +258,7 @@
       </div>
       <textarea class="output-code" id="outCode" readonly></textarea>
       <p class="instruction" style="margin-top:10px;">
-        <strong>Steps:</strong> 1. Click Copy HTML &nbsp;·&nbsp; 2. Create a new file named as shown above &nbsp;·&nbsp; 3. Paste and save &nbsp;·&nbsp; 4. Upload to your <code>/blogs/</code> folder &nbsp;·&nbsp; 5. Add the post link to <code>blogs/index.html</code>
+        <strong>Steps:</strong> 1. Click Copy HTML &nbsp;·&nbsp; 2. Create a new file named as shown above &nbsp;·&nbsp; 3. Paste and save &nbsp;·&nbsp; 4. Upload to your <code>/blog/</code> folder &nbsp;·&nbsp; 5. Add the post link to <code>blog/index.html</code>
       </p>
     </div>
   </div>
@@ -382,7 +382,7 @@
     }
 
     var slug  = slugDate(dateFull);
-    var iso   = isoDate(dateFull);
+    var iso   = isoDate(dateFull) + 'T08:00:00+05:30';
     var rows  = buildRows();
 
     var metal10g = i22 * 10;
@@ -402,13 +402,16 @@
       + '  <title>Today\'s Gold Rate in India \u2014 ' + dateFull + ' | 22K \u20b9' + fmt(i22) + '/g \u00b7 24K \u20b9' + fmt(i24) + '/g \u00b7 18K \u20b9' + fmt(i18) + '/g</title>\n'
       + '  <meta name="description" content="Gold rate in India today ' + dateFull + ' \u2014 22K gold is \u20b9' + fmt(i22) + ' per gram, 24K is \u20b9' + fmt(i24) + ' per gram, 18K is \u20b9' + fmt(i18) + ' per gram. City-wise rates for Chennai, Mumbai, Delhi, Hyderabad and 120+ cities.">\n'
       + '  <meta name="keywords" content="gold rate today ' + dateFull + ', today gold price India, 22k gold rate today, 24k gold rate today, 18k gold rate today, gold rate per gram today India, today gold rate all cities">\n'
-      + '  <link rel="canonical" href="https://goldratecalculator.in/blogs/gold-rate-today-' + slug + '">\n'
+      + '  <link rel="canonical" href="https://goldratecalculator.in/blog/gold-rate-today-' + slug + '">\n'
       + '  <link rel="icon" href="https://emoji.aranja.com/static/emoji-data/img-apple-160/2b50.png" type="image/x-icon">\n'
       + '  <meta property="og:title" content="Today\'s Gold Rate India \u2014 ' + dateFull + ' | 22K \u20b9' + fmt(i22) + ' \u00b7 24K \u20b9' + fmt(i24) + ' \u00b7 18K \u20b9' + fmt(i18) + '" />\n'
       + '  <meta property="og:description" content="Gold Suresh\'s daily gold rate update for ' + dateFull + '. City-wise rates and what it means for buyers." />\n'
-      + '  <meta property="og:url" content="https://goldratecalculator.in/blogs/gold-rate-today-' + slug + '" />\n'
+      + '  <meta property="og:url" content="https://goldratecalculator.in/blog/gold-rate-today-' + slug + '" />\n'
       + '  <meta property="og:type" content="article" />\n'
-      + '  <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","headline":"Today\'s Gold Rate in India \u2014 ' + dateFull + ' | 22K \u20b9' + fmt(i22) + '/g","datePublished":"' + iso + '","dateModified":"' + iso + '","author":{"@type":"Person","name":"Gold Suresh","url":"https://goldratecalculator.in"},"publisher":{"@type":"Organization","name":"GoldRateCalculator.in","url":"https://goldratecalculator.in"}}<\/script>\n'
+      + '  <meta property="og:image" content="https://goldratecalculator.in/images/gold-rate-today-' + slug + '.png" />\n'
+      + '  <meta property="og:image:width" content="1200" />\n'
+      + '  <meta property="og:image:height" content="630" />\n'
+      + '  <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","headline":"Today\'s Gold Rate in India \u2014 ' + dateFull + ' | 22K \u20b9' + fmt(i22) + '/g","description":"Gold Suresh\'s daily update with city-wise rates and buying guidance for ' + dateFull + '.","datePublished":"' + iso + '","dateModified":"' + iso + '","image":{"@type":"ImageObject","url":"https://goldratecalculator.in/images/gold-rate-today-' + slug + '.png","width":1200,"height":630},"author":{"@type":"Person","name":"Gold Suresh","url":"https://goldratecalculator.in"},"publisher":{"@type":"Organization","name":"GoldRateCalculator.in","url":"https://goldratecalculator.in"}}<\/script>\n'
       + '  <style>\n'
       + '    :root{--bg:#ffffff;--text:#111827;--muted:#6b7280;--brand:#50FFB1;--panel:#E9F1F7;--border:#d1d5db;--maxw:900px;--dark:#0f172a;}\n'
       + '    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}\n'
@@ -475,14 +478,14 @@
       + '    <a href="https://goldratecalculator.in" class="site-logo">Gold Rate Calculator</a>\n'
       + '    <nav class="header-nav">\n'
       + '      <a href="https://goldratecalculator.in">Calculator</a>\n'
-      + '      <a href="https://goldratecalculator.in/blogs/">Blog</a>\n'
+      + '      <a href="https://goldratecalculator.in/blog/">Blog</a>\n'
       + '    </nav>\n'
       + '  </div>\n'
       + '</header>\n'
       + '<div class="container">\n'
       + '  <nav class="breadcrumb">\n'
       + '    <a href="https://goldratecalculator.in">Home</a> ›\n'
-      + '    <a href="https://goldratecalculator.in/blogs/">Blog</a> ›\n'
+      + '    <a href="https://goldratecalculator.in/blog/">Blog</a> ›\n'
       + '    Gold Rate Today ' + dateFull + '\n'
       + '  </nav>\n'
       + '  <div class="post-header">\n'
@@ -498,9 +501,6 @@
       + '    <div class="rate-tile"><div class="karat">22K Gold</div><div class="price">\u20b9' + fmt(i22) + '</div><div class="per">per gram \u00b7 India</div></div>\n'
       + '    <div class="rate-tile"><div class="karat">24K Gold</div><div class="price">\u20b9' + fmt(i24) + '</div><div class="per">per gram \u00b7 India</div></div>\n'
       + '    <div class="rate-tile"><div class="karat">18K Gold</div><div class="price">\u20b9' + fmt(i18) + '</div><div class="per">per gram \u00b7 India</div></div>\n'
-      + '  </div>\n'
-      + '  <div style="margin:24px 0;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;">\n'
-      + '    <img src="https://goldratecalculator.in/images/gold-rate-india-today-' + slug + '.png" alt="Gold Rate India Today ' + dateFull + '" style="width:100%;height:auto;display:block;" loading="lazy">\n'
       + '  </div>\n'
       + '  <div class="post-body">\n'
       + '    <div class="suresh-card">\n'
@@ -543,7 +543,7 @@
       + '<footer class="site-footer">\n'
       + '  <div>\u00a9 2026 GoldRateCalculator.in \u00b7 Written by Gold Suresh \u00b7 Updated daily</div>\n'
       + '  <div class="footer-links">\n'
-      + '    <a href="https://goldratecalculator.in/blogs/">Blog</a>\n'
+      + '    <a href="https://goldratecalculator.in/blog/">Blog</a>\n'
       + '    <a href="https://goldratecalculator.in/Terms-and-Conditions">Terms</a>\n'
       + '    <a href="https://goldratecalculator.in/privacy-policy">Privacy</a>\n'
       + '    <a href="https://forms.gle/v2hrxQeYyvHD8diw8">Contact</a>\n'
