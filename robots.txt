@@ -1,3 +1,9 @@
-User-agent: *
+User-agent: Googlebot
 Allow: /
+
+Disallow: /gen-img.html
+Disallow: /gen-blog.html
+Disallow: /gen-bloglist.html
+Disallow: /blog/
+
 Sitemap: https://goldratecalculator.in/sitemap.xml
