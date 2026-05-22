@@ -1,0 +1,8 @@
+# GitHub Pages Configuration for Clean URLs
+permalink: /:basename/
+
+# Optional
+plugins:
+  - jekyll-sitemap
+
+timezone: Asia/Kolkata
