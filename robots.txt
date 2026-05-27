@@ -4,6 +4,6 @@ Allow: /
 Disallow: /gen-img.html
 Disallow: /gen-blog.html
 Disallow: /gen-bloglist.html
-Disallow: /blogs/
+
 
 Sitemap: https://goldratecalculator.in/sitemap.xml
