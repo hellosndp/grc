@@ -1,9 +1,11 @@
-User-agent: Googlebot
+User-agent: *
 Allow: /
 
-Disallow: /gen-img.html
-Disallow: /gen-blog.html
-Disallow: /gen-bloglist.html
+# Block .html extension URLs - use clean URLs instead
+Disallow: /*.html$
 
+# Allow specific tools
+Allow: /gen-blog.html
+Allow: /gen-img.html
 
 Sitemap: https://goldratecalculator.in/sitemap.xml
